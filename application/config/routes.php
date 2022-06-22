@@ -50,17 +50,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |   my-controller/my-method -> my_controller/my_method
 */
 $route['default_controller'] = 'home';
-$route['profil'] = 'home/profil';
-$route['contact'] = 'home/contact';
-$route['gallery'] = 'home/gallery';
-$route['agenda'] = 'news/agenda';
-$route['berita'] = 'news/berita';
-$route['berita/(:num)'] = 'news/berita/$1';
-$route['berita_bogor'] = 'news/berita_bogor';
+
+$route['user/setting/setting_email'] = 'user/setting_email';
+$route['user/setting/setting_password'] = 'user/setting_password';
 
 $route['admin'] = 'admin/dashboard';
-
-$route['kampung_online'] = 'home/kampung_online';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
