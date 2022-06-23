@@ -1,4 +1,5 @@
 <?php get_template_home('home/header') ?>
+<?php get_template_home('home/searchbar') ?>
     
     <div class="container mt-5">
         <div class="row">
@@ -19,7 +20,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-md-4">
-                                Alamat :
+                                Address :
                             </div>
                             <div class="col-md-8">
                                 <textarea class="form-control">Ini Alamat Fajar</textarea>
@@ -44,6 +45,16 @@
                                   <span class="input-group-text">+62</span>
                                   <input type="text" class="form-control" placeholder="No HP" value="81288887777" onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);">
                                 </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-4">
+                                About me
+                            </div>
+                            <div class="col-md-8">
+                                <textarea class="form-control">Hello my name is Fajar, I'm a tech savvy especially in programming and computer hardware. I'm start coding since 2016 and I'd love to follow anything related to computer hardware.
+                                I'm focused on PHP (CodeIgniter & Laravel), and MySql including backend API.</textarea>
                             </div>
                         </div>
                         <hr>

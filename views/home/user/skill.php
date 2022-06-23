@@ -1,4 +1,5 @@
 <?php get_template_home('home/header') ?>
+<?php get_template_home('home/searchbar') ?>
     
     <div class="container mt-5">
         <div class="row">

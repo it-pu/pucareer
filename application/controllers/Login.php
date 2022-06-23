@@ -5,6 +5,11 @@ class Login extends ADMIN_Controller {
 
 	public function index()
 	{
+		$this->load->view('home/login');
+	}
+
+	public function validate_login()
+	{
 		if(!empty($_COOKIE['opfor']))
 		{
 			$cekcookie = $this->Custom_model->getdetail('tbl_user_auth', array('token'));
@@ -92,7 +97,5 @@ class Login extends ADMIN_Controller {
 				$this->load->view('admin/login');
 			}
 		}
-
-		
 	}
 }

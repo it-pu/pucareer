@@ -7,15 +7,15 @@
             <div class="col-md-8">
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        <h3>Setting Email</h3><hr>
+                        <h3>Setting Resume</h3><hr>
 
                         <div class="row">
                             <div class="col-md-4">
-                                New Email
+                                Upload new file :
                             </div>
                             <div class="col-md-4">
-                                <input type="email" class="form-control" aria-describedby="emailHelp">
-                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                                <input type="file" class="custom-file-input" id="input-resume" onchange="fileValidationPdf(this.id);">
+                                <div id="emailHelp" class="form-text">File format (.pdf | .jpg | .png | .jpeg)</div>
                             </div>
                         </div>
                         <hr>

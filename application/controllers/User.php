@@ -10,7 +10,15 @@ class User extends MY_Controller {
 
 	public function index()
 	{
+		$this->load->view('home/user/index');
+	}
+	public function profile()
+	{
 		$this->load->view('home/user/profil');
+	}
+	public function experience()
+	{
+		$this->load->view('home/user/experience');
 	}
 	public function application_history()
 	{
@@ -20,9 +28,21 @@ class User extends MY_Controller {
 	{
 		$this->load->view('home/user/education');
 	}
+	public function social_media()
+	{
+		$this->load->view('home/user/social_media');
+	}
 	public function skills()
 	{
 		$this->load->view('home/user/skill');
+	}
+	public function resume()
+	{
+		$this->load->view('home/user/resume');
+	}
+	public function resume_setting()
+	{
+		$this->load->view('home/user/resume_setting');
 	}
 	public function setting()
 	{

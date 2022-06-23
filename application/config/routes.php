@@ -53,6 +53,7 @@ $route['default_controller'] = 'home';
 
 $route['user/setting/setting_email'] = 'user/setting_email';
 $route['user/setting/setting_password'] = 'user/setting_password';
+$route['user/resume/resume_setting'] = 'user/resume_setting';
 
 $route['admin'] = 'admin/dashboard';
 

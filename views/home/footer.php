@@ -78,6 +78,7 @@
     <script src="<?php echo get_template_directory('front/lib/owlcarousel/owl.carousel.min.js') ;?>"></script>
 
     <!-- Template Javascript -->
+    <script src="<?php echo get_template_directory('front/js/function.js') ;?>"></script>
     <script src="<?php echo get_template_directory('front/js/main.js') ;?>"></script>
 </body>
 

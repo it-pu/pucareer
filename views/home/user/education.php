@@ -1,4 +1,5 @@
 <?php get_template_home('home/header') ?>
+<?php get_template_home('home/searchbar') ?>
     
     <div class="container mt-5">
         <div class="row">
@@ -6,7 +7,7 @@
             <div class="col-md-8">
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        <h3>Pendidikan</h3><hr>
+                        <h3>Education</h3><hr>
 
                         <div class="row">
                             <div class="col-md-2">
