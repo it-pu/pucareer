@@ -9,21 +9,36 @@
                     <div class="card-body">
                         <h3>Resume</h3><hr>
 
+                        <?php if ($this->session->flashdata('error')): ?>
+                          <div class="alert alert-danger" role="alert">
+                            <?=$this->session->flashdata('error')?>
+                          </div>
+                        <?php endif ?>
+
+                        <?php if ($this->session->flashdata('success')): ?>
+                          <div class="alert alert-success" role="alert">
+                            <?=$this->session->flashdata('success')?>
+                          </div>
+                        <?php endif ?>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <table>
                                     <tr>
                                         <td style="padding-right: 30px;">File Name</td>
-                                        <td><strong>FILE FAJAR.pdf</strong></td>
+                                        <td><strong><?=$nama_file?></strong></td>
                                     </tr>
                                     <tr>
                                         <td>Uploaded</td>
-                                        <td><strong>22 June 2022</strong></td>
+                                        <td><strong><?=$tgl_upload_file?></strong></td>
                                     </tr>
                                 </table>
                             </div>
                             <div class="col-md-6">
-                                <button class="btn btn-primary"><i class="fas fa-file-download"></i> Download</button> <a href="<?=base_url('user/resume/resume_setting')?>" class="btn btn-success"><i class="fas fa-edit"></i> Edit</a> 
+                                <?php if ($exist == 1): ?>
+                                    <a href="<?=base_url('user/resume_download/').$id_user_resume?>" target="_blank" class="btn btn-primary"><i class="fas fa-file-download"></i> Download</a>
+                                <?php endif ?>
+                                 <a href="<?=base_url('user/resume/resume_setting')?>" class="btn btn-success"><i class="fas fa-edit"></i> Edit</a> 
                             </div>
                         </div>
                     </div>

@@ -41,6 +41,7 @@ class MY_Model extends CI_Model{
 	public function update($table, $data,$where=array(), $batch=false){
 		if ($batch == false) 
 		{
+			$data['updated_at'] = date('Y-m-d H:i:s');
 			$this->db->set($data);
 			$this->db->where($where);
 			$this->db->update($table);
@@ -48,6 +49,7 @@ class MY_Model extends CI_Model{
 		if ($batch == true) 
 		{
 			$this->db->update_batch($table, $data, $where);
+			return TRUE;
 		}
 	}	
 

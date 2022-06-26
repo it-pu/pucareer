@@ -185,7 +185,7 @@
                             </div>
                         </div>
                         <hr>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add Experience</button>
+                        <a href="<?=base_url('user/experience/add')?>" class="btn btn-primary"><i class="fas fa-plus"></i> Add Experience</a>
                     </div>
                 </div>
             </div>

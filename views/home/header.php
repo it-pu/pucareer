@@ -57,7 +57,14 @@
                     <a href="about.html" class="nav-item nav-link">Companies</a>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="<?=base_url('login')?>" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
+                <?php if (empty($this->sess['logged_in'])): ?>
+                    <a href="<?=base_url('login')?>" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
+                <?php endif ?>
+                <?php if (!empty($this->sess['logged_in'])): ?>
+                        <a href="<?=base_url('user')?>" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">ACCOUNT<i class="fa fa-arrow-right ms-3"></i></a>
+                <?php endif ?>
+                
+                
             </div>
         </nav>
         <!-- Navbar End -->

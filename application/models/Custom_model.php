@@ -49,7 +49,8 @@ class Custom_model extends MY_Model {
 
 	public function updatedata($table, $data, $where, $batch=false)
 	{
-		return $this->update($table, $data, $where, $batch);
+		$this->update($table, $data, $where, $batch);
+		return TRUE;
 	}
 
 	public function deletedata($table, $where)

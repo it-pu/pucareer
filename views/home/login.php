@@ -6,40 +6,41 @@
             <div class="col-md-6">
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        <form>
                             <h4>LOGIN CAREER PORTAL</h4><hr>
-                          <!-- Email input -->
-                          <div class="form-outline mb-4">
-                            <input type="email" id="form2Example1" class="form-control" />
-                            <label class="form-label" for="form2Example1">Email address</label>
-                          </div>
+                            <?php if ($this->session->flashdata('error')): ?>
+                              <div class="alert alert-danger" role="alert">
+                                <?=$this->session->flashdata('error')?>
+                              </div>
+                            <?php endif ?>
+                          <?php echo form_open(base_url('login/validate')); ?>
+                            <div class="form-outline mb-4">
+                              <input type="email" name="email" class="form-control" required/>
+                              <label class="form-label">Email address</label>
+                            </div>
 
-                          <!-- Password input -->
-                          <div class="form-outline mb-4">
-                            <input type="password" id="form2Example2" class="form-control" />
-                            <label class="form-label" for="form2Example2">Password</label>
-                          </div>
+                            <div class="form-outline mb-4">
+                              <input type="password" name="password" class="form-control" required/>
+                              <label class="form-label" >Password</label>
+                            </div>
 
-                          <!-- 2 column grid layout for inline styling -->
-                          <div class="row mb-4">
-                            <div class="col d-flex justify-content-center">
-                              <!-- Checkbox -->
-                              <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-                                <label class="form-check-label" for="form2Example31"> Remember me </label>
+                            <div class="row mb-4">
+                              <div class="col d-flex justify-content-center">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+                                  <label class="form-check-label" for="form2Example31"> Remember me </label>
+                                </div>
+                              </div>
+
+                              <div class="col">
+                                <a href="#!">Forgot password?</a>
                               </div>
                             </div>
 
-                            <div class="col">
-                              <!-- Simple link -->
-                              <a href="#!">Forgot password?</a>
-                            </div>
-                          </div>
-
-                          <!-- Submit button -->
-                          <center>
-                          <a href="<?=base_url('user')?>" class="btn btn-primary btn-block mb-4">Sign in</a>
-                          </center>
+                            <!-- Submit button -->
+                            <center>
+                            <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+                            </center>
+                          </form>
 
                           <!-- Register buttons -->
                           <div class="text-center">
@@ -61,7 +62,6 @@
                               <i class="fab fa-github"></i>
                             </button>
                           </div>
-                        </form>
                     </div>
                 </div>
                         

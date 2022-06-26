@@ -7,7 +7,7 @@
                 <div class="card mb-3">
                     <div class="card-body shadow-lg">
                         <center>
-                            <a href="<?=base_url('user')?>" style="text-decoration: none; color: #666565;"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" class="img-fluid w-50 pt-3 mb-3">
+                            <a href="<?=base_url('user')?>" style="text-decoration: none; color: #666565;"><img src="<?=$this->sess['foto_user']?>" class="img-fluid w-50 pt-3 mb-3">
                             <br>
                             Fajar Ramadhan<br></a>
                             <span class="badge bg-primary">PREMIUM</span><br>
@@ -32,10 +32,10 @@
                         </div>
                         <div class="row mb-2">
                             <div class="col-3">
-                                <i class="fab fa-twitter"></i>
+                                <i class="fab fa-instagram"></i>
                             </div>
                             <div class="col-9">
-                                @twitter
+                                @instagram
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -56,7 +56,7 @@
                         </div>
                         <hr>
                         <center>
-                            <i class="fas fa-sign-out-alt"></i> LOGOUT
+                            <a href="<?=base_url('logout')?>"><i class="fas fa-sign-out-alt"></i> LOGOUT</a>
                         </center>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
 
                         <div class="row mb-2">
                             <div class="col-md-4">
-                                Nama
+                                Name
                             </div>
                             <div class="col-md-8">
                                 <strong>Fajar Ramadhan</strong>
@@ -92,7 +92,7 @@
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4">
-                                No. HP
+                                Phone Number
                             </div>
                             <div class="col-md-8">
                                 +62 81296883431
@@ -255,7 +255,7 @@
                             </div>
                         </div>
                         <hr>
-                        <a href="<?=base_url('user/profil')?>" class="btn btn-success"><i class="fas fa-cog"></i> Setting</a> <button type="button" class="btn btn-primary"><i class="fas fa-envelope"></i> Send a Message</button>
+                        <a href="<?=base_url('user/profile')?>" class="btn btn-success"><i class="fas fa-cog"></i> Setting</a> <button type="button" class="btn btn-primary"><i class="fas fa-envelope"></i> Send a Message</button>
                     </div>
                 </div>
             </div>

@@ -2,9 +2,9 @@
                 <div class="card mb-3">
                     <div class="card-body shadow-lg">
                         <center>
-                            <a href="<?=base_url('user')?>" style="text-decoration: none; color: #666565;"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" class="img-fluid w-50 pt-3 mb-3">
+                            <a href="<?=base_url('user')?>" style="text-decoration: none; color: #666565;"><img src="<?=$this->sess['foto_user']?>" class="img-fluid w-50 pt-3 mb-3">
                             <br>
-                            Fajar Ramadhan<br></a>
+                            <?=$this->sess['nama_user']?><br></a>
                             <span class="badge bg-primary">PREMIUM</span><br><br>
                             <strong>SETTINGS</strong>
                         </center>

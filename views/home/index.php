@@ -1,7 +1,7 @@
 <?php get_template_home('home/header') ?>
 
         <!-- Carousel Start -->
-        <div class="container-fluid p-0">
+        <!-- <div class="container-fluid p-0">
             <div class="owl-carousel header-carousel position-relative">
                 <div class="owl-carousel-item position-relative">
                     <img class="img-fluid" src="<?=get_foto('/public_style/front/img/carousel-1.jpg')?>" alt="">
@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Carousel End -->
 
 

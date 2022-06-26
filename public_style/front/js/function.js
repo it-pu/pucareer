@@ -94,6 +94,11 @@ return c;
                         else return true;
                         };
 
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    return !(charCode > 31 && (charCode < 48 || charCode > 57));
+}
+
 function readURL(input){ 
 if(input.files && input.files[0])
 { 
