@@ -29,6 +29,8 @@
 
     <!-- Template Stylesheet -->
     <link href="<?php echo get_template_directory('front/css/style.css') ;?>" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
@@ -52,12 +54,31 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="<?=base_url()?>" class="nav-item nav-link active">Home</a>
-                    <a href="<?=base_url('jobs')?>" class="nav-item nav-link">Jobs</a>
-                    <a href="about.html" class="nav-item nav-link">Companies</a>
+                    <a href="<?=base_url()?>" class="nav-item nav-link <?=is_active_page_print('', 'active')?>">Home</a>
+                    <a href="<?=base_url('jobs')?>" class="nav-item nav-link <?=is_active_page_print('jobs', 'active')?>">Jobs</a>
+                    <a href="<?=base_url('companies')?>" class="nav-item nav-link <?=is_active_page_print('companies', 'active')?>">Companies</a>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <?php if (!empty($this->sess['logged_in'])): ?>
+                        <li class="nav-item dropdown">
+                              <a class="btn btn-primary rounded-0 nav-link dropdown-toggle py-4 w-100 px-lg-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+                                FAJAR
+                              </a>
+                              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="<?=base_url('user')?>">Profil</a></li>
+                                <li><a class="dropdown-item" href="#">Setting</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                              </ul>
+                        </li>
+                    <?php endif ?>
+                        
                 </div>
-                <a href="<?=base_url('login')?>" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
+                <?php if (empty($this->sess['logged_in'])): ?>
+                    <a href="<?=base_url('login')?>" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
+                <?php endif ?>
+                
+                
+                
             </div>
         </nav>
         <!-- Navbar End -->

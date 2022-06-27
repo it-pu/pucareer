@@ -6,19 +6,228 @@ class User extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model(array('User_model'));
 	}
 
 	public function index()
 	{
-		$this->load->view('home/user/index');
+		$get = $this->input->get(NULL, TRUE);
+		if (empty($get['u'])) 
+		{
+			if (empty($this->sess['logged_in'])) 
+			{
+				redirect(base_url('login'));
+				die();
+			}
+			$get['u'] = $this->sess['id_user'];
+		}
+		$user = $this->Custom_model->getdetail('tbl_user', array('id_user' => $get['u']));
+
+		$data = array
+				(
+					'user' => $user
+				);
+
+		$this->load->view('home/user/index', $data);
 	}
 	public function profile()
 	{
-		$this->load->view('home/user/profil');
+		$this->site->logged_front();
+
+		$detail = $this->Custom_model->getdetail('tbl_user', array('id_user' => $this->sess['id_user']));
+
+		$data = array
+				(
+					'detail' => $detail
+				);
+
+		$this->load->view('home/user/profil', $data);
+	}
+	public function profile_update()
+	{
+		$post = $this->input->post(NULL, TRUE);
+
+		$this->form_validation->set_rules('nama', 'Nama', 'required');
+		$this->form_validation->set_rules('alamat', 'Nama', 'required');
+		$this->form_validation->set_rules('telp', 'Nama', 'required|numeric');
+
+		if ($this->form_validation->run() == FALSE)
+        {
+            $this->session->set_flashdata('error', 'Please Check your Input');
+			redirect(base_url('user/profile'));
+			die();
+        }
+
+		$update = array
+				(
+					'nama_user' => $post['nama'],
+					'alamat_user' => $post['alamat'],
+					'telp_user' => $post['telp'],
+					'about_user' => $post['about']
+				);
+
+		if (!empty($_FILES['foto_user']["name"]) && $_FILES['foto_user']['type'] == 'image/jpeg') 
+		{
+			$updatedb = $this->Custom_model->insertdatafoto('tbl_user', 'id_user', 'foto_user', 'img_user', $update, false, $post['id_user'], true);
+			var_dump($updatedb);
+			echo 222;
+		}
+		else
+		{
+			$updatedb = $this->Custom_model->updatedata('tbl_user', $update, array('id_user' => $post['id_user']));
+			var_dump($updatedb);
+		}
+
+		if ($updatedb == TRUE) 
+		{
+			$this->session->set_flashdata('success', 'Success Updating Profile');
+			redirect(base_url('user/profile'));
+			die();
+		}
+		else
+		{
+			$this->session->set_flashdata('error', 'Please Check your Input');
+			redirect(base_url('user/profile'));
+			die();
+		}
+
+		
 	}
 	public function experience()
 	{
-		$this->load->view('home/user/experience');
+		$exp = $this->Custom_model->get_experience($this->sess['id_user']);
+
+		$data = array
+				(
+					'exp' => $exp
+				);
+
+		$this->load->view('home/user/experience', $data);
+	}
+	public function experience_edit($id_user_experience)
+	{
+		$exp = $this->Custom_model->get_experience($this->sess['id_user'], $id_user_experience);
+
+		$country = $this->Custom_model->getdata('tbl_country');
+		$currency = $this->Custom_model->getdata('tbl_currency');
+		$specialization = $this->Custom_model->getdata('tbl_specialization');
+
+		$role = $this->Custom_model->getdata('tbl_role', array('id_specialization' => $exp['specialization']));
+
+		$position = $this->Custom_model->getdata('tbl_position');
+		$country = $this->Custom_model->getdata('tbl_country');
+		$industry = $this->Custom_model->getdata('tbl_industry');
+
+		$data = array
+				(
+					'exp' => $exp,
+					'country' => $country,
+					'currency' => $currency,
+					'specialization' => $specialization,
+					'role' => $role,
+					'position' => $position,
+					'country' => $country,
+					'industry' => $industry
+				);
+
+		$this->load->view('home/user/experience_edit', $data);
+	}
+	public function experience_add()
+	{
+		$country = $this->Custom_model->getdata('tbl_country');
+		$currency = $this->Custom_model->getdata('tbl_currency');
+		$specialization = $this->Custom_model->getdata('tbl_specialization');
+
+		$position = $this->Custom_model->getdata('tbl_position');
+		$country = $this->Custom_model->getdata('tbl_country');
+		$industry = $this->Custom_model->getdata('tbl_industry');
+
+		$data = array
+				(
+					'country' => $country,
+					'currency' => $currency,
+					'specialization' => $specialization,
+					'position' => $position,
+					'country' => $country,
+					'industry' => $industry
+				);
+
+		$this->load->view('home/user/experience_add', $data);
+	}
+	public function experience_post()
+	{
+		$post = $this->input->post(NULL, TRUE);
+
+		$enddate = '0000-00-00';
+		if (empty($_POST['present']))
+		{
+			$enddate = $post['end_date'];
+		}
+
+		$insert = array
+				(
+					'id_user' => $this->sess['id_user'],
+					'job' => $post['job'],
+					'name_company' => $post['name_company'],
+					'address' => $post['address'],
+					'country' => $post['country'],
+					'industry' => $post['industry'],
+					'specialization' => $post['specialization'],
+					'role' => $post['role'],
+					'position' => $post['position'],
+					'id_currency' => $post['id_currency'],
+					'monthly_salary' => rupiah_to_sql($post['monthly_salary']),
+					'start_date' => $post['start_date'],
+					'end_date' => $enddate
+				);
+
+		$this->Custom_model->insertdata('tbl_user_experience', $insert);
+
+		$this->session->set_flashdata('success', 'Success Adding Experience');
+		redirect(base_url('user/experience'));
+		die();
+	}
+	public function experience_update()
+	{
+		$post = $this->input->post(NULL, TRUE);
+
+		$enddate = '0000-00-00';
+		if (empty($_POST['present']))
+		{
+			$enddate = $post['end_date'];
+		}
+
+		$update = array
+				(
+					'job' => $post['job'],
+					'name_company' => $post['name_company'],
+					'address' => $post['address'],
+					'country' => $post['country'],
+					'industry' => $post['industry'],
+					'specialization' => $post['specialization'],
+					'role' => $post['role'],
+					'position' => $post['position'],
+					'id_currency' => $post['id_currency'],
+					'monthly_salary' => rupiah_to_sql($post['monthly_salary']),
+					'start_date' => $post['start_date'],
+					'end_date' => $enddate
+				);
+
+		$this->Custom_model->updatedata('tbl_user_experience', $update, array('id_user_experience' => $post['id_user_experience']));
+
+		$this->session->set_flashdata('success', 'Success Updating Experience');
+		redirect(base_url('user/experience'));
+		die();
+	}
+
+	public function experience_delete($id_user_experience)
+	{
+		$update = array('status_experience' => 0);
+		$this->Custom_model->updatedata('tbl_user_experience', $update, array('id_user_experience' => $id_user_experience));
+
+		$this->session->set_flashdata('success', 'Success Deleting Experience');
+		redirect(base_url('user/experience'));
+		die();
 	}
 	public function application_history()
 	{
@@ -30,19 +239,171 @@ class User extends MY_Controller {
 	}
 	public function social_media()
 	{
-		$this->load->view('home/user/social_media');
+		$user = $this->Custom_model->getdetail('tbl_user', array('id_user' => $this->sess['id_user']));
+		$data = array
+				(
+					'user' => $user
+				);
+		$this->load->view('home/user/social_media', $data);
+	}
+	public function social_media_update()
+	{
+		$post = $this->input->post(NULL, TRUE);
+
+		$update = array
+				(
+					'website_user' => $post['website_user'],
+					'linked_in_link' => $post['linked_in_link'],
+					'fb_link' => $post['fb_link'],
+					'fb_username' => $post['fb_username'],
+					'ig_link' => $post['ig_link'],
+					'ig_username' => $post['ig_username'],
+					'twitter_link' => $post['twitter_link'],
+					'twitter_username' => $post['twitter_username']
+				);
+
+		$this->Custom_model->updatedata('tbl_user', $update, array('id_user' => $this->sess['id_user']));
+
+		$this->session->set_flashdata('success', 'Success Updating Profile');
+		redirect(base_url('user/social_media'));
+		die();
 	}
 	public function skills()
 	{
-		$this->load->view('home/user/skill');
+		$skills = $this->Custom_model->getdata('tbl_user_skill', array('id_user' => $this->sess['id_user'], 'deleted' => 0));
+		$data = array
+				(
+					'skills' => $skills
+				);
+		$this->load->view('home/user/skill', $data);
+	}
+	public function skills_post()
+	{
+		$post = $this->input->post(NULL, TRUE);
+
+		$insert = array
+				(
+					'id_user' => $this->sess['id_user'],
+					'skill_name' => $post['skill'],
+					'skill_level' => strtoupper($post['level'])
+				);
+		$this->Custom_model->insertdata('tbl_user_skill', $insert);
+
+		$this->session->set_flashdata('success', 'Success Updating Skills');
+		redirect(base_url('user/skills'));
+		die();
+	}
+	public function skills_update()
+	{
+		$post = $this->input->post(NULL, TRUE);
+
+		$update = array
+				(
+					'skill_name' => $post['skill'],
+					'skill_level' => strtoupper($post['level'])
+				);
+		$this->Custom_model->updatedata('tbl_user_skill', $update, array('id_user_skill' => $post['id_user_skill']));
+
+		$this->session->set_flashdata('success', 'Success Updating Skills');
+		redirect(base_url('user/skills'));
+		die();
+	}
+	public function skills_deactive($id_user_skill)
+	{
+		$this->Custom_model->updatedata('tbl_user_skill', array('deleted' => 1), array('id_user_skill' => $id_user_skill));
+
+		$this->session->set_flashdata('success', 'Success Updating Skills');
+		redirect(base_url('user/skills'));
+		die();
 	}
 	public function resume()
 	{
-		$this->load->view('home/user/resume');
+		$resume = $this->Custom_model->getdetail('tbl_user_resume', array('id_user' => $this->sess['id_user']));
+
+		$id_user_resume = '';
+		$nama_file = '-';
+		$tgl_upload_file = '-';
+		$exist = 0;
+		if (!empty($resume)) 
+		{
+			$exist = 1;
+			$id_user_resume = $resume['id_user_resume'];
+			$nama_file = $resume['resume_name'];
+			$tgl_upload_file = $resume['updated_at'];
+		}
+
+		$data = array
+				(
+					'id_user_resume' => $id_user_resume,
+					'nama_file' => $nama_file,
+					'tgl_upload_file' => $tgl_upload_file,
+					'exist' => $exist
+				);
+		$this->load->view('home/user/resume', $data);
 	}
 	public function resume_setting()
 	{
-		$this->load->view('home/user/resume_setting');
+		$resume = $this->Custom_model->getdetail('tbl_user_resume', array('id_user' => $this->sess['id_user']));
+
+		$exist = 1;
+		if (empty($resume)) 
+		{
+			$exist = 0;
+		}
+
+		$data = array
+				(
+					'exist' => $exist
+				);
+		$this->load->view('home/user/resume_setting', $data);
+	}
+	public function resume_update()
+	{
+		$post = $this->input->post(NULL, TRUE);
+
+		$update = array
+					(
+						'id_user' => $this->sess['id_user'],
+						'resume_name' => $post['resume_name']
+					);
+
+		$findcurrentresume = $this->Custom_model->getdetail('tbl_user_resume', array('id_user' => $this->sess['id_user']));
+
+		if (!empty($findcurrentresume)) 
+		{
+			if (!empty($_FILES['resume_file']["name"])) 
+			{
+				$updatedb = $this->Custom_model->insertdatafoto('tbl_user_resume', 'id_user_resume', 'resume_file', 're', $update, false, $findcurrentresume['id_user_resume'], true, true);
+				echo 123;
+			}
+			else
+			{
+				$updatedb = $this->Custom_model->updatedata('tbl_user_resume', $update, array('id_user_resume' => $findcurrentresume['id_user_resume']));
+			}
+			
+		}
+		else
+		{
+			$updatedb = $this->Custom_model->insertdatafoto('tbl_user_resume', 'id_user_resume', 'resume_file', 're', $update, false, null, null, true);
+		}
+		
+		$this->session->set_flashdata('success', 'Success Updating Resume');
+		redirect(base_url('user/resume'));
+		die();
+	}
+	public function resume_download($id_user_resume)
+	{
+		$getdetail = $this->Custom_model->getdetail('tbl_user_resume', array('id_user_resume' => $id_user_resume));
+
+		$ext = get_ext($getdetail['resume_file']);
+
+		$filename = $getdetail['resume_name'].'.'.$ext;
+
+		force_download(
+		    $filename, 
+		    file_get_contents(base_url().$getdetail['resume_file']), 
+		    mime_content_type(base_url().$getdetail['resume_file'])
+		);
 	}
 	public function setting()
 	{
@@ -52,8 +413,63 @@ class User extends MY_Controller {
 	{
 		$this->load->view('home/user/setting_password');
 	}
+	public function password_update()
+	{
+		$detail = $this->Custom_model->getdetail('tbl_user', array('id_user' => $this->sess['id_user']));
+
+		$post = $this->input->post(NULL, TRUE);
+
+		$this->form_validation->set_rules('old_password', 'Old Password', 'required');
+		$this->form_validation->set_rules('new_password', 'New Password', 'required');
+		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|min_length[5]');
+
+		if ($this->form_validation->run() == FALSE)
+        {
+            $this->session->set_flashdata('error', 'Please Check your Input');
+			redirect(base_url('user/setting/setting_password'));
+			die();
+        }
+
+        if (password_verify($post['old_password'], $detail['password_user'])) 
+        {
+        	if ($post['new_password'] == $post['confirm_password']) 
+        	{
+        		$update = array
+					(
+						'password_user' => password_hash($post['new_password'], PASSWORD_BCRYPT)
+					);
+				$this->Custom_model->updatedata('tbl_user', $update, array('id_user' => $this->sess['id_user']));
+
+				$this->session->set_flashdata('success', 'Success Updating Password');
+				redirect(base_url('user/setting/'));
+				die();
+        	}
+        	else
+        	{
+        		$this->session->set_flashdata('error', 'Please Confirm Your Password Correctly');
+				redirect(base_url('user/setting/setting_password'));
+				die();
+        	}
+        }
+        else
+        {
+        	$this->session->set_flashdata('error', 'Your Old Password Does Not Match');
+			redirect(base_url('user/setting/setting_password'));
+			die();
+        }
+
+		
+	}
 	public function setting_email()
 	{
 		$this->load->view('home/user/setting_email');
+	}
+
+	// AJAX //
+	public function get_role($id_specialization)
+	{
+		$data = $this->Custom_model->getdata('tbl_role', array('id_specialization' => $id_specialization));
+
+		echo json_encode($data);
 	}
 }

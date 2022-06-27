@@ -28,6 +28,17 @@ class Site{
 			}
 	}
 
+	function logged_front()
+	{
+		$_this =& get_instance();
+		$user_session = $_this->session->userdata;
+
+		if (empty($user_session['logged_in'])) 
+		{
+			redirect(base_url('login'));
+		}
+	}
+
 	function create_user_access_only($level)
 	{
 		$_this =& get_instance();

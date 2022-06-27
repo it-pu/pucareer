@@ -7,56 +7,84 @@
                 <div class="card mb-3">
                     <div class="card-body shadow-lg">
                         <center>
-                            <a href="<?=base_url('user')?>" style="text-decoration: none; color: #666565;"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" class="img-fluid w-50 pt-3 mb-3">
+                            <a href="<?=base_url('user')?>" style="text-decoration: none; color: #666565;"><img src="<?=$this->sess['foto_user']?>" class="img-fluid w-50 pt-3 mb-3">
                             <br>
                             Fajar Ramadhan<br></a>
                             <span class="badge bg-primary">PREMIUM</span><br>
                             <strong>IT Programmer<br>Podomoro University</strong>
                         </center>
                         <hr>
-                        <div class="row mb-2">
-                            <div class="col-3">
-                                <i class="fas fa-globe"></i>
+                        <?php if ($user['website_user'] != ''): ?>
+                            <div class="row mb-2">
+                                <div class="col-2">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div class="col-10">
+                                    <a href="<?=$user['website_user']?>" target="_blank"><?=$user['website_user']?></a>
+                                </div>
                             </div>
-                            <div class="col-9">
-                                https://fajarramadhan.com
+                        <?php endif ?>
+
+                        <?php if ($user['linked_in_link'] != ''): ?>
+                            <div class="row mb-2">
+                                <div class="col-2">
+                                    <i class="fab fa-linkedin"></i>
+                                </div>
+                                <div class="col-10">
+                                    <a href="<?=$user['linked_in_link']?>" target="_blank">Linked In</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-3">
-                                <i class="fab fa-linkedin"></i>
+                        <?php endif ?>
+                        <?php if ($user['ig_link'] != ''): ?>
+                            <div class="row mb-2">
+                                <div class="col-2">
+                                    <i class="fab fa-instagram"></i>
+                                </div>
+                                <div class="col-10">
+                                    <?php if ($user['ig_username'] != ''): ?>
+                                        <a href="<?=$user['ig_link']?>" target="_blank"><?=$user['ig_username']?></a>
+                                    <?php endif ?>
+                                    <?php if ($user['ig_username'] == ''): ?>
+                                        <a href="<?=$user['ig_link']?>" target="_blank">Instagram</a>
+                                    <?php endif ?>
+                                </div>
                             </div>
-                            <div class="col-9">
-                                Linked
+                        <?php endif ?>
+                            
+                        <?php if ($user['fb_link'] != ''): ?>
+                            <div class="row mb-2">
+                                <div class="col-2">
+                                    <i class="fab fa-facebook"></i>
+                                </div>
+                                <div class="col-10">
+                                    <?php if ($user['fb_username'] != ''): ?>
+                                        <a href="<?=$user['fb_link']?>" target="_blank"><?=$user['fb_username']?></a>
+                                    <?php endif ?>
+                                    <?php if ($user['fb_username'] == ''): ?>
+                                        <a href="<?=$user['fb_link']?>" target="_blank">Facebook</a>
+                                    <?php endif ?>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-3">
-                                <i class="fab fa-twitter"></i>
+                        <?php endif ?>
+
+                        <?php if ($user['twitter_link'] != ''): ?>
+                            <div class="row mb-2">
+                                <div class="col-2">
+                                    <i class="fab fa-twitter"></i>
+                                </div>
+                                <div class="col-10">
+                                    <?php if ($user['twitter_username'] != ''): ?>
+                                        <a href="<?=$user['twitter_link']?>" target="_blank"><?=$user['twitter_username']?></a>
+                                    <?php endif ?>
+                                    <?php if ($user['twitter_username'] == ''): ?>
+                                        <a href="<?=$user['twitter_link']?>" target="_blank">Twitter</a>
+                                    <?php endif ?>
+                                </div>
                             </div>
-                            <div class="col-9">
-                                @twitter
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-3">
-                                <i class="fab fa-facebook"></i>
-                            </div>
-                            <div class="col-9">
-                                fajar.ramadhan
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-3">
-                                <i class="fab fa-twitter"></i>
-                            </div>
-                            <div class="col-9">
-                                @twitter
-                            </div>
-                        </div>
+                        <?php endif ?>
                         <hr>
                         <center>
-                            <i class="fas fa-sign-out-alt"></i> LOGOUT
+                            <a href="<?=base_url('logout')?>"><i class="fas fa-sign-out-alt"></i> LOGOUT</a>
                         </center>
                     </div>
                 </div>
@@ -68,7 +96,7 @@
 
                         <div class="row mb-2">
                             <div class="col-md-4">
-                                Nama
+                                Name
                             </div>
                             <div class="col-md-8">
                                 <strong>Fajar Ramadhan</strong>
@@ -92,7 +120,7 @@
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4">
-                                No. HP
+                                Phone Number
                             </div>
                             <div class="col-md-8">
                                 +62 81296883431
@@ -255,7 +283,7 @@
                             </div>
                         </div>
                         <hr>
-                        <a href="<?=base_url('user/profil')?>" class="btn btn-success"><i class="fas fa-cog"></i> Setting</a> <button type="button" class="btn btn-primary"><i class="fas fa-envelope"></i> Send a Message</button>
+                        <a href="<?=base_url('user/profile')?>" class="btn btn-success"><i class="fas fa-cog"></i> Setting</a> <button type="button" class="btn btn-primary"><i class="fas fa-envelope"></i> Send a Message</button>
                     </div>
                 </div>
             </div>

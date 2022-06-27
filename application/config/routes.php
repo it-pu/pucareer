@@ -55,6 +55,10 @@ $route['user/setting/setting_email'] = 'user/setting_email';
 $route['user/setting/setting_password'] = 'user/setting_password';
 $route['user/resume/resume_setting'] = 'user/resume_setting';
 
+$route['user/experience/add'] = 'user/experience_add';
+$route['user/experience/edit/(:any)'] = 'user/experience_edit/$1';
+$route['user/skills/add'] = 'user/skills_add';
+
 $route['admin'] = 'admin/dashboard';
 
 $route['404_override'] = '';
