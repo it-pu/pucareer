@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-dark border-0 w-100">Search</button>
+                        <a href="<?=base_url('jobs')?>" class="btn btn-dark border-0 w-100">Search</a>
                     </div>
                 </div>
             </div>

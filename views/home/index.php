@@ -484,57 +484,44 @@
 
 
         <!-- Testimonial Start -->
-        <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="container">
-                <h1 class="text-center mb-5">Our Clients Say!!!</h1>
-                <div class="owl-carousel testimonial-carousel">
-                    <div class="testimonial-item bg-light rounded p-4">
-                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
-                        <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded" src="<?=get_foto('/public_style/front/img/testimonial-1.jpg')?>" style="width: 50px; height: 50px;">
-                            <div class="ps-3">
-                                <h5 class="mb-1">Client Name</h5>
-                                <small>Profession</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item bg-light rounded p-4">
-                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
-                        <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded" src="<?=get_foto('/public_style/front/img/testimonial-2.jpg')?>" style="width: 50px; height: 50px;">
-                            <div class="ps-3">
-                                <h5 class="mb-1">Client Name</h5>
-                                <small>Profession</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item bg-light rounded p-4">
-                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
-                        <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded" src="<?=get_foto('/public_style/front/img/testimonial-3.jpg')?>" style="width: 50px; height: 50px;">
-                            <div class="ps-3">
-                                <h5 class="mb-1">Client Name</h5>
-                                <small>Profession</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item bg-light rounded p-4">
-                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
-                        <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded" src="<?=get_foto('/public_style/front/img/testimonial-4.jpg')?>" style="width: 50px; height: 50px;">
-                            <div class="ps-3">
-                                <h5 class="mb-1">Client Name</h5>
-                                <small>Profession</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h1 class="text-center mb-5 mt-3">FEATURED COMPANY</h1>
+        <div class="owl-carousel company-carousel">
+          <div class="company-item bg-light rounded p-4">
+              <center>
+                <img class="img-fluid rounded w-50 mb-3" src="<?=get_foto('/assets/podomoro-university-logo.png')?>" alt="">
+                <h5 class="text-primary">PODOMORO UNIVERSITY</h5>
+                Jakarta, Indonesia
+              </center>
+          </div>
+          <div class="company-item bg-light rounded p-4">
+              <center>
+                <img class="img-fluid rounded w-50 mb-3" src="<?=get_foto('/assets/podomoro-university-logo.png')?>" alt="">
+                <h5 class="text-primary">PODOMORO UNIVERSITY</h5>
+                Jakarta, Indonesia
+              </center>
+          </div>
+          <div class="company-item bg-light rounded p-4">
+              <center>
+                <img class="img-fluid rounded w-50 mb-3" src="<?=get_foto('/assets/podomoro-university-logo.png')?>" alt="">
+                <h5 class="text-primary">PODOMORO UNIVERSITY</h5>
+                Jakarta, Indonesia
+              </center>
+          </div>
+          <div class="company-item bg-light rounded p-4">
+              <center>
+                <img class="img-fluid rounded w-50 mb-3" src="<?=get_foto('/assets/podomoro-university-logo.png')?>" alt="">
+                <h5 class="text-primary">PODOMORO UNIVERSITY</h5>
+                Jakarta, Indonesia
+              </center>
+          </div>
+          <div class="company-item bg-light rounded p-4">
+              <center>
+                <img class="img-fluid rounded w-50 mb-3" src="<?=get_foto('/assets/podomoro-university-logo.png')?>" alt="">
+                <h5 class="text-primary">PODOMORO UNIVERSITY</h5>
+                Jakarta, Indonesia
+              </center>
+          </div>
+      </div>
         <!-- Testimonial End -->
         
 

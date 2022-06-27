@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <hr>
-                        <button type="submit" class="btn btn-success"><i class="fas fa-edit"></i> Save</button>
+                        <button type="submit" class="btn btn-success" onclick="return confirm('Update Resume?')"><i class="fas fa-edit"></i> Save</button>
                         </form>
                     </div>
                 </div>

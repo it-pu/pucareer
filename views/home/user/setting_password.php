@@ -9,32 +9,45 @@
                     <div class="card-body">
                         <h3>Setting Password</h3><hr>
 
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                Old Password*
+                        <?php if ($this->session->flashdata('error')): ?>
+                          <div class="alert alert-danger" role="alert">
+                            <?=$this->session->flashdata('error')?>
+                          </div>
+                        <?php endif ?>
+
+                        <?php if ($this->session->flashdata('success')): ?>
+                          <div class="alert alert-success" role="alert">
+                            <?=$this->session->flashdata('success')?>
+                          </div>
+                        <?php endif ?>
+                        <?php echo form_open(base_url('user/password_update')); ?>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    Old Password*
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="password" name="old_password" class="form-control" required>
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <input type="password" class="form-control" required>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    New Password*
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="password" name="new_password" placeholder="(Min. 6 Character)" class="form-control" required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                New Password*
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    Confirm Password*
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="password" name="confirm_password" class="form-control" min="6"  required> 
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <input type="password" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                Confirm Password*
-                            </div>
-                            <div class="col-md-4">
-                                <input type="password" class="form-control" placeholder="(Min 6 Character)" required> 
-                            </div>
-                        </div>
-                        <hr>
-                        <button type="submit" class="btn btn-success"><i class="fas fa-edit"></i> Save</button>
+                            <hr>
+                            <button type="submit" class="btn btn-success" onclick="return confirm('Update Password?')"><i class="fas fa-edit"></i> Save</button>
+                        </form>
                     </div>
                 </div>
             </div>
