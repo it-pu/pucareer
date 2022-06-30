@@ -3,13 +3,15 @@
     
     <div class="container mt-5">
         <div class="row">
-                        <div class="col-md-4">
+            <div class="col-md-4">
                 <div class="card mb-3">
                     <div class="card-body shadow-lg">
                         <center>
-                            <a href="<?=base_url('user')?>" style="text-decoration: none; color: #666565;"><img src="<?=$this->sess['foto_user']?>" class="img-fluid w-50 pt-3 mb-3">
+                            <?php if ($user['user_image'] != ''): ?>
+                                <a href="<?=base_url('user')?>" style="text-decoration: none; color: #666565;"><img src="<?=base_url().$user['user_image']?>" class="img-fluid w-50 pt-3 mb-3">
+                            <?php endif; ?>
                             <br>
-                            Fajar Ramadhan<br></a>
+                            <?=strtoupper($user['user_name'])?><br></a>
                             <span class="badge bg-primary">PREMIUM</span><br>
                             <strong>IT Programmer<br>Podomoro University</strong>
                         </center>
@@ -90,6 +92,17 @@
                 </div>
             </div>      
             <div class="col-md-8">
+                <?php if ($this->session->flashdata('error')): ?>
+                  <div class="alert alert-danger" role="alert">
+                    <?=$this->session->flashdata('error')?>
+                  </div>
+                <?php endif ?>
+
+                <?php if ($this->session->flashdata('success')): ?>
+                  <div class="alert alert-success" role="alert">
+                    <?=$this->session->flashdata('success')?>
+                  </div>
+                <?php endif ?>
                 <div class="card shadow-lg">
                     <div class="card-body">
                         <h3>Profil</h3><hr>

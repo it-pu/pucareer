@@ -5,15 +5,6 @@
 		return base_url()."public_style/".$path;
 	}
 
-	function get_template_admin($path)
-	{
-		return base_url()."public_style/admin/".$path;
-	}
-
-	function get_template_admin_view($view){
-		$_this =& get_instance();
-		return $_this->load->view('admin/'.$view);
-	}
 	function get_template_home($view){
 		$_this =& get_instance();
 		return $_this->load->view($view);
@@ -37,37 +28,37 @@
 		}
 	}
 
-	function is_active_page_print_umkm($page, $class)
+	function get_foto($namafoto)
 	{
-		$_this =& get_instance();
-		if ($page == $_this->uri->segment(1)) 
-		{
-			return $class;
-		}
-	}
+		global $SConfig;
 
+		$fotopath = $namafoto;
+
+		return $SConfig->_site_url.str_replace("./", "/", $fotopath);
+	}
+	
 	function http_request($url)
 	{
-    // persiapkan curl
-    $ch = curl_init(); 
+	    // persiapkan curl
+	    $ch = curl_init(); 
 
-    // set url 
-    curl_setopt($ch, CURLOPT_URL, $url);
-    
-    // set user agent    
-    curl_setopt($ch,CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+	    // set url 
+	    curl_setopt($ch, CURLOPT_URL, $url);
+	    
+	    // set user agent    
+	    curl_setopt($ch,CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
 
-    // return the transfer as a string 
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	    // return the transfer as a string 
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 
-    // $output contains the output string 
-    $output = curl_exec($ch); 
+	    // $output contains the output string 
+	    $output = curl_exec($ch); 
 
-    // tutup curl 
-    curl_close($ch);      
+	    // tutup curl 
+	    curl_close($ch);      
 
-    // mengembalikan hasil curl
-    return $output;
+	    // mengembalikan hasil curl
+	    return $output;
 	}
 
 	function strip_jika_kosong($str)
@@ -133,49 +124,6 @@
 	    return array_pop($args);
 	}
 
-	// function decrypt_($str)
-	// {
-	// 	// Store cipher method 
-	// 	$ciphering = "BF-CBC"; 
-	// 	// Use OpenSSl encryption method 
-	// 	$iv_length = openssl_cipher_iv_length($ciphering); 
-	// 	$encryption_iv = random_bytes($iv_length); 
-	// 	// 16 digit values 
-	// 	$options = 0; 
-		  
-	// 	// Store the decryption key 
-	// 	$decryption_key = openssl_digest(php_uname(), 'MD5', TRUE); 
-		  
-	// 	// Descrypt the string 
-	// 	$decryption = openssl_decrypt($str, $ciphering, 
-	// 	            $decryption_key, $options, $encryption_iv); 
-		  
-	// 	return $decryption;
-	// }
-	// function encrypt_($str)
-	// {	  
-	// 	// Store cipher method 
-	// 	$ciphering = "BF-CBC"; 
-		  
-	// 	// Use OpenSSl encryption method 
-	// 	$iv_length = openssl_cipher_iv_length($ciphering); 
-	// 	$options = 0; 
-		  
-	// 	// Use random_bytes() function which gives 
-	// 	// randomly 16 digit values 
-	// 	$encryption_iv = random_bytes($iv_length); 
-		  
-	// 	// Alternatively, we can use any 16 digit 
-	// 	// characters or numeric for iv 
-	// 	$encryption_key = openssl_digest(php_uname(), 'MD5', TRUE); 
-		  
-	// 	// Encryption of string process starts 
-	// 	$encryption = openssl_encrypt($str, $ciphering, 
-	// 	        $encryption_key, $options, $encryption_iv); 
-		  
-	// 	return $encryption;
-	// }
-
 	function strposa($haystack, $needles=array(), $offset=0) 
 	{
         $chr = array();
@@ -187,45 +135,12 @@
         return min($chr);
 	}
 
-	function is_active_detail_umkm($page, $class)
-	{
-		$_this =& get_instance();
-		if ($page == $_this->uri->segment(4)) 
-		{
-			return $class;
-		}
-	}
-
 	function get_ext($data)
 	{
 		$array = explode(".",$data);
 
 		$lastKey = key(array_slice($array, -1, 1, true));
 		return $array[$lastKey];
-	}
-
-	function get_file_download($namafile)
-	{
-		global $SConfig;
-
-		$fotopath = "./uploads/".$namafile;
-		return $SConfig->_site_url.str_replace("./", "/", $fotopath);
-	}
-
-	function berita_value($edit, $value)
-	{
-		if ($edit == TRUE) 
-		{
-			return $value;
-		}
-	}
-
-	function berita_value_cover($edit, $value)
-	{
-		if ($edit == false) 
-		{
-			return $value;
-		}
 	}
 
 	function findfoto($str, $ktp, $produk=false)
@@ -244,26 +159,6 @@
 		return $foto;
 	}
 
-	function findfotoberita($str)
-	{
-		global $SConfig;
-		$fotopath = "./uploads/berita/".$str."*";
-		$fotoinfo = glob($fotopath);
-		$foton = $fotoinfo[0];
-
-		$foto = $SConfig->_site_url.str_replace("./", "/", $foton);
-
-		return $foto;
-	}
-
-
-	function show_kat($str, $select)
-	{
-		if ($str == $select) 
-		{
-			return 'show';
-		}
-	}
 
 	function active_helper($str, $select)
 	{
@@ -288,89 +183,6 @@
 		}
 	}
 
-	function checked_aktif_helper($aktif)
-	{
-		if ($aktif == 1) 
-		{
-			return 'checked';
-		}
-	}
-
-	function tidak_kosong($nilai)
-	{
-		if ($nilai != '-') 
-		{
-			return $nilai;
-		}
-	}
-
-	function get_akhir_kata($str)
-	{
-		$file = explode('/', $str);
-		$lastfile = end($file);
-		return $lastfile;
-		// unlink($fcpath."uploads/profil/".$id_umkm.'/'.$fotohidden);
-	}
-
-	function active_komoditas($str, $post)
-	{
-		$_this =& get_instance();
-		$link = $_this->uri->segment(3);
-
-		if (empty($link)) 
-		{
-			if ($str == $post) 
-			{
-				return 'active';
-			}
-		}
-
-		if ($str == $link) 
-		{
-			return 'active';
-		}
-	}
-
-	function active_komoditas_default()
-	{
-		$_this =& get_instance();
-		$link = $_this->uri->segment(3);
-
-		if (empty($link)) 
-		{
-			return 'active';
-		}
-	}
-
-	function select_komoditas($str)
-	{
-		$_this =& get_instance();
-		$link = $_this->uri->segment(3);
-
-		if ($str == $link) 
-		{
-			return 'selected';
-		}
-	}
-
-	function active_subkat_semua($str)
-	{
-		$_this =& get_instance();
-		$kat = replace_str_upper($_this->uri->segment(4));
-		$subkat = $_this->uri->segment(5);
-
-		if ($subkat == null) 
-		{
-			if ($str == $kat) 
-			{
-				return 'active';
-			}
-			
-		}
-	}
-
-
-
 	function rupiah($angka)
 	{
 		$hasil_rupiah = number_format($angka,0,',','.');
@@ -387,41 +199,10 @@
 		return str_replace('.', '', $angka);
 	}
 
-	function add_no_produk($angka, $kode)
+	function generate_otp()
 	{
-		$no = sprintf("%06d", $angka);
-		return $no.'-'.$kode;
-	}
-
-	function add_no_perusahaan($angka)
-	{
-		$no = sprintf("%05d", $angka);
-		return $no;
-	}
-
-	function add_no_representatif($angka, $kode)
-	{
-		$no = sprintf("%06d", $angka);
-		return $kode.'-'.$no;
-	}
-
-	function riset_budget($bulan)
-	{
-		$strdate = "+ ".$bulan." month";
-		return date('Y-m-d', strtotime($strdate, strtotime(date('Y-m-d'))));
-	}
-
-	function generate_token()
-	{
-		$tokenhash = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890';
-	    $tokenshuffle = str_shuffle($tokenhash);
-	    return substr($tokenshuffle, 0, 12);
-	}
-	function generate_pass()
-	{
-		$tokenhash = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890';
-	    $tokenshuffle = str_shuffle($tokenhash);
-	    return substr($tokenshuffle, 0, 7);
+		$num_str = sprintf("%06d", mt_rand(1, 999999));
+	    	return $num_str;
 	}
 
 	function datepickertomysql($date)
@@ -482,43 +263,9 @@
 		return $datenew;
 	}
 
-	function login_redirect($str)
+	function ip_10menit($date)
 	{
-		$link = '';
-		foreach ($str as $key => $value) 
-		{
-			$link .= '/'.$value;
-		}
-		return $link;
-	}
-
-	function get_foto_produk($namafoto)
-	{
-		global $SConfig;
-
-		$fotopath = "./uploads/foto_produk/".$namafoto;
-		return $SConfig->_site_url.str_replace("./", "/", $fotopath);
-	}
-
-	function get_foto_produk_detslider($key)
-	{
-		if ($key == 0) 
-		{
-			return 'active';
-		}
-	}
-
-	function get_lampiran($namalampiran)
-	{
-		global $SConfig;
-
-		$lampiranpath = "./uploads/lampiran_produk/".$namalampiran;
-		return $SConfig->_site_url.str_replace("./", "/", $lampiranpath);
-	}
-
-	function ip_30menit($date)
-	{
-		$str = "+ 30 minutes";
+		$str = "+ 10 minutes";
 		return date('Y-m-d H:i:s', strtotime($str, strtotime($date)));
 	}
 
@@ -540,85 +287,6 @@
 		return date('Y-m-d H:i:s', strtotime($str, strtotime($date)));
 	}
 
-	function server_pertama($key)
-	{
-		if ($key != 0) 
-		{
-			return 'style="display:none"';
-		}
-	}
-	function title()
-	{
-		$_this =& get_instance();
-		global $SConfig;
-
-		$array_backend_page = array
-							(
-								'' => 'AyyStream | Streaming Anime Subtitle Indonesia',
-								'genre' => 'AyyStream Genre | Streaming Anime Subtitle Indonesia',
-								'anilist' => 'AyyStream List | Streaming Anime Subtitle Indonesia',
-								'ongoing' => 'AyyStream Ongoing | Streaming Anime Subtitle Indonesia',
-							);
-		$title = NULL;
-		if (array_key_exists($_this->uri->segment(1), $array_backend_page)) 
-		{
-			return $array_backend_page[$_this->uri->segment(1)];
-		}
-		elseif ($_this->uri->segment(1) == 'nonton') 
-		{
-			return str_replace('_', ' ', $_this->uri->segment(3))." | Streaming Anime Sub Indonesia";
-		}
-	}
-
-	function meta()
-	{
-		$_this =& get_instance();
-		global $SConfig;
-
-		if ($_this->uri->segment(1) == 'nonton') 
-		{
-			return "Nonton Anime ".str_replace('_', ' ', $_this->uri->segment(3))." Subtitle Indonesia Streaming dan Download 1080p, 720p dan 480p. Klik disini untuk menonton Anime ".str_replace('_', ' ', $_this->uri->segment(3))." dengan Subtitle Indonesia";
-		}
-		else
-		{
-			return "Nonton Anime Subtitle Indonesia Streaming dan Download 1080p, 720p dan 480p. Klik disini untuk menonton Anime dengan Subtitle Indonesia";
-		}
-	}
-
-	function og_title()
-	{
-		$_this =& get_instance();
-		global $SConfig;
-
-		if ($_this->uri->segment(1) == 'nonton') 
-		{
-			return "Streaming Anime ".str_replace('_', ' ', $_this->uri->segment(3))." Subtitle Indonesia - ayystream.com";
-		}
-		else
-		{
-			return "Streaming Anime Subtitle Indonesia - ayystream.com";
-		}
-	}
-
-	function title_admin()
-	{
-		$_this =& get_instance();
-		global $SConfig;
-
-		$array_backend_page = array
-							(
-								'' => 'Admin - AnimeStream Sub Indo',
-								'dashboard' => 'Dashboard - AnimeStream Sub Indo',
-								'anime' => 'Anime / Admin - AnimeStream Sub Indo',
-								'laporan' => 'Laporan / Admin - AnimeStream Sub Indo',
-								'pengurus' => 'Admin - AnimeStream Sub Indo',
-							);
-		$title = NULL;
-		if (array_key_exists($_this->uri->segment(2), $array_backend_page)) 
-		{
-			return $array_backend_page[$_this->uri->segment(2)];
-		}
-	}
 
 	function replace_str_lower($str)
 	{
@@ -633,140 +301,6 @@
 
 		return strtoupper($string);
 	}
-
-	function replace_str_ga_penting($str)
-	{
-		$string = str_replace(str_split('\\/:;*?"<>|@$%^()+"\' '), '_', $str);
-
-		$string = str_replace(str_split('.,'), '', $string);
-
-		if (strstr($string, '&')) 
-		{
-		  return str_replace("&","and",$string);
-		} 
-		else 
-		{
-			$string = str_replace(str_split('()'), '', $string);
-			return $string;
-		}
-	}
-
-	function replace_kode_link($str)
-	{
-		$str1 = str_replace("https://drive.google.com/file/d/","",$str);
-		$str2 = str_replace("/view?usp=sharing","",$str1);
-
-		return $str2;
-	}
-
-	function get_kontrak($namakontrak)
-	{
-		global $SConfig;
-
-		$fotopath = "./uploads/kontrak/".$namakontrak;
-		return $SConfig->_site_url.str_replace("./", "/", $fotopath);
-	}
-
-	function get_keranjang_file($id_keranjang, $namafile)
-	{
-		global $SConfig;
-
-		$fotopath = "./uploads/keranjang_upload/keranjang-".$id_keranjang.'/'.$namafile;
-		return $SConfig->_site_url.str_replace("./", "/", $fotopath);
-	}
-
-	function get_foto_anime($namafoto)
-	{
-		global $SConfig;
-
-		$fotopath = "./uploads/poster_anime/".$namafoto."*";
-		$fotoinfo = glob($fotopath);
-		$foton = $fotoinfo[0];
-
-		return $SConfig->_site_url.str_replace("./", "/", $foton);
-	}
-
-	function get_foto_anime_saja($namafoto)
-	{
-		$fotopath = "./uploads/poster_anime/".$namafoto."*";
-		$fotoinfo = glob($fotopath);
-		$foton = $fotoinfo[0];
-
-		return str_replace("./uploads/poster_anime/", "", $foton);
-	}
-
-	function get_foto_admin($namafoto)
-	{
-		global $SConfig;
-
-		$fotopath = "./uploads/foto_admin/".$namafoto."*";
-		$fotoinfo = glob($fotopath);
-		$foton = $fotoinfo[0];
-
-		return $SConfig->_site_url.str_replace("./", "/", $foton);
-	}
-
-	function get_foto_admin_saja($namafoto)
-	{
-		$fotopath = "./uploads/foto_admin/".$namafoto."*";
-		$fotoinfo = glob($fotopath);
-		$foton = $fotoinfo[0];
-
-		return str_replace("./uploads/foto_admin/", "", $foton);
-	}
-
-	function get_foto_uploads_new_kontrak($namafoto)
-	{
-		global $SConfig;
-
-		$fotopath = "./uploads/new_regist_kontrak/".$namafoto."*";
-		$fotoinfo = glob($fotopath);
-		$foton = $fotoinfo[0];
-
-		return $SConfig->_site_url.str_replace("./", "/", $foton);
-	}
-
-	function get_foto_uploads_kontrak_dir($namafoto)
-	{
-		global $SConfig;
-
-		$fotopath = "./uploads/kontrak/".$namafoto;
-
-		$path = $SConfig->_document_root.str_replace("./", "/", $fotopath);
-		return str_replace("/", "\\", $path);
-	}
-
-	function get_foto($namafoto)
-	{
-		global $SConfig;
-
-		$fotopath = $namafoto;
-
-		return $SConfig->_site_url.str_replace("./", "/", $fotopath);
-	}
-
-	function get_foto_assets($namafoto)
-	{
-		global $SConfig;
-
-		$fotopath = "./assets/".$namafoto."*";
-		$fotoinfo = glob($fotopath);
-		$foton = $fotoinfo[0];
-
-		return $SConfig->_site_url.str_replace("./", "/", $foton);
-	}
-
-	function get_foto_assets_admin($namafoto)
-	{
-		global $SConfig;
-
-		$fotopath = "./public_style/admin/assets".$namafoto."*";
-		$fotoinfo = glob($fotopath);
-		$foton = $fotoinfo[0];
-
-		return $SConfig->_site_url.str_replace("./", "/", $foton);
-	}
-
 
 	function longstr($str, $total)
 	{
@@ -874,14 +408,6 @@
 		                         },
 		                         $array));
 			}
-
-	function cek_jawaban($no_jawab, $jawabex)
-	{
-		if ($no_jawab == $jawabex) 
-		{
-			return "checked";
-		}
-	}
 	
 		function penyebut($nilai) {
 		$nilai = abs($nilai);
@@ -972,76 +498,26 @@
 	        }
 	        return $hari;
 	    }
-	    
-function sendnotifall($title, $isi, $link = null)
-{
-	$content = array
-      (
-          "en" => $isi,
-      );
 
-  $fields = array(
-      'app_id' => '6fbc7daf-d11d-42bf-a8fb-94b2a0f4ae19',
-      'included_segments' => array(
-          'Subscribed Users'
-      ),
-      'data' => array(
-          "foo" => "bar"
-      ),
-      'contents' => $content,
-      'headings' => array('en' => $title),
-      "large_icon" => "https://desabanjarwaru.id/files/bnjr_trns.png",
-      "url" => $link
-  );
-  
-  $fields = json_encode($fields);
-  
-  $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
-  curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-      'Content-Type: application/json; charset=utf-8',
-      'Authorization: Basic MDhlZTUwYmYtNmY5ZS00NWVmLThhNjEtOTljMzBhMGI2MWNk'
-  ));
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-  curl_setopt($ch, CURLOPT_HEADER, FALSE);
-  curl_setopt($ch, CURLOPT_POST, TRUE);
-  curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-  
-  $response = curl_exec($ch);
-  curl_close($ch);
+function split_name($name) {
+    $parts = array();
 
-  return $response;
-}
+    while ( strlen( trim($name)) > 0 ) {
+        $name = trim($name);
+        $string = preg_replace('#.*\s([\w-]*)$#', '$1', $name);
+        $parts[] = $string;
+        $name = trim( preg_replace('#'.preg_quote($string,'#').'#', '', $name ) );
+    }
 
-function sendnotifid($idplayers, $title, $isi, $link = null){
-  $content = array(
-      "en" => $isi
-      );
-  
-  $fields = array(
-      'app_id' => '6fbc7daf-d11d-42bf-a8fb-94b2a0f4ae19',
-      'include_player_ids' => $idplayers,
-      'data' => array("foo" => "bar"),
-      'contents' => $content,
-      'headings' => array('en' => $title),
-      "large_icon" => "https://desabanjarwaru.id/files/bnjr_trns.png",
-      "url" => $link
-  );
-  
-  $fields = json_encode($fields);
-  
-  $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
-  curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8'));
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-  curl_setopt($ch, CURLOPT_HEADER, FALSE);
-  curl_setopt($ch, CURLOPT_POST, TRUE);
-  curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    if (empty($parts)) {
+        return false;
+    }
 
-  $response = curl_exec($ch);
-  curl_close($ch);
-  
-  return $response;
+    $parts = array_reverse($parts);
+    $name = array();
+    $name['first_name'] = $parts[0];
+    $name['middle_name'] = (isset($parts[2])) ? $parts[1] : '';
+    $name['last_name'] = (isset($parts[2])) ? $parts[2] : ( isset($parts[1]) ? $parts[1] : '');
+    
+    return $name;
 }

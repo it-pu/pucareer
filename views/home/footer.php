@@ -69,6 +69,35 @@
         <!-- <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a> -->
     </div>
 
+    <!-- Modal -->
+    <?php echo form_open(base_url('home/change_lang')); ?>
+    <div class="modal fade" id="langModal" tabindex="-1" aria-labelledby="langModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="langModalLabel">Change Language</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" name="url_hidden" value="<?=current_url();?>">
+            <div class="mb-3">
+              <label for="name_registrar" class="form-label">Language</label>
+              <select class="form-select" name="lang_code">
+                <?php foreach ($this->sess['lang_av'] as $key => $value): ?>
+                    <option value="<?=$value['lang_code']?>" <?=selected_helper($this->sess['lang'], $value['lang_code'])?>><?=$value['lang_name']?></option>
+                <?php endforeach ?>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </form>
+
     <!-- JavaScript Libraries -->
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -76,6 +105,8 @@
     <script src="<?php echo get_template_directory('front/lib/easing/easing.min.js') ;?>"></script>
     <script src="<?php echo get_template_directory('front/lib/waypoints/waypoints.min.js') ;?>"></script>
     <script src="<?php echo get_template_directory('front/lib/owlcarousel/owl.carousel.min.js') ;?>"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.3/dist/js/tom-select.complete.min.js"></script>
 
     <!-- Template Javascript -->
     <script src="<?php echo get_template_directory('front/js/function.js') ;?>"></script>

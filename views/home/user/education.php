@@ -9,46 +9,35 @@
                     <div class="card-body">
                         <h3>Education</h3><hr>
 
-                        <div class="row">
-                            <div class="col-md-2">
-                                November 2018
+                        <?php if ($this->session->flashdata('error')): ?>
+                          <div class="alert alert-danger" role="alert">
+                            <?=$this->session->flashdata('error')?>
+                          </div>
+                        <?php endif ?>
+
+                        <?php if ($this->session->flashdata('success')): ?>
+                          <div class="alert alert-success" role="alert">
+                            <?=$this->session->flashdata('success')?>
+                          </div>
+                        <?php endif ?>
+
+                        <?php foreach ($edu as $key => $value): ?>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <?=$value['graduation_month']?> <?=$value['graduation_year']?>
+                                </div>
+                                <div class="col-md-8">
+                                    <strong><?=$value['university_name']?></strong> | <?=$value['country_name']?><br>
+                                    <?=$value['qualification']?> of <?=$value['field_of_study_name']?> | <?=$value['major']?>
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="<?=base_url('user/education/edit/').$value['id_user_education']?>" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a> | <a href="<?=base_url('user/education_delete/').$value['id_user_education']?>" class="btn btn-danger btn-sm" onclick="return confirm('Delete Education?')"><i class="fas fa-trash"></i></a>
+                                </div>
                             </div>
-                            <div class="col-md-8">
-                                <strong>PODOMORO University</strong>
-                                Sarjana (S1) in Ilmu Komputer/Teknologi Informasi | Indonesia
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-success btn-sm"><i class="fas fa-edit"></i></button> | <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-2">
-                                September 2014
-                            </div>
-                            <div class="col-md-8">
-                                <strong>PODOMORO University</strong>
-                                Sarjana (S1) in Ilmu Komputer/Teknologi Informasi | Indonesia
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-success btn-sm"><i class="fas fa-edit"></i></button> | <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-2">
-                                November 2018
-                            </div>
-                            <div class="col-md-8">
-                                <strong>PODOMORO University</strong>
-                                Sarjana (S1) in Ilmu Komputer/Teknologi Informasi | Indonesia
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-success btn-sm"><i class="fas fa-edit"></i></button> | <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-                        <hr>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add Education</button>
+                            <hr>
+                        <?php endforeach ?>
+
+                        <a href="<?=base_url('user/education/add')?>" class="btn btn-primary"><i class="fas fa-plus"></i> Add Education</a>
                     </div>
                 </div>
             </div>

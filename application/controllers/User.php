@@ -60,22 +60,19 @@ class User extends MY_Controller {
 
 		$update = array
 				(
-					'nama_user' => $post['nama'],
-					'alamat_user' => $post['alamat'],
-					'telp_user' => $post['telp'],
+					'user_name' => $post['nama'],
+					'user_address' => $post['alamat'],
+					'user_phone_number' => $post['telp'],
 					'about_user' => $post['about']
 				);
 
-		if (!empty($_FILES['foto_user']["name"]) && $_FILES['foto_user']['type'] == 'image/jpeg') 
+		if (!empty($_FILES['user_image']["name"]) && $_FILES['user_image']['type'] == 'image/jpeg') 
 		{
-			$updatedb = $this->Custom_model->insertdatafoto('tbl_user', 'id_user', 'foto_user', 'img_user', $update, false, $post['id_user'], true);
-			var_dump($updatedb);
-			echo 222;
+			$updatedb = $this->Custom_model->insertdatafoto('tbl_user', 'id_user', 'user_image', 'img_user', $update, false, $post['id_user'], true);
 		}
 		else
 		{
 			$updatedb = $this->Custom_model->updatedata('tbl_user', $update, array('id_user' => $post['id_user']));
-			var_dump($updatedb);
 		}
 
 		if ($updatedb == TRUE) 
@@ -235,7 +232,69 @@ class User extends MY_Controller {
 	}
 	public function education()
 	{
-		$this->load->view('home/user/education');
+		$edu = $this->Custom_model->get_education($this->sess['id_user']);
+
+		$data = array
+				(
+					'edu' => $edu
+				);
+
+		$this->load->view('home/user/education', $data);
+	}
+	public function education_add()
+	{
+		$fos = $this->Custom_model->getdata('tbl_field_of_study');
+		$country = $this->Custom_model->getdata('tbl_country');
+		$data = array('fos' => $fos, 'country' => $country);
+		$this->load->view('home/user/education_add', $data);
+	}
+	public function education_edit($id_user_education)
+	{
+		$edu = $this->Custom_model->get_education($this->sess['id_user'], $id_user_education);
+		$fos = $this->Custom_model->getdata('tbl_field_of_study');
+		$country = $this->Custom_model->getdata('tbl_country');
+
+		$data = array
+				(
+					'edu' => $edu,
+					'fos' => $fos,
+					'country' => $country
+				);
+
+		$this->load->view('home/user/education_edit', $data);
+	}
+	public function education_post()
+	{
+		$post = $this->input->post(NULL, TRUE);
+
+		$update = array
+				(
+					'university_name' => $post['university_name'],
+					'graduation_month' => $post['graduation_month'],
+					'graduation_year' => $post['graduation_year'],
+					'qualification' => $post['qualification'],
+					'id_country' => $post['id_country'],
+					'id_field_of_study' => $post['id_field_of_study'],
+					'major' => $post['major'],
+					'grade' => $post['grade'],
+					'score' => $post['score'],
+					'score_out_of' => $post['score_out_of'],
+					'additional_info' => $post['additional_info']
+				);
+
+		$this->Custom_model->updatedata('tbl_user_education', $update, array('id_user_education' => $post['id_user_education']));
+
+		$this->session->set_flashdata('success', 'Success Updating Education');
+		redirect(base_url('user/education'));
+		die();
+	}
+	public function education_delete($id_user_education)
+	{
+		$this->Custom_model->updatedata('tbl_user_education', array('status_education' => 0), array('id_user_education' => $id_user_education));
+
+		$this->session->set_flashdata('success', 'Success Updating Skills');
+		redirect(base_url('user/education'));
+		die();
 	}
 	public function social_media()
 	{
@@ -420,8 +479,8 @@ class User extends MY_Controller {
 		$post = $this->input->post(NULL, TRUE);
 
 		$this->form_validation->set_rules('old_password', 'Old Password', 'required');
-		$this->form_validation->set_rules('new_password', 'New Password', 'required');
-		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|min_length[5]');
+		$this->form_validation->set_rules('new_password', 'New Password', 'required|min_length[6]');
+		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|min_length[6]');
 
 		if ($this->form_validation->run() == FALSE)
         {

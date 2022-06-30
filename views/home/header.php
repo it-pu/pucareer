@@ -30,17 +30,19 @@
     <!-- Template Stylesheet -->
     <link href="<?php echo get_template_directory('front/css/style.css') ;?>" rel="stylesheet">
 
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.0.3/dist/css/tom-select.css" rel="stylesheet">
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
-        </div>
+        </div> -->
         <!-- Spinner End -->
 
 
@@ -57,27 +59,24 @@
                     <a href="<?=base_url()?>" class="nav-item nav-link <?=is_active_page_print('', 'active')?>">Home</a>
                     <a href="<?=base_url('jobs')?>" class="nav-item nav-link <?=is_active_page_print('jobs', 'active')?>">Jobs</a>
                     <a href="<?=base_url('companies')?>" class="nav-item nav-link <?=is_active_page_print('companies', 'active')?>">Companies</a>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#langModal" class="nav-item nav-link">Languages</a>
                     <?php if (!empty($this->sess['logged_in'])): ?>
                         <li class="nav-item dropdown">
-                              <a class="btn btn-primary rounded-0 nav-link dropdown-toggle py-4 w-100 px-lg-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
-                                FAJAR
-                              </a>
-                              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="<?=base_url('user')?>">Profil</a></li>
-                                <li><a class="dropdown-item" href="#">Setting</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
-                              </ul>
+                          <a class="btn btn-primary rounded-0 nav-link dropdown-toggle py-4 w-100 px-lg-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+                            <?=split_name($this->sess['user_name'])['first_name']?>
+                          </a>
+                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="<?=base_url('user')?>"><i class="fas fa-user"></i> Profil</a></li>
+                            <li><a class="dropdown-item" href="<?=base_url('user/profile')?>"><i class="fas fa-cog"></i> Setting</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="<?=base_url('logout')?>"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                          </ul>
                         </li>
-                    <?php endif ?>
-                        
+                    <?php endif ?>  
                 </div>
                 <?php if (empty($this->sess['logged_in'])): ?>
                     <a href="<?=base_url('login')?>" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">LOGIN<i class="fa fa-arrow-right ms-3"></i></a>
                 <?php endif ?>
-                
-                
                 
             </div>
         </nav>

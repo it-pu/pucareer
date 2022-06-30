@@ -10,8 +10,7 @@
         }, 1);
     };
     spinner();
-    
-    
+
     // Initiate the wowjs
     new WOW().init();
 
@@ -38,7 +37,6 @@
         $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
         return false;
     });
-
 
     // Header carousel
     $(".header-carousel").owlCarousel({

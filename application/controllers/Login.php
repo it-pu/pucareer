@@ -14,16 +14,17 @@ class Login extends ADMIN_Controller {
 
 		if (!empty($post['email']) && !empty($post['password'])) 
 		{
-			$cekuser = $this->Custom_model->getdetail('tbl_user', array('email_user' => $post['email']));
+			$cekuser = $this->Custom_model->getdetail('tbl_user', array('user_email' => $post['email']));
  	
 			if (!empty($cekuser)) 
 			{
-				if (password_verify($post['password'], $cekuser['password_user'])) 
+				if (password_verify($post['password'], $cekuser['user_password'])) 
 				{
 					$logindata = array
 					(
 						'id_user' => $cekuser['id_user'],
-						'nama_user' => $cekuser['nama_user'],
+						'nama_user' => $cekuser['user_name'],
+						'company' => $cekuser['company_account'],
 						'logged_in' => TRUE					
 					);
 					
