@@ -15,6 +15,7 @@ class MY_Model extends CI_Model{
 		parent::__construct();
 	}
 
+	// /////////////// CORE /////////////////////////////////////////
 	public function insert($table, $data,$affected=FALSE,$batch=FALSE){
 		if($batch == TRUE){
 			$this->db->insert_batch($table, $data);
@@ -131,5 +132,46 @@ class MY_Model extends CI_Model{
 
 		$this->db->from($table);
 		return $this->db->count_all_results();
+	}
+	///////////////////////////////////////////////////////
+
+
+	// QUE SIMPLE //
+	public function getdata($table, $where = NULL, $order = null, $sort = null, $limit = NULL, $offset = NULL, $single = FALSE, $select = NULL)
+	{
+		if ($where != NULL) 
+		{
+			return $this->get_by($table, $where, $order, $sort, $limit, $offset, $single, $select);
+		}
+		else
+		{
+			return $this->get($table);
+		}
+	}
+
+	public function getdetail($table, $where)
+	{
+		return $this->get($table, $where, TRUE);
+	}
+
+	public function insertdata($table, $data, $affected=FALSE,$batch=FALSE)
+	{
+		return $this->insert($table, $data, $affected, $batch);
+	}
+
+	public function updatedata($table, $data, $where, $batch=false)
+	{
+		$this->update($table, $data, $where, $batch);
+		return TRUE;
+	}
+
+	public function deletedata($table, $where)
+	{
+		return $this->delete_by($table, $where);
+	}
+
+	public function countdata($table, $where)
+	{
+		return $this->count($table, $where);
 	}
 }

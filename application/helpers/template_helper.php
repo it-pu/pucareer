@@ -275,6 +275,12 @@
 		return date('Y-m-d H:i:s', strtotime($str, strtotime($date)));
 	}
 
+	function plusmonthsatu($date)
+	{
+		$str = "+ 1 month";
+		return date('Y-m-d', strtotime($str, strtotime($date)));
+	}
+
 	function ip_5menit($date)
 	{
 		$str = "+ 5 minutes";
@@ -402,6 +408,27 @@
 		return $tanggal." | ".substr($parameter, 11, 5);
 	}
 
+	function tgl_en($parameter)
+	{  //ini  untuk  mengubah  format  2015-06-15  ke  dalam format  15  Juni 2015
+		$thn=substr($parameter,0,4);  //menngambil  4  digit  dari  kiri,  0  adalah  index  pertama  dari  tahun (angka 2 dari 2015), 4 banyaknya digit yg diambil
+		$b=substr($parameter,5,2); //mengambil 2 digit, index 5 adalah angka 0 dari 06
+		$tgl=substr($parameter,8,2); //mengambil 2 digit dari kanan
+		if($b==1) {$bln="Jan";}
+		else if($b==2) {$bln="Feb";}
+		else if($b==3) {$bln="Mar";}
+		else if($b==4) {$bln="Apr";}
+		else if($b==5) {$bln="May";}
+		else if($b==6) {$bln="Jun";}
+		else if($b==7) {$bln="Jul";}
+		else if($b==8) {$bln="Aug";}
+		else if($b==9) {$bln="Sep";}
+		else if($b==10){$bln="Oct";}
+		else if($b==11){$bln="Nov";}
+		else if($b==12){$bln="Dec";}
+		$tanggal=$tgl . " ".$bln ." ".$thn;
+		return $tanggal;
+	}
+
 	function max_attribute_in_array($array, $prop) {
 		    return max(array_map(function($o) use($prop) {
 		                            return $o->$prop;
@@ -520,4 +547,41 @@ function split_name($name) {
     $name['last_name'] = (isset($parts[2])) ? $parts[2] : ( isset($parts[1]) ? $parts[1] : '');
     
     return $name;
+}
+
+function time_elapsed_string($datetime, $full = false) {
+    $now = new DateTime;
+    $ago = new DateTime($datetime);
+    $diff = $now->diff($ago);
+
+    $diff->w = floor($diff->d / 7);
+    $diff->d -= $diff->w * 7;
+
+    $string = array(
+        'y' => 'year',
+        'm' => 'month',
+        'w' => 'week',
+        'd' => 'day',
+        'h' => 'hour',
+        'i' => 'minute',
+        's' => 'second',
+    );
+    foreach ($string as $k => &$v) {
+        if ($diff->$k) {
+            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+        } else {
+            unset($string[$k]);
+        }
+    }
+
+    if (!$full) $string = array_slice($string, 0, 1);
+    return $string ? implode(', ', $string) . ' ago' : 'just now';
+}
+
+function get_years_old($birthDate)
+{
+  	$currentDate = date("Y-m-d");
+
+	$age = date_diff(date_create($birthDate), date_create($currentDate));
+	return $age->format("%y");
 }

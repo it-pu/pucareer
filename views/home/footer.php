@@ -106,11 +106,20 @@
     <script src="<?php echo get_template_directory('front/lib/waypoints/waypoints.min.js') ;?>"></script>
     <script src="<?php echo get_template_directory('front/lib/owlcarousel/owl.carousel.min.js') ;?>"></script>
     
-    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.3/dist/js/tom-select.complete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js"></script>
 
     <!-- Template Javascript -->
     <script src="<?php echo get_template_directory('front/js/function.js') ;?>"></script>
     <script src="<?php echo get_template_directory('front/js/main.js') ;?>"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#summ-text').summernote();
+
+            $('#drop-select').select2();
+        });
+    </script>
 </body>
 
 </html>

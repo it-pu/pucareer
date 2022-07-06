@@ -25,7 +25,7 @@
                         <input type="hidden" name="id_user" value="<?=$detail['id_user']?>">
                             <div class="row">
                                 <div class="col-md-4">
-                                    Name :
+                                    Name<font class="required">*</font>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="text" name="nama" class="form-control" placeholder="Name" value="<?=ucwords($detail['user_name'])?>" required>
@@ -34,7 +34,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-md-4">
-                                    Address :
+                                    Address<font class="required">*</font>
                                 </div>
                                 <div class="col-md-8">
                                     <textarea class="form-control" name="alamat" required><?=$detail['user_address']?></textarea>
@@ -43,7 +43,16 @@
                             <hr>
                             <div class="row">
                                 <div class="col-md-4">
-                                    Email :
+                                    Birth Date<font class="required">*</font>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="date" name="birth_date" value="<?=$detail['birth_date']?>" class="form-control">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    Email<font class="required">*</font>
                                 </div>
                                 <div class="col-md-8">
                                     <?=$detail['user_email']?> | <a href="<?=base_url('user/setting/setting_email')?>" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a> 
@@ -52,7 +61,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-md-4">
-                                    Phone Number :
+                                    Phone Number<font class="required">*</font>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="input-group mb-3">
@@ -64,7 +73,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-md-4">
-                                    About me :
+                                    About me
                                 </div>
                                 <div class="col-md-8">
                                     <textarea class="form-control" name="about"><?=$detail['about_user']?></textarea>
@@ -73,10 +82,10 @@
                             <hr>
                             <div class="row">
                                 <div class="col-md-4">
-                                    Image :
+                                    Image
                                 </div>
                                 <div class="col-md-8">
-                                    <input accept="image/*" type='file' id="user_image" onchange="fileValidationImage(this.id, true, 'prev_logo');" /><br>
+                                    <input accept="image/*" type='file' id="user_image" name="user_image" onchange="fileValidationImage(this.id, true, 'prev_logo');" /><br>
                                     <img id="prev_logo" src="<?=base_url().$detail['user_image']?>" alt="" style="max-width: 250px;" />
                                 </div>
                             </div>
