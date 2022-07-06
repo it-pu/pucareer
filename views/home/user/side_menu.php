@@ -2,9 +2,12 @@
                 <div class="card mb-3">
                     <div class="card-body shadow-lg">
                         <center>
-                            <a href="<?=base_url('user')?>" style="text-decoration: none; color: #666565;"><img src="<?=$this->sess['foto_user']?>" class="img-fluid w-50 pt-3 mb-3">
+                            <a href="<?=base_url('user')?>" style="text-decoration: none; color: #666565;">
+                                <?php if ($this->sess['user_image'] != ''): ?>
+                                    <img src="<?=base_url().$this->sess['user_image']?>" class="img-fluid w-50 pt-3 mb-3">
+                                <?php endif ?>
                             <br>
-                            <?=$this->sess['nama_user']?><br></a>
+                            <?=$this->sess['user_name']?><br></a>
                             <span class="badge bg-primary">PREMIUM</span><br><br>
                             <strong>SETTINGS</strong>
                         </center>

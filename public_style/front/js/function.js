@@ -99,22 +99,12 @@ function isNumberKey(evt){
     return !(charCode > 31 && (charCode < 48 || charCode > 57));
 }
 
-function readURL(input){ 
-if(input.files && input.files[0])
-{ 
-  var reader = new FileReader(); 
-  reader.onload = function(e)
-  { 
-    $('#previewpic img').attr('src', e.target.result); 
-  }; 
-  reader.readAsDataURL(input.files[0]); 
-} 
-} 
-  $(document).on('change','input[type="file"]',function()
-  { readURL(this); }
-);
+function preview_img(id_frame) 
+{
+    document.getElementById(id_frame).src=URL.createObjectURL(event.target.files[0]);
+}
 
-function fileValidationImage(id)
+function fileValidationImage(id, preview = false, id_preview = null)
 {
     var fl = id;
     var fileInput = document.getElementById(fl);
@@ -125,6 +115,11 @@ function fileValidationImage(id)
         alert('Format yang diperbolehkan .jpeg/.jpg/.png only.');
         fileInput.value = '';
         return false;
+    }
+
+    if (preview == true) 
+    {
+        preview_img(id_preview);
     }
 }
 

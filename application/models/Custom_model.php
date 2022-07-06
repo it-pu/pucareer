@@ -207,7 +207,31 @@ class Custom_model extends MY_Model {
 			$query = $this->db->get();
 			return $query->result_array();
 		}
+	}
 
-		
+	public function get_education($id_user, $id_user_education = false)
+	{
+		$this->db->select('tbl_user_education.*,
+							tbl_country.country_name,
+							tbl_field_of_study.field_of_study_name
+							');
+		$this->db->from('tbl_user_education');
+		$this->db->join('tbl_country', 'tbl_user_education.id_country = tbl_country.id_country');
+		$this->db->join('tbl_field_of_study', 'tbl_user_education.id_field_of_study = tbl_field_of_study.id_field_of_study');
+		$this->db->order_by('tbl_user_education.graduation_year', 'DESC');
+
+		$this->db->where('tbl_user_education.id_user', $id_user);
+		$this->db->where('tbl_user_education.status_education', 1);
+
+		if ($id_user_education == true) 
+		{
+			$query = $this->db->get();
+			return $query->row_array();
+		}
+		else
+		{
+			$query = $this->db->get();
+			return $query->result_array();
+		}
 	}
 }

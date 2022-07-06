@@ -28,7 +28,7 @@
                                     Name :
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" name="nama" class="form-control" placeholder="Name" value="<?=ucwords($detail['nama_user'])?>" required>
+                                    <input type="text" name="nama" class="form-control" placeholder="Name" value="<?=ucwords($detail['user_name'])?>" required>
                                 </div>
                             </div>
                             <hr>
@@ -37,7 +37,7 @@
                                     Address :
                                 </div>
                                 <div class="col-md-8">
-                                    <textarea class="form-control" name="alamat" required><?=$detail['alamat_user']?></textarea>
+                                    <textarea class="form-control" name="alamat" required><?=$detail['user_address']?></textarea>
                                 </div>
                             </div>
                             <hr>
@@ -46,7 +46,7 @@
                                     Email :
                                 </div>
                                 <div class="col-md-8">
-                                    <?=$detail['email_user']?> | <a href="<?=base_url('user/setting/setting_email')?>" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a> 
+                                    <?=$detail['user_email']?> | <a href="<?=base_url('user/setting/setting_email')?>" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a> 
                                 </div>
                             </div>
                             <hr>
@@ -57,7 +57,7 @@
                                 <div class="col-md-8">
                                     <div class="input-group mb-3">
                                       <span class="input-group-text">+62</span>
-                                      <input type="text" name="telp" class="form-control" placeholder="No HP" value="<?=$detail['telp_user']?>" onkeypress="return isNumberKey(event);" required>
+                                      <input type="text" name="telp" class="form-control" placeholder="No HP" value="<?=$detail['user_phone_number']?>" onkeypress="return isNumberKey(event);" required>
                                     </div>
                                 </div>
                             </div>
@@ -67,8 +67,7 @@
                                     About me :
                                 </div>
                                 <div class="col-md-8">
-                                    <textarea class="form-control" name="about">Hello my name is Fajar, I'm a tech savvy especially in programming and computer hardware. I'm start coding since 2016 and I'd love to follow anything related to computer hardware.
-                                    I'm focused on PHP (CodeIgniter & Laravel), and MySql including backend API.</textarea>
+                                    <textarea class="form-control" name="about"><?=$detail['about_user']?></textarea>
                                 </div>
                             </div>
                             <hr>
@@ -77,8 +76,8 @@
                                     Image :
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="file" name="foto_user" id="file"  >
-                                    <div id="previewpic" class="mt-2"><img src="<?=base_url().$detail['foto_user']?>" alt class="img-fluid" style="width: 250px;"></div>
+                                    <input accept="image/*" type='file' id="user_image" onchange="fileValidationImage(this.id, true, 'prev_logo');" /><br>
+                                    <img id="prev_logo" src="<?=base_url().$detail['user_image']?>" alt="" style="max-width: 250px;" />
                                 </div>
                             </div>
                             <hr>
