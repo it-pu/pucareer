@@ -19,22 +19,28 @@
                             <?php endif ?>
                           <?php echo form_open(base_url('register/validate')); ?>
                             <div class="mb-3">
-                              <label class="form-label">Full Name</label>
+                              <label class="form-label">Full Name<font class="required">*</font></label>
                               <input type="text" name="full_name" class="form-control" required>
                             </div>
 
                             <div class="mb-3">
-                              <label for="name_registrar" class="form-label">Country</label>
-                              <select class="form-select" name="id_country" required>
+                              <label for="name_registrar" class="form-label">Country<font class="required">*</font></label>
+                              <select id="drop-select" class="form-select" name="id_country" required onchange="getState(this)">
                                 <option value="">-- CHOOSE COUNTRY --</option>
                                 <?php foreach ($country as $key => $value): ?>
-                                    <option value="<?=$value['id_country']?>" <?=selected_helper('ID', $value['iso'])?>><?=$value['country_name']?></option>
+                                    <option value="<?=$value['id_country']?>"><?=$value['country_name']?></option>
                                 <?php endforeach ?>
                               </select>
                             </div>
 
+                            <div class="mb-3" id="state_div">
+                                <label class="form-label">State<font class="required">*</font><font class="required">*</font></label>
+                                <select id="state-drop" class="form-select" name="id_state" placeholder="Select Provence" required>
+                                </select>
+                            </div>
+
                             <div class="mb-3">
-                              <label for="name_registrar" class="form-label">Register As</label>
+                              <label for="name_registrar" class="form-label">Register As<font class="required">*</font></label>
                               <select class="form-select" name="register_as" required>
                                 <option value="">-- CHOOSE ACCOUNT TYPE --</option>
                                 <option value="user">User</option>
@@ -47,17 +53,17 @@
                             </div>
 
                             <div class="mb-3">
-                              <label class="form-label">Email</label>
+                              <label class="form-label">Email<font class="required">*</font></label>
                               <input type="email" class="form-control" name="email" required>
                             </div>
 
                             <div class="mb-3">
-                              <label class="form-label">Password</label>
+                              <label class="form-label">Password<font class="required">*</font></label>
                               <input type="password" class="form-control" min="6" name="password" required>
                             </div>
 
                             <div class="mb-3">
-                              <label class="form-label">Confirm Password</label>
+                              <label class="form-label">Confirm Password<font class="required">*</font></label>
                               <input type="password" class="form-control" min="6" name="confirm_password" required>
                             </div>
 
@@ -82,5 +88,28 @@
             </div>
         </div>
     </div>
-        
+
+<script type="text/javascript">
+function getState(dataselect) 
+{
+    var id = dataselect.value;
+    $.ajax({
+      url : '<?=base_url('country/get_state/')?>'+id,
+      type : 'GET',
+      dataType : 'JSON',
+      success : function (result)
+      {
+        document.getElementById("state-drop").innerHTML = "";
+        $('#state-drop').append('<option value="">-- CHOOSE STATE --</option>')
+        $.each(result, function(i, data){
+          $('#state-drop').append
+          (`
+            <option value="`+data.id_state+`">`+data.state_name+`</option>
+          `)
+        });
+      }
+    });
+}
+</script>        
+
 <?php get_template_home('home/footer') ?>

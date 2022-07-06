@@ -9,30 +9,81 @@ class User_model extends MY_Model {
 		parent::__construct();
 	}
 
-	public function getdetail($table, $where)
+	public function detail($id_user)
 	{
-		return $this->get($table, $where, TRUE);
+		$this->db->select('tbl_user.*,
+							tbl_country.country_name,
+							tbl_state.state_name
+							');
+		$this->db->from('tbl_user');
+		$this->db->join('tbl_country', 'tbl_user.id_country = tbl_country.id_country');
+		$this->db->join('tbl_state', 'tbl_user.id_state = tbl_state.id_state');
+
+		$this->db->where('tbl_user.id_user', $id_user);
+		$query = $this->db->get();
+		return $query->row_array();
 	}
 
-	public function insertdata($table, $data, $affected=FALSE,$batch=FALSE)
+	public function get_experience($id_user, $id_user_experience = false)
 	{
-		return $this->insert($table, $data, $affected, $batch);
+		$this->db->select('tbl_user_experience.*,
+							tbl_country.country_name,
+							tbl_state.state_name,
+							tbl_industry.industry_name,
+							tbl_specialization.specialization_name,
+							tbl_role.role_name,
+							tbl_position.position_name,
+							tbl_currency.currency_code
+							');
+		$this->db->from('tbl_user_experience');
+		$this->db->join('tbl_country', 'tbl_user_experience.country = tbl_country.id_country');
+		$this->db->join('tbl_state', 'tbl_user_experience.state = tbl_state.id_state');
+		$this->db->join('tbl_industry', 'tbl_user_experience.industry = tbl_industry.id_industry');
+		$this->db->join('tbl_specialization', 'tbl_user_experience.specialization = tbl_specialization.id_specialization');
+		$this->db->join('tbl_role', 'tbl_user_experience.role = tbl_role.id_role');
+		$this->db->join('tbl_position', 'tbl_user_experience.position = tbl_position.id_position');
+		$this->db->join('tbl_currency', 'tbl_user_experience.id_currency = tbl_currency.id_currency');
+		$this->db->order_by('tbl_user_experience.start_date', 'DESC');
+
+		$this->db->where('tbl_user_experience.id_user', $id_user);
+		$this->db->where('tbl_user_experience.status_experience', 1);
+
+		if ($id_user_experience == true) 
+		{
+			$query = $this->db->get();
+			return $query->row_array();
+		}
+		else
+		{
+			$query = $this->db->get();
+			return $query->result_array();
+		}
 	}
 
-	public function updatedata($table, $data, $where, $batch=false)
+	public function get_education($id_user, $id_user_education = false)
 	{
-		$this->update($table, $data, $where, $batch);
-		return TRUE;
-	}
+		$this->db->select('tbl_user_education.*,
+							tbl_country.country_name,
+							tbl_field_of_study.field_of_study_name
+							');
+		$this->db->from('tbl_user_education');
+		$this->db->join('tbl_country', 'tbl_user_education.id_country = tbl_country.id_country');
+		$this->db->join('tbl_field_of_study', 'tbl_user_education.id_field_of_study = tbl_field_of_study.id_field_of_study');
+		$this->db->order_by('tbl_user_education.graduation_year', 'DESC');
 
-	public function deletedata($table, $where)
-	{
-		return $this->delete_by($table, $where);
-	}
+		$this->db->where('tbl_user_education.id_user', $id_user);
+		$this->db->where('tbl_user_education.status_education', 1);
 
-	public function countdata($table, $where)
-	{
-		return $this->count($table, $where);
+		if ($id_user_education == true) 
+		{
+			$query = $this->db->get();
+			return $query->row_array();
+		}
+		else
+		{
+			$query = $this->db->get();
+			return $query->result_array();
+		}
 	}
 
 	public function edit_resume($id_user, $file_upload)

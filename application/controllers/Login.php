@@ -23,13 +23,10 @@ class Login extends ADMIN_Controller {
 					$logindata = array
 					(
 						'id_user' => $cekuser['id_user'],
-						'nama_user' => $cekuser['user_name'],
-						'company' => $cekuser['company_account'],
 						'logged_in' => TRUE					
 					);
 					
 					$this->session->set_userdata($logindata);
-
                     redirect(base_url('jobs'));
 				}
 				else

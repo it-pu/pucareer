@@ -61,6 +61,8 @@ $route['user/skills/add'] = 'user/skills_add';
 $route['user/education/add'] = 'user/education_add';
 $route['user/education/edit/(:any)'] = 'user/education_edit/$1';
 
+$route['companies/jobs_offer/detail/(:any)'] = 'companies/jobs_offer_detail/$1';
+
 $route['otp'] = 'register/otp';
 $route['validate_company'] = 'companies/validate_company';
 

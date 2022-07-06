@@ -6,6 +6,7 @@ class Companies extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model(array('Company_model', 'Jobs_model', 'User_model'));
 	}
 
 	public function index()
@@ -13,8 +14,86 @@ class Companies extends MY_Controller {
 		$this->load->view('home/company');
 	}
 
+	public function profile()
+	{
+		$get = $this->input->get(NULL, TRUE);
+		if (empty($get['c'])) 
+		{
+			if (empty($this->sess['logged_in']) && $this->sess['company'] == 0) 
+			{
+				redirect(base_url());
+				die();
+			}
+			$get['c'] = $this->sess['id_company'];
+		}
+		$company = $this->Company_model->detail($get['c']);
+
+		$data = array
+				(
+					'company' => $company
+				);
+
+		$this->load->view('home/company/profile', $data);
+	}
+
+	public function setting()
+	{
+		$company = $this->Custom_model->getdetail('tbl_company', array('id_company' => $this->sess['id_company']));
+
+		$data = array
+				(
+					'company' => $company
+				);
+
+		$this->load->view('home/company/setting', $data);
+	}
+
+	public function jobs_offer()
+	{
+		$jobs = $this->Jobs_model->data(false, null, $this->sess['id_company']);
+
+		$applicant = array();
+		foreach ($jobs as $key => $value) 
+		{
+			$applicant[] = $this->Custom_model->count('tbl_apply', array('id_job' => $value['id_job']));
+		}
+
+		$data = array
+				(
+					'jobs' => $jobs,
+					'applicant' => $applicant
+				);
+
+		$this->load->view('home/company/jobs_offer', $data);
+	}
+
+
+	public function jobs_offer_detail($id_job)
+	{
+		$job = $this->Jobs_model->data(true, $id_job);
+		$applicant = $this->Jobs_model->applicant($id_job);
+		$specialization = $this->Jobs_model->get_specialization($id_job);
+
+		$job_question = $this->Custom_model->getdata('tbl_job_question', array('id_job' => $id_job));
+
+		$data = array
+				(
+					'job' => $job,
+					'applicant' => $applicant,
+					'specialization' => $specialization,
+					'job_question' => $job_question
+				);
+		$this->load->view('home/company/jobs_offer_detail', $data);
+	}
+
 	public function validate_company()
 	{
+		if (empty($this->sess['logged_in']) || $this->sess['company'] == 0 || $this->sess['id_company'] != 0) 
+		{
+			redirect(base_url());
+			die();
+		}
+
 		$country = $this->Custom_model->getdata('tbl_country');
 		$industry = $this->Custom_model->getdata('tbl_industry');
 		$data = array
@@ -29,10 +108,12 @@ class Companies extends MY_Controller {
 	{
 		$post = $this->input->post();
 
-		$this->form_validation->set_rules('id_country', 'Nama', 'required|numeric');
-		$this->form_validation->set_rules('id_industry', 'Nama', 'required|numeric');
+		$this->form_validation->set_rules('id_country', 'Country', 'required|numeric');
+		$this->form_validation->set_rules('id_state', 'State', 'required|numeric');
+		$this->form_validation->set_rules('id_industry', 'Industry', 'required|numeric');
 		$this->form_validation->set_rules('company_name', 'Nama', 'required');
-		$this->form_validation->set_rules('company_address', 'Nama', 'required');
+		$this->form_validation->set_rules('company_address', 'Address', 'required');
+		$this->form_validation->set_rules('company_phone_number', 'Phone', 'required');
 
 		if ($this->form_validation->run() == FALSE)
         {
@@ -44,20 +125,24 @@ class Companies extends MY_Controller {
 		$insert = array
 					(
 						'id_country' => $post['id_country'],
+						'id_state' => $post['id_state'],
 						'id_industry' => $post['id_industry'],
 						'company_name' => $post['company_name'],
 						'company_address' => $post['company_address'],
+						'company_phone_number' => $post['company_phone_number'],
+						'company_email' => $post['company_email'],
 						'company_description' => $post['company_description'],
 						'company_logo' => '',
 						'company_banner' => ''
 					);
 
-		$insertdb = $this->Custom_model->insertdatafoto('tbl_company', 'id_company', 'company_logo', 'loco_c', $insert);
+		$insertdb = $this->Custom_model->insertdatafoto('tbl_company', 'id_company', 'company_logo', 'logo_c', $insert);
+		$this->Custom_model->updatedata('tbl_user', array('id_company' => $insertdb), array('id_user' => $this->sess['id_user']));
 
 		if ($insertdb == true) 
 		{
-			$this->session->set_flashdata('error', 'Please Check your Input');
-			redirect(base_url('validate_company'));
+			$this->session->set_flashdata('success', 'Thank you for your registration, we recommend you to update your Company Profile by <a href="'.base_url('companies/setting').'">click here</a>');
+			redirect(base_url('companies/profile'));
 			die();
 		}
 		else
@@ -68,24 +153,29 @@ class Companies extends MY_Controller {
 		}
 	}
 
-	public function profile()
-	{
-		$get = $this->input->get(NULL, TRUE);
-		if (empty($get['c'])) 
-		{
-			if (empty($this->sess['logged_in']) && $this->sess['company'] == 0) 
-			{
-				redirect(base_url());
-				die();
-			}
-			$get['c'] = $this->sess['id_user'];
-		}
-		$user = $this->Custom_model->getdetail('tbl_user', array('id_user' => $get['u']));
-	}
-
 	public function get_companies($id_country)
 	{
 		$company = $this->Custom_model->getdata('tbl_company', array('id_country' => $id_country));
 		echo json_encode($company);
+	}
+
+	public function applicant_form($id_apply)
+	{
+		$update = array('apply_review' => 1);
+		$this->Custom_model->updatedata('tbl_apply', $update, array('id_apply' => $id_apply));
+
+		$applicant = $this->Jobs_model->applicant(null, $id_apply);
+		$apply_answer = $this->Custom_model->getdata('tbl_apply_answer', array('id_apply' => $id_apply));
+		$job_question = $this->Custom_model->getdata('tbl_job_question', array('id_job' => $applicant['id_job']));
+
+		$experience = $this->User_model->get_experience($applicant['id_user']);
+		$skill = $this->Custom_model->getdata('tbl_user_skill', array('id_user' => $applicant['id_user'], 'deleted' => 0));
+
+		$education = $this->User_model->get_education($applicant['id_user']);
+
+		$resumequery = $this->Custom_model->getdetail('tbl_user_resume', array('id_user' => $applicant['id_user']));
+		$resume = base_url('user/resume_download/').$resumequery['id_user_resume'].'/'.$id_apply;
+
+		echo json_encode(array($applicant, $job_question, $apply_answer, $experience, $skill, $education, $resume));
 	}
 }

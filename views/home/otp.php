@@ -18,10 +18,10 @@
                               </div>
                             <?php endif ?>
                           <?php echo form_open(base_url('register/otp_validation')); ?>
-                            <center><strong class="text-primary">OTP Code :</strong>
+                            <center><strong class="text-primary">OTP Code<font class="required">*</font></strong>
                             <input type="text" name="otp" class="form-control mt-2 mb-2" required>
 
-                            <button type="submit" class="btn btn-primary btn-block mb-4">Validate</button>
+                            <button type="submit" class="btn btn-primary btn-block mb-4" onclick="return confirm('Validate User?')">Validate</button>
                             </center>
                           </form>
 

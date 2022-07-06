@@ -20,6 +20,7 @@ class Register extends MY_Controller {
 		$this->form_validation->set_rules('full_name', 'Name', 'required');
 		$this->form_validation->set_rules('register_as', 'Register', 'required');
 		$this->form_validation->set_rules('id_country', 'Country', 'required');
+		$this->form_validation->set_rules('id_state', 'State', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
 		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|min_length[6]');
@@ -54,6 +55,7 @@ class Register extends MY_Controller {
         			(
         				'as_company' => $as_company,
         				'id_country' => $post['id_country'],
+        				'id_state' => $post['id_state'],
         				'registrar_name' => trim($post['full_name']),
         				'registrar_email' => trim($post['email']),
         				'registrar_password' => password_hash($post['password'], PASSWORD_BCRYPT),
@@ -144,6 +146,7 @@ class Register extends MY_Controller {
 			$insertuser = array
 						(
 							'id_country' => $checkotp['id_country'],
+							'id_state' => $checkotp['id_state'],
 							'company_account' => $checkotp['as_company'],
 							'user_email' => $checkotp['registrar_email'],
 							'user_password' => $checkotp['registrar_password'],
@@ -163,7 +166,7 @@ class Register extends MY_Controller {
 			
 			$this->session->set_userdata($logindata);
 
-			if ($company == 1) 
+			if ($checkotp['as_company'] == 1) 
 			{
 				$this->session->set_flashdata('success', 'Thank you for your registration, please create or choose your company.');
 				redirect(base_url('validate_company'));
@@ -173,8 +176,6 @@ class Register extends MY_Controller {
 				$this->session->set_flashdata('success', 'Thank you for your registration, we recommend you to complete your profile.<br><a href="'.base_url('user/profile').'">Click here to setting up your profile</a>');
 				redirect(base_url('user'));
 			}
-
-			
 		}
 		else
 		{

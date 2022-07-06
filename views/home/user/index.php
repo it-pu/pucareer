@@ -125,6 +125,14 @@
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4">
+                                Birth Date
+                            </div>
+                            <div class="col-md-8">
+                                1997-01-09
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4">
                                 Email
                             </div>
                             <div class="col-md-8">

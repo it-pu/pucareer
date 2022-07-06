@@ -4,63 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Custom_model extends MY_Model {
 
-	public $rules_admin = array
-					(
-						'username_admin' => array
-									(
-										'field' => 'username_admin',
-										'label' => 'Username',
-										'rules' => 'trim|required'
-									),
-						'password_admin' => array
-									(
-										'field' => 'password_admin',
-										'label' => 'Password',
-										'rules' => 'trim|required|callback_password_check'
-									)
-					);
-
 	public function __construct()
 	{
 		parent::__construct();
-	}
-
-	public function getdata($table, $where = NULL, $order = null, $sort = null, $limit = NULL, $offset = NULL, $single = FALSE, $select = NULL)
-	{
-		if ($where != NULL) 
-		{
-			return $this->get_by($table, $where, $order, $sort, $limit, $offset, $single, $select);
-		}
-		else
-		{
-			return $this->get($table);
-		}
-	}
-
-	public function getdetail($table, $where)
-	{
-		return $this->get($table, $where, TRUE);
-	}
-
-	public function insertdata($table, $data, $affected=FALSE,$batch=FALSE)
-	{
-		return $this->insert($table, $data, $affected, $batch);
-	}
-
-	public function updatedata($table, $data, $where, $batch=false)
-	{
-		$this->update($table, $data, $where, $batch);
-		return TRUE;
-	}
-
-	public function deletedata($table, $where)
-	{
-		return $this->delete_by($table, $where);
-	}
-
-	public function countdata($table, $where)
-	{
-		return $this->count($table, $where);
 	}
 
 	public function insertdatafoto($tbl, $idname, $file_upload, $loc, $input, $userlevel = false, $id = null, $edit = null, $onlyfile = false, $width = 800, $height = 800)
@@ -170,68 +116,7 @@ class Custom_model extends MY_Model {
 		else
 		{
 			$this->db->trans_commit();
-			return TRUE;
-		}
-	}
-
-	// USER //
-	public function get_experience($id_user, $id_user_experience = false)
-	{
-		$this->db->select('tbl_user_experience.*,
-							tbl_country.country_name,
-							tbl_industry.industry_name,
-							tbl_specialization.specialization_name,
-							tbl_role.role_name,
-							tbl_position.position_name,
-							tbl_currency.currency_code
-							');
-		$this->db->from('tbl_user_experience');
-		$this->db->join('tbl_country', 'tbl_user_experience.country = tbl_country.id_country');
-		$this->db->join('tbl_industry', 'tbl_user_experience.industry = tbl_industry.id_industry');
-		$this->db->join('tbl_specialization', 'tbl_user_experience.specialization = tbl_specialization.id_specialization');
-		$this->db->join('tbl_role', 'tbl_user_experience.role = tbl_role.id_role');
-		$this->db->join('tbl_position', 'tbl_user_experience.position = tbl_position.id_position');
-		$this->db->join('tbl_currency', 'tbl_user_experience.id_currency = tbl_currency.id_currency');
-		$this->db->order_by('tbl_user_experience.start_date', 'DESC');
-
-		$this->db->where('tbl_user_experience.id_user', $id_user);
-		$this->db->where('tbl_user_experience.status_experience', 1);
-
-		if ($id_user_experience == true) 
-		{
-			$query = $this->db->get();
-			return $query->row_array();
-		}
-		else
-		{
-			$query = $this->db->get();
-			return $query->result_array();
-		}
-	}
-
-	public function get_education($id_user, $id_user_education = false)
-	{
-		$this->db->select('tbl_user_education.*,
-							tbl_country.country_name,
-							tbl_field_of_study.field_of_study_name
-							');
-		$this->db->from('tbl_user_education');
-		$this->db->join('tbl_country', 'tbl_user_education.id_country = tbl_country.id_country');
-		$this->db->join('tbl_field_of_study', 'tbl_user_education.id_field_of_study = tbl_field_of_study.id_field_of_study');
-		$this->db->order_by('tbl_user_education.graduation_year', 'DESC');
-
-		$this->db->where('tbl_user_education.id_user', $id_user);
-		$this->db->where('tbl_user_education.status_education', 1);
-
-		if ($id_user_education == true) 
-		{
-			$query = $this->db->get();
-			return $query->row_array();
-		}
-		else
-		{
-			$query = $this->db->get();
-			return $query->result_array();
+			return $id;
 		}
 	}
 }

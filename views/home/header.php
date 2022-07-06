@@ -30,7 +30,8 @@
     <!-- Template Stylesheet -->
     <link href="<?php echo get_template_directory('front/css/style.css') ;?>" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.0.3/dist/css/tom-select.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
@@ -60,14 +61,29 @@
                     <a href="<?=base_url('jobs')?>" class="nav-item nav-link <?=is_active_page_print('jobs', 'active')?>">Jobs</a>
                     <a href="<?=base_url('companies')?>" class="nav-item nav-link <?=is_active_page_print('companies', 'active')?>">Companies</a>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#langModal" class="nav-item nav-link">Languages</a>
-                    <?php if (!empty($this->sess['logged_in'])): ?>
+                    <?php if (!empty($this->sess['logged_in']) && $this->sess['company'] == 0): ?>
                         <li class="nav-item dropdown">
                           <a class="btn btn-primary rounded-0 nav-link dropdown-toggle py-4 w-100 px-lg-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
                             <?=split_name($this->sess['user_name'])['first_name']?>
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="<?=base_url('user')?>"><i class="fas fa-user"></i> Profil</a></li>
+                            <li><a class="dropdown-item" href="<?=base_url('user')?>"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="<?=base_url('user/application_history')?>"><i class="fas fa-list"></i> Application History</a></li>
                             <li><a class="dropdown-item" href="<?=base_url('user/profile')?>"><i class="fas fa-cog"></i> Setting</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="<?=base_url('logout')?>"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                          </ul>
+                        </li>
+                    <?php endif ?>  
+                    <?php if (!empty($this->sess['logged_in']) && $this->sess['company'] == 1): ?>
+                        <li class="nav-item dropdown">
+                          <a class="btn btn-primary rounded-0 nav-link dropdown-toggle py-4 w-100 px-lg-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+                            <?=$this->sess['company_name']?>
+                          </a>
+                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="<?=base_url('companies/profile')?>"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="<?=base_url('companies/jobs_offer')?>"><i class="fas fa-briefcase"></i> Jobs Offer</a></li>
+                            <li><a class="dropdown-item" href="<?=base_url('companies/setting')?>"><i class="fas fa-cog"></i> Setting</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="<?=base_url('logout')?>"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                           </ul>

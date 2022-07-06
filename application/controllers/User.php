@@ -6,7 +6,7 @@ class User extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(array('User_model'));
+		$this->load->model(array('User_model', 'Jobs_model'));
 	}
 
 	public function index()
@@ -14,7 +14,7 @@ class User extends MY_Controller {
 		$get = $this->input->get(NULL, TRUE);
 		if (empty($get['u'])) 
 		{
-			if (empty($this->sess['logged_in'])) 
+			if (empty($this->sess['logged_in']) || $this->sess['company'] == 1) 
 			{
 				redirect(base_url('login'));
 				die();
@@ -62,8 +62,10 @@ class User extends MY_Controller {
 				(
 					'user_name' => $post['nama'],
 					'user_address' => $post['alamat'],
+					'birth_date' => $post['birth_date'],
 					'user_phone_number' => $post['telp'],
-					'about_user' => $post['about']
+					'about_user' => $post['about'],
+					'updated_user' => 1
 				);
 
 		if (!empty($_FILES['user_image']["name"]) && $_FILES['user_image']['type'] == 'image/jpeg') 
@@ -87,12 +89,10 @@ class User extends MY_Controller {
 			redirect(base_url('user/profile'));
 			die();
 		}
-
-		
 	}
 	public function experience()
 	{
-		$exp = $this->Custom_model->get_experience($this->sess['id_user']);
+		$exp = $this->User_model->get_experience($this->sess['id_user']);
 
 		$data = array
 				(
@@ -103,7 +103,7 @@ class User extends MY_Controller {
 	}
 	public function experience_edit($id_user_experience)
 	{
-		$exp = $this->Custom_model->get_experience($this->sess['id_user'], $id_user_experience);
+		$exp = $this->User_model->get_experience($this->sess['id_user'], $id_user_experience);
 
 		$country = $this->Custom_model->getdata('tbl_country');
 		$currency = $this->Custom_model->getdata('tbl_currency');
@@ -228,11 +228,18 @@ class User extends MY_Controller {
 	}
 	public function application_history()
 	{
-		$this->load->view('home/user/app_history');
+		$application_history = $this->Jobs_model->application_history($this->sess['id_user']);
+
+		$data = array
+				(
+					'app_history' => $application_history
+				);
+
+		$this->load->view('home/user/app_history', $data);
 	}
 	public function education()
 	{
-		$edu = $this->Custom_model->get_education($this->sess['id_user']);
+		$edu = $this->User_model->get_education($this->sess['id_user']);
 
 		$data = array
 				(
@@ -450,8 +457,13 @@ class User extends MY_Controller {
 		redirect(base_url('user/resume'));
 		die();
 	}
-	public function resume_download($id_user_resume)
+	public function resume_download($id_user_resume, $id_apply = false)
 	{
+		if ($id_apply != false) 
+		{
+			$this->Custom_model->updatedata('tbl_apply', array('apply_review' => 2), array('id_apply' => $id_apply));
+		}
+
 		$getdetail = $this->Custom_model->getdetail('tbl_user_resume', array('id_user_resume' => $id_user_resume));
 
 		$ext = get_ext($getdetail['resume_file']);

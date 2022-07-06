@@ -29,6 +29,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="<?php echo get_template_directory('front/css/bootstrap.min.css') ;?>" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
     <link href="<?php echo get_template_directory('front/css/style.css') ;?>" rel="stylesheet">
@@ -47,6 +48,18 @@
                             <h4>Validate Company</h4><hr>
                             Thank you for your validation, to complete the registration please add information about your Company.<br><br>
                         </center>
+
+                        <?php if ($this->session->flashdata('error')): ?>
+                          <div class="alert alert-danger" role="alert">
+                            <?=$this->session->flashdata('error')?>
+                          </div>
+                        <?php endif ?>
+
+                        <?php if ($this->session->flashdata('success')): ?>
+                          <div class="alert alert-success" role="alert">
+                            <?=$this->session->flashdata('success')?>
+                          </div>
+                        <?php endif ?>
 
                         <?php echo form_open_multipart(base_url('companies/validate_company_post')); ?>
                         <div class="mb-3">
@@ -81,8 +94,18 @@
 
                         <div class="mb-3" id="state_div">
                             <label class="form-label">State</label>
-                            <select id="state-drop" class="form-select" name="id_provence" placeholder="Select Provence" required>
+                            <select id="state-drop" class="form-select" name="id_state" placeholder="Select Provence" required>
                             </select>
+                        </div>
+
+                        <div class="mb-3" id="state_div">
+                            <label class="form-label">Phone Number</label>
+                            <input type="text" name="company_phone_number" class="form-control" onkeypress="return isNumberKey(event);" required>
+                        </div>
+
+                        <div class="mb-3" id="state_div">
+                            <label class="form-label">Email</label>
+                            <input type="text" name="company_email" class="form-control" required>
                         </div>
 
                         <div class="mb-3">
@@ -99,6 +122,10 @@
                         <button type="submit" class="btn btn-primary w-100" onclick="return confirm('Save Data?')">Save</button>
                         </form>
 
+                        <br>
+                        <br>
+                        <a href="<?=base_url('logout')?>"><<< Logout</a>
+
                     </div>
                 </div>
             </div>
@@ -113,6 +140,8 @@
 <script src="<?php echo get_template_directory('front/lib/waypoints/waypoints.min.js') ;?>"></script>
 <script src="<?php echo get_template_directory('front/lib/owlcarousel/owl.carousel.min.js') ;?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js"></script>
+
 <!-- Template Javascript -->
 <script src="<?php echo get_template_directory('front/js/function.js') ;?>"></script>
 <script src="<?php echo get_template_directory('front/js/main.js') ;?>"></script>
@@ -121,7 +150,6 @@
 function getState(dataselect) 
 {
     var id = dataselect.value;
-    console.log(id);
     $.ajax({
       url : '<?=base_url('country/get_state/')?>'+id,
       type : 'GET',
@@ -131,7 +159,6 @@ function getState(dataselect)
         document.getElementById("state-drop").innerHTML = "";
         $('#state-drop').append('<option value="">-- CHOOSE STATE --</option>')
         $.each(result, function(i, data){
-            console.log(data.state_name);
           $('#state-drop').append
           (`
             <option value="`+data.id_state+`">`+data.state_name+`</option>
