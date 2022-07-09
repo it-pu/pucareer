@@ -5,26 +5,7 @@ class Access extends ADMIN_Controller {
 
 	public function index()
 	{
-		if (in_array_exist($this->sess['level'], 'operator')) 
-		{
-			$users = $this->Custom_model->getdata('tbl_user', array('id_desa' => $this->sess['id_desa']));
-		}
-		else
-		{
-			$users = $this->Custom_model->getdata('tbl_user');
-		}
-
-		foreach ($users as $key => $value) 
-		{
-			$users[$key]['level'] = array();
-			$getlevelid = $this->Custom_model->getdata('tbl_user_level', array('id_user' => $value['id_user']));
-			foreach ($getlevelid as $keyg => $valueg) 
-			{
-				$getlevel = $this->Custom_model->getdetail('tbl_level', array('id_level' => $valueg['id_level']));
-
-				$users[$key]['level'][] = $getlevel['deskripsi_level'];
-			}
-		}
+		$users = $this->Custom_model->getdata('tbl_admin');
 
 		$data = array
 				(
@@ -56,17 +37,9 @@ class Access extends ADMIN_Controller {
 		$this->load->view('admin/access/add', $data);
 	}
 
-	public function detail($id_user)
+	public function detail($id_admin)
 	{
-		$detail = $this->Custom_model->getdetail('tbl_user', array('id_user' => $id_user));
-
-		$cekiduser = $this->Custom_model->getdata('tbl_user_level', array('id_user' => $id_user));
-		foreach ($cekiduser as $key => $value) 
-		{
-			$findlevel = $this->Custom_model->getdetail('tbl_level', array('id_level' => $value['id_level']));
-			$detail['level_user'][] = $findlevel['nama_level'];
-			$detail['nama_level'][] = $findlevel['deskripsi_level'];
-		}
+		$detail = $this->Custom_model->getdetail('tbl_admin', array('id_admin' => $id_admin));
 
 		$data = array
 				(

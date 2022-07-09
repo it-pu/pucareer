@@ -37,7 +37,7 @@
                                             <?php endif ?>
                                             <br>
                                             <small class="mb-5"><?=$value['company_name']?></small><br>
-                                            <i class="fa fa-map-marker-alt text-primary me-2 mt-3"></i><?=$value['country_name']?> | <?=$value['state_name']?>
+                                            <i class="fa fa-map-marker-alt text-primary me-2 mt-3"></i><?=$value['state_name']?>, <?=$value['country_name']?>
                                             <i class="far fa-clock text-primary me-2"></i><?=$value['job_type']?><br>
                                             <i class="fas fa-calendar-alt text-primary me-2"></i>Post Date : <?=tgl_en($value['created_at'])?><br>
                                             <i class="fas fa-calendar-alt text-primary me-2"></i>Expired Date : <?=tgl_en($value['expired_at'])?>

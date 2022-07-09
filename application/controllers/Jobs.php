@@ -11,7 +11,7 @@ class Jobs extends MY_Controller {
 
 	public function index()
 	{
-		if ($this->sess['logged_in'] == 1 && $this->sess['company'] == 0) 
+		if (!empty($this->sess['logged_in']) && $this->sess['company'] == 0) 
 		{
 			$applied = $this->Custom_model->getdata('tbl_apply', array('id_user' => $this->sess['id_user']));
 			$applied_id = array();
