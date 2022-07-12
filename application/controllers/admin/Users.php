@@ -30,4 +30,20 @@ class Users extends ADMIN_Controller {
 				);
 		$this->load->view('admin/users/detail', $data);
 	}
+
+	public function change_status($id_user)
+	{
+		$detail = $this->Custom_model->getdetail('tbl_user', array('id_user' => $id_user));
+
+		$newstat = 'active';
+		if ($detail['user_status'] == 'active') 
+		{
+			$newstat = 'deactive';
+		}
+
+		$this->Custom_model->updatedata('tbl_user', array('user_status' => $newstat), array('id_user' => $id_user));
+
+		$this->session->set_flashdata('success', 'User has been updated');
+    	redirect(base_url('admin/users/detail/').$id_user);
+	}
 }

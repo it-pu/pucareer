@@ -64,18 +64,31 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     Country
                                 </div>
                                 <div class="col-md-8">
-                                    <select class="form-select" name="id_country" required>
+                                    <select id="country-select" name="id_country" class="form-select" placeholder="Select Country" required onchange="getState(this)">
+                                        <option value="">-- CHOOSE COUNTRY --</option>
                                         <?php foreach ($country as $key => $value): ?>
-                                            <option value="<?=$value['id_country']?>" <?=selected_helper('ID', $value['iso'])?>><?=$value['country_name']?></option>
+                                            <option value="<?=$value['id_country']?>"><?=$value['country_name']?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    State
+                                </div>
+                                <div class="col-md-8">
+                                    <select id="state-select" class="form-select" name="id_state" placeholder="Select State" required>
+                                    </select>
+                                </div>
+                            </div>
+                            
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     Qualification
@@ -157,6 +170,26 @@
     </div>
 
 <script type="text/javascript">
+function getState(dataselect) 
+{
+    var id = dataselect.value;
+    $.ajax({
+      url : '<?=base_url('country/get_state/')?>'+id,
+      type : 'GET',
+      dataType : 'JSON',
+      success : function (result)
+      {
+        document.getElementById("state-select").innerHTML = "";
+        $('#state-select').append('<option value="">-- CHOOSE STATE --</option>')
+        $.each(result, function(i, data){
+          $('#state-select').append
+          (`
+            <option value="`+data.id_state+`">`+data.state_name+`</option>
+          `)
+        });
+      }
+    });
+}
 function gradeChange(dataselect) 
 {
     var val = dataselect.value;

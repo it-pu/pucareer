@@ -69,9 +69,23 @@
                                     Country
                                 </div>
                                 <div class="col-md-8">
-                                    <select class="form-select" name="country" required>
+                                    <select id="country-select" name="country" class="form-select" placeholder="Select Country" required onchange="getState(this)">
+                                        <option value="">-- CHOOSE COUNTRY --</option>
                                         <?php foreach ($country as $key => $value): ?>
                                             <option value="<?=$value['id_country']?>" <?=selected_helper($value['id_country'], $exp['country'])?>><?=$value['country_name']?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    State
+                                </div>
+                                <div class="col-md-8">
+                                    <select id="state-select" class="form-select" name="state" placeholder="Select State" required>
+                                        <?php foreach ($state as $key => $value): ?>
+                                            <option value="<?=$value['id_state']?>" <?=selected_helper($value['id_state'], $exp['state'])?>><?=$value['state_name']?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>

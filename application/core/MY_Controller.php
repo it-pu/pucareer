@@ -22,6 +22,14 @@ class MY_Controller extends CI_Controller{
 		{
 			$findata = $this->Custom_model->getdetail('tbl_user', array('id_user' => $this->sess['id_user']));
 
+			if ($findata['user_status'] == 'deactive') 
+			{
+				$this->sess = array();
+				$this->session->sess_destroy();
+		
+				redirect(base_url());
+			}
+
 			$this->sess['user_name'] = $findata['user_name'];
 			$this->sess['user_image'] = $findata['user_image'];
 			$this->sess['company'] = $findata['company_account'];

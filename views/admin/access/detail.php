@@ -83,6 +83,7 @@
                   </div>
                 </div>
                 <button class="btn btn-success btn-sm"><i class="fas fa-edit"></i>Edit Profile</button>
+                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editPass"><i class="fas fa-edit"></i>Edit Password</button>
                 <?php if ($detail['status_admin'] == 'active'): ?>
                   <a href="<?=base_url('admin/access/edit_status/').$detail['id_admin'].'/1'?>" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Deactivate</a>
                 <?php endif ?>
@@ -110,6 +111,52 @@
           <label for="">Foto</label>
           <input accept="image/*" type='file' name="image_admin" id="image_admin" onchange="preview_img('prev_img_admin')" required/><br>
           <img id="prev_img_admin" src="" alt="" style="max-width: 200px;" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<?php echo form_close(); ?>
+
+<?php echo form_open_multipart(base_url('admin/access/edit_password'));  ?>
+<div class="modal fade" id="editPass" tabindex="-1" aria-labelledby="editPassLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editPassLabel">Edit Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="id_admin" value="<?=$detail['id_admin']?>">
+        <div class="row mb-3">
+            <div class="col-md-4">
+                Old Password<font class="required">*</font>
+            </div>
+            <div class="col-md-8">
+                <input type="password" name="old_password" class="form-control" required>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                New Password<font class="required">*</font>
+            </div>
+            <div class="col-md-8">
+                <input type="password" name="new_password" placeholder="(Min. 6 Character)" class="form-control" required>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                Confirm Password<font class="required">*</font>
+            </div>
+            <div class="col-md-8">
+                <input type="password" name="confirm_password" class="form-control" min="6"  required> 
+            </div>
         </div>
       </div>
       <div class="modal-footer">
