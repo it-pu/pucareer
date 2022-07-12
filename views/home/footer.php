@@ -118,6 +118,8 @@
             $('#summ-text').summernote();
 
             $('#drop-select').select2();
+            $('#country-select').select2();
+            $('#state-select').select2();
         });
     </script>
 </body>

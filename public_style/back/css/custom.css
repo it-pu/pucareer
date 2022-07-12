@@ -4,3 +4,7 @@
     border-radius: .25rem;
     color: #8898aa;
 }
+
+.required{
+    color: red;
+}

@@ -106,6 +106,7 @@ class User extends MY_Controller {
 		$exp = $this->User_model->get_experience($this->sess['id_user'], $id_user_experience);
 
 		$country = $this->Custom_model->getdata('tbl_country');
+		$state = $this->Custom_model->getdata('tbl_state', array('id_country' => $exp['country']));
 		$currency = $this->Custom_model->getdata('tbl_currency');
 		$specialization = $this->Custom_model->getdata('tbl_specialization');
 
@@ -119,6 +120,7 @@ class User extends MY_Controller {
 				(
 					'exp' => $exp,
 					'country' => $country,
+					'state' => $state,
 					'currency' => $currency,
 					'specialization' => $specialization,
 					'role' => $role,
@@ -168,6 +170,7 @@ class User extends MY_Controller {
 					'name_company' => $post['name_company'],
 					'address' => $post['address'],
 					'country' => $post['country'],
+					'state' => $post['state'],
 					'industry' => $post['industry'],
 					'specialization' => $post['specialization'],
 					'role' => $post['role'],
@@ -200,6 +203,7 @@ class User extends MY_Controller {
 					'name_company' => $post['name_company'],
 					'address' => $post['address'],
 					'country' => $post['country'],
+					'state' => $post['state'],
 					'industry' => $post['industry'],
 					'specialization' => $post['specialization'],
 					'role' => $post['role'],
@@ -257,20 +261,49 @@ class User extends MY_Controller {
 	}
 	public function education_edit($id_user_education)
 	{
-		$edu = $this->Custom_model->get_education($this->sess['id_user'], $id_user_education);
+		$edu = $this->User_model->get_education($this->sess['id_user'], $id_user_education);
 		$fos = $this->Custom_model->getdata('tbl_field_of_study');
 		$country = $this->Custom_model->getdata('tbl_country');
+		$state = $this->Custom_model->getdata('tbl_state', array('id_country' => $edu['id_country']));
 
 		$data = array
 				(
 					'edu' => $edu,
 					'fos' => $fos,
-					'country' => $country
+					'country' => $country,
+					'state' => $state
 				);
 
 		$this->load->view('home/user/education_edit', $data);
 	}
 	public function education_post()
+	{
+		$post = $this->input->post(NULL, TRUE);
+
+		$insert = array
+				(
+					'id_user' => $this->sess['id_user'],
+					'university_name' => $post['university_name'],
+					'graduation_month' => $post['graduation_month'],
+					'graduation_year' => $post['graduation_year'],
+					'qualification' => $post['qualification'],
+					'id_country' => $post['id_country'],
+					'id_state' => $post['id_state'],
+					'id_field_of_study' => $post['id_field_of_study'],
+					'major' => $post['major'],
+					'grade' => $post['grade'],
+					'score' => $post['score'],
+					'score_out_of' => $post['score_out_of'],
+					'additional_info' => $post['additional_info']
+				);
+
+		$this->Custom_model->insertdata('tbl_user_education', $insert);
+
+		$this->session->set_flashdata('success', 'Success Adding Education');
+		redirect(base_url('user/education'));
+		die();
+	}
+	public function education_update()
 	{
 		$post = $this->input->post(NULL, TRUE);
 
@@ -281,6 +314,7 @@ class User extends MY_Controller {
 					'graduation_year' => $post['graduation_year'],
 					'qualification' => $post['qualification'],
 					'id_country' => $post['id_country'],
+					'id_state' => $post['id_state'],
 					'id_field_of_study' => $post['id_field_of_study'],
 					'major' => $post['major'],
 					'grade' => $post['grade'],

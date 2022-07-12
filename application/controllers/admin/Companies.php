@@ -29,4 +29,21 @@ class Companies extends ADMIN_Controller {
 				);
 		$this->load->view('admin/companies/detail', $data);
 	}
+
+	public function change_status($id_company)
+	{
+		$detail = $this->Custom_model->getdetail('tbl_company', array('id_company' => $id_company));
+
+		$newstat = 'active';
+		if ($detail['company_status'] == 'active') 
+		{
+			$newstat = 'deactive';
+		}
+
+		$this->Custom_model->updatedata('tbl_company', array('company_status' => $newstat), array('id_company' => $id_company));
+		$this->Custom_model->updatedata('tbl_user', array('user_status' => $newstat), array('id_company' => $id_company));
+
+		$this->session->set_flashdata('success', 'Company has been updated');
+    	redirect(base_url('admin/companies/detail/').$id_company);
+	}
 }

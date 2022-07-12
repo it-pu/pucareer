@@ -70,6 +70,21 @@
                   </div>
                   <div class="row mb-3">
                     <div class="col-3">
+                      <strong>Status</strong>
+                    </div>
+                    <div class="col-8">
+                      <?php if ($user['user_status'] == 'active'): ?>
+                        <span class="badge badge-success mb-2">ACTIVE</span><br>
+                        <a href="<?=base_url('admin/users/change_status/').$user['id_user']?>" class="btn btn-danger btn-sm" onclick="return confirm('Update User Status?')"><i class="fas fa-times"></i> Deactivate</a>
+                      <?php endif ?>
+                      <?php if ($user['user_status'] == 'deactive'): ?>
+                        <span class="badge badge-danger mb-2">DEACTIVE</span><br>
+                        <a href="<?=base_url('admin/users/change_status/').$user['id_user']?>" class="btn btn-success btn-sm" onclick="return confirm('Update User Status?')"><i class="fas fa-check"></i> Activate</a>
+                      <?php endif ?>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-3">
                       <strong>Location</strong>
                     </div>
                     <div class="col-8">

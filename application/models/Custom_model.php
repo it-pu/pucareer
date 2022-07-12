@@ -116,7 +116,7 @@ class Custom_model extends MY_Model {
 		else
 		{
 			$this->db->trans_commit();
-			return $id;
+			return true;
 		}
 	}
 

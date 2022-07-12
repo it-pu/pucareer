@@ -17,24 +17,7 @@ class Access extends ADMIN_Controller {
 
 	public function add()
 	{
-		$level = $this->Custom_model->getlevel($this->sess['level']);
-
-		$desa = '';
-		if (in_array_exist($this->sess['level'], 'admin')) 
-		{
-			$desa = $this->Custom_model->getdata('tbl_desa');
-		}
-
-		$rw = $this->Custom_model->getrw($this->sess['id_desa']);
-
-		$data = array
-				(
-					'level' => $level,
-					'desa' => $desa,
-					'rw' => $rw
-				);
-
-		$this->load->view('admin/access/add', $data);
+		$this->load->view('admin/access/add');
 	}
 
 	public function detail($id_admin)
@@ -53,62 +36,63 @@ class Access extends ADMIN_Controller {
 	{
 		$post = $this->input->post(NULL, TRUE);
 
-		$desa = 0;
-		if (!empty($post['desa'])) 
-		{
-			$desa = $post['desa'];
-		}
-
-		$rw = $post['id_rw'] == 0 ? '0' : $post['id_rw'];
-		$rt = $post['id_rt'] == 0 ? '0' : $post['id_rt'];
-
-		if (in_array_exist($this->sess['level'], 'super_admin') || in_array_exist($this->sess['level'], 'admin'))
+		if ($post['password'] == $post['password_confirm']) 
 		{
 			$insert = array
 					(
-						'id_desa' => $this->sess['id_desa'],
-						'password_user' => password_hash($post['no_hp'], PASSWORD_BCRYPT),
-						'nama_user' => $post['nama'],
-						'no_hp_user' => $post['no_hp'],
-						'alamat_user' => $post['alamat_user'],
-						'id_rw' => $rw,
-						'id_rt' => $rt,
-						'email_user' => $post['email'],
-						'tgl_aktif' => date('Y-m-d'),
-						'status_user' => 'aktif'
+						'email_admin' => $post['email'],
+						'password_admin' => password_hash($post['password'], PASSWORD_BCRYPT),
+						'name_admin' => $post['name'],
+						'level_admin' => 'admin',
+						'image_admin' => '',
+						'status_admin' => 'active',
 					);
-		}
 
-		if (in_array_exist($this->sess['level'], 'operator')) 
-		{
-			$insert = array
-					(
-						'id_desa' => $this->sess['id_desa'],
-						'password_user' => password_hash($post['nik'], PASSWORD_BCRYPT),
-						'nama_user' => $post['nama'],
-						'no_hp_user' => $post['no_hp'],
-						'alamat_user' => $post['alamat_user'],
-						'id_rw' => $rw,
-						'id_rt' => $rt,
-						'email_user' => $post['email'],
-						'nik_user' => $post['nik'],
-						'pekerjaan_user' => $post['pekerjaan'],
-						'tgl_aktif' => date('Y-m-d'),
-						'status_user' => 'aktif'
-					);
-		}
+			$db = $this->Custom_model->insertdatafoto('tbl_admin', 'id_admin', 'image_admin', 'profile_pic', $insert);
 
-		$db = $this->Custom_model->insertdatafoto('tbl_user', 'id_user', 'foto_user', 'prof_pic', $insert, $post['level']);
-
-		if ($db === TRUE) 
-		{
-			$this->session->set_flashdata('success', 'New Data has been added');
-    		redirect(base_url('admin/access'));
+			if ($db === TRUE) 
+			{
+				$this->session->set_flashdata('success', 'New Admin has been added');
+	    		redirect(base_url('admin/access'));
+			}
+			else
+			{
+				$this->session->set_flashdata('error', $db);
+	    		redirect(base_url('admin/access/add'));
+			}
 		}
 		else
 		{
-			$this->session->set_flashdata('error', $db);
+			$this->session->set_flashdata('error', 'Please Check Your Input');
     		redirect(base_url('admin/access/add'));
+		}	
+	}
+
+	public function edit_password()
+	{
+		$post = $this->input->post(NULL, TRUE);
+		$detail = $this->Custom_model->getdetail('tbl_admin', array('id_admin' => $post['id_admin']));
+
+		if ($post['new_password'] == $post['confirm_password']) 
+		{
+			if (password_verify($post['old_password'], $detail['password_admin'])) 
+			{
+				$update = array('password_admin' => password_hash($post['new_password'], PASSWORD_BCRYPT));
+				$this->Custom_model->updatedata('tbl_admin', $update, array('id_admin' => $post['id_admin']));
+
+				$this->session->set_flashdata('success', 'Update Password Success');
+    			redirect(base_url('admin/access/detail/').$post['id_admin']);
+			}
+			else
+			{
+				$this->session->set_flashdata('error', 'Old Password Does Not Match');
+    			redirect(base_url('admin/access/detail/').$post['id_admin']);
+			}
+		}
+		else
+		{
+			$this->session->set_flashdata('error', 'Please Check Your Input');
+    		redirect(base_url('admin/access/detail/').$post['id_admin']);
 		}
 	}
 

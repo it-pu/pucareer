@@ -14,7 +14,7 @@ class Login extends MY_Controller {
 
 		if (!empty($post['email']) && !empty($post['password'])) 
 		{
-			$cekuser = $this->Custom_model->getdetail('tbl_user', array('user_email' => $post['email']));
+			$cekuser = $this->Custom_model->getdetail('tbl_user', array('user_email' => $post['email'], 'user_status' => 'active'));
  	
 			if (!empty($cekuser)) 
 			{

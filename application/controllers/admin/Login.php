@@ -27,7 +27,7 @@ class Login extends ADMIN_Controller {
 				}
 				else
 				{
-					$this->session->set_flashdata('error', 'Data yang Anda masukkan tidak sesuai  111');
+					$this->session->set_flashdata('error', 'Data yang Anda masukkan tidak sesuai');
 					$this->load->view('admin/login');
 				}
 			}
