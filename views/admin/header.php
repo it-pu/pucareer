@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>Career Portal</title>
+  <title>Admin - Career Portal</title>
   <!-- Favicon -->
   <link rel="icon" href="<?=get_foto('/public_style/front/assets/img/favicon.ico')?>" type="image/png">
   <!-- Fonts -->
@@ -49,7 +49,7 @@
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
         <a class="navbar-brand" href="javascript:void(0)">
-          <img src="<?=get_foto_assets('back/img/banjar.png')?>" class="navbar-brand-img" alt="...">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/RPC-JP_Logo.png" class="navbar-brand-img" alt="...">
         </a>
       </div>
       <div class="navbar-inner">
@@ -67,7 +67,7 @@
             <?php if ($this->sess['level_admin'] == 'super_admin'): ?>
               <li class="nav-item">
                 <a class="nav-link <?=is_active_page_print_rep(2, 'access', 'active')?>" href="<?=base_url('admin/access')?>">
-                  <i class="fas fa-user-cog" style="color: #16a085"></i>
+                  <i class="fas fa-user-cog" style="color: #9b59b6"></i>
                   <span class="nav-link-text">Admin</span>
                 </a>
               </li>
@@ -95,7 +95,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link <?=is_active_page_print_rep(2, 'companies', 'active')?>" href="<?=base_url('admin/companies')?>">
-                <i class="fas fa-building" style="color: #16a085"></i>
+                <i class="fas fa-building" style="color: #e67e22"></i>
                 <span class="nav-link-text">Companies</span>
               </a>
             </li>
@@ -106,9 +106,9 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?=is_active_page_print_rep(2, 'setting', 'active')?>" href="<?=base_url('admin/setting')?>">
-                <i class="fas fa-cog" style="color: #16a085"></i>
-                <span class="nav-link-text">App Setting</span>
+              <a class="nav-link <?=is_active_page_print_rep(2, 'settings', 'active')?>" href="<?=base_url('admin/settings')?>">
+                <i class="fas fa-cog" style="color: #34495e "></i>
+                <span class="nav-link-text">Site Setting</span>
               </a>
             </li>
             
@@ -172,7 +172,7 @@
                 <div class="media align-items-center">
                   <?php if ($this->sess['image_admin'] != ''): ?>
                     <span class="avatar avatar-sm rounded-circle">
-                      <img alt="Image placeholder" src="<?=$this->sess['image_admin']?>">
+                      <img alt="Image placeholder" src="<?=base_url().$this->sess['image_admin']?>">
                     </span>
                   <?php endif ?>
                   

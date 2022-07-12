@@ -209,5 +209,43 @@ class Jobs_model extends MY_Model {
 		}
 	}
 
-	
+	public function specialization_post($specialization, $role)
+	{
+		$this->db->trans_begin();
+
+		$id_job = $this->insertdata('tbl_specialization', $specialization);
+
+		if (!empty($role)) 
+		{
+			foreach ($role as $key => $value) 
+			{
+				$role[$key]['id_specialization'] = $id_job;
+			}
+			$this->insertdata('tbl_role', $role, FALSE, TRUE);
+		}
+
+		if ($this->db->trans_status() === FALSE)
+		{
+			$this->db->trans_rollback();
+			return false;
+		}
+		else
+		{
+			$this->db->trans_commit();
+			return true;
+		}
+	}
+
+	public function specialization_detail($id_specialization)
+	{
+		$this->db->select('tbl_specialization.*,
+							tbl_admin.name_admin
+							');
+		$this->db->from('tbl_specialization');
+		$this->db->join('tbl_admin', 'tbl_admin.id_admin = tbl_specialization.id_admin');
+
+		$this->db->where('tbl_specialization.id_specialization', $id_specialization);
+		$query = $this->db->get();
+		return $query->row_array();
+	}
 }

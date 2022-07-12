@@ -9,6 +9,29 @@ class User_model extends MY_Model {
 		parent::__construct();
 	}
 
+	public function data($id_user = null)
+	{
+		$this->db->select('tbl_user.*,
+							tbl_country.country_name,
+							tbl_state.state_name
+							');
+		$this->db->from('tbl_user');
+		$this->db->join('tbl_country', 'tbl_user.id_country = tbl_country.id_country');
+		$this->db->join('tbl_state', 'tbl_user.id_state = tbl_state.id_state');
+
+		if ($id_user != null) 
+		{
+			$this->db->where('tbl_user.id_user', $id_user);
+			$query = $this->db->get();
+			return $query->row_array();
+		}
+		else
+		{
+			$query = $this->db->get();
+			return $query->result_array();
+		}	
+	}
+
 	public function detail($id_user)
 	{
 		$this->db->select('tbl_user.*,

@@ -116,22 +116,17 @@ class Access extends ADMIN_Controller {
 	{
 		$post = $this->input->post(NULL, TRUE);
 
-		$db = $this->Custom_model->editfileonly('tbl_user', 'id_user', 'foto_user', 'prof_pic', $post['id_user'], false, true);
-
-		$getnewfoto = $this->Custom_model->getdetail('tbl_user', array('id_user' => $this->sess['id_user']));
-
-		$newfoto = array('foto_user' => base_url().$getnewfoto['foto_user']);
-		$this->session->set_userdata($newfoto);
+		$db = $this->Custom_model->editfileonly('tbl_admin', 'id_admin', 'image_admin', 'profile_pic', $post['id_admin'], false, true);
 
 		if ($db === TRUE) 
 		{
 			$this->session->set_flashdata('success', 'Data has been edited');
-    		redirect(base_url('admin/access/detail/').$post['id_user']);
+    		redirect(base_url('admin/access/detail/').$post['id_admin']);
 		}
 		else
 		{
 			$this->session->set_flashdata('error', $db);
-    		redirect(base_url('admin/access/detail/').$post['id_user']);
+    		redirect(base_url('admin/access/detail/').$post['id_admin']);
 		}
 	}
 

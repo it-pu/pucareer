@@ -18,7 +18,6 @@ class Home extends MY_Controller {
 		$post = $this->input->post(NULL, TRUE);
 
 		$this->session->set_userdata('lang', $post['lang_code']);
-		// var_dump($this->sess['lang']);
 
 		redirect($post['url_hidden']);
 	}
