@@ -34,7 +34,7 @@
                             </div>
 
                             <div class="mb-3" id="state_div">
-                                <label class="form-label">State<font class="required">*</font><font class="required">*</font></label>
+                                <label class="form-label">State<font class="required">*</font></label>
                                 <select id="state-drop" class="form-select" name="id_state" placeholder="Select Provence" required>
                                 </select>
                             </div>
