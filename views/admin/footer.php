@@ -58,7 +58,15 @@
             }
           }
         });
-
+        $('#table_data_lite').DataTable({
+          "bLengthChange": false,
+          "language": {
+            "paginate": {
+              "previous": "<i class='fas fa-chevron-left'></i>",
+              "next" : "<i class='fas fa-chevron-right'></i>"
+            }
+          }
+        });
     } );
 
     CKEDITOR.replace('editor');

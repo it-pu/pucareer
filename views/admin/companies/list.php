@@ -9,7 +9,7 @@
               <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                   <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                  <li class="breadcrumb-item"><a href="#">Jobs</a></li>
+                  <li class="breadcrumb-item"><a href="#">Companies</a></li>
                   <li class="breadcrumb-item active" aria-current="page">List</li>
                 </ol>
               </nav>
@@ -30,7 +30,7 @@
             <div class="card-header">
               <div class="row align-items-center">
                 <div class="col-8">
-                  <h3 class="mb-0">Jobs List</h3>
+                  <h3 class="mb-0">Companies List</h3>
                 </div>
               </div>
             </div>
@@ -52,30 +52,25 @@
                   <thead class="thead-light">
                     <tr>
                       <th scope="col" >No</th>
-                      <th scope="col" >Jobs</th>
-                      <th scope="col" >Company</th>
+                      <th scope="col" >Company's name</th>
+                      <th scope="col">Location</th>
+                      <th scope="col">Contact</th>
+                      <th scope="col">Industry</th>
                       <th scope="col">Created On</th>
-                      <th scope="col">Status</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach ($jobs as $key => $value): ?>
+                    <?php foreach ($companies as $key => $value): ?>
                       <tr>
                         <td><?=$key+1?></td>
-                        <td><?=$value['job_name']?></td>
                         <td><?=$value['company_name']?></td>
+                        <td><?=$value['state_name']?>, <?=$value['country_name']?></td>
+                        <td><?=$value['company_phone_number']?><br><?=$value['company_email']?></td>
+                        <td><?=$value['industry_name']?></td>
                         <td><?=$value['created_at']?></td>
                         <td>
-                          <?php if ($value['job_active'] == 1): ?>
-                            <span class="badge badge-success">Active</span>
-                          <?php endif ?>
-                          <?php if ($value['job_active'] == 0): ?>
-                            <span class="badge badge-danger">Deactive</span>
-                          <?php endif ?>
-                        </td>
-                        <td>
-                          <a href="<?=base_url('admin/jobs/detail/').$value['id_job']?>" class="btn btn-primary btn-sm"><i class="fas fa-info"></i> Detail</a>
+                          <a href="<?=base_url('admin/companies/detail/').$value['id_company']?>" class="btn btn-primary btn-sm"><i class="fas fa-info"></i> Detail</a>
                         </td>
                       </tr>
                     <?php endforeach ?>

@@ -74,20 +74,20 @@
                     Status
                   </div>
                   <div class="col-8">
-                    <?php if ($detail['status_admin'] == 'aktif'): ?>
-                      <span class="badge badge-success"><?=strtoupper($detail['status_admin'])?></span>
+                    <?php if ($detail['status_admin'] == 'active'): ?>
+                      <span class="badge badge-success">ACTIVE</span>
                     <?php endif ?>
-                    <?php if ($detail['status_admin'] == 'non aktif'): ?>
-                      <span class="badge badge-danger"><?=strtoupper($detail['status_admin'])?></span>
+                    <?php if ($detail['status_admin'] == 'deactive'): ?>
+                      <span class="badge badge-danger">DEACTIVE</span>
                     <?php endif ?>
                   </div>
                 </div>
-                <button class="btn btn-success btn-sm"><i class="fas fa-edit"></i>Edit Profil</button>
+                <button class="btn btn-success btn-sm"><i class="fas fa-edit"></i>Edit Profile</button>
                 <?php if ($detail['status_admin'] == 'active'): ?>
-                  <a href="<?=base_url('admin/access/edit_status/').$detail['id_admin'].'/1'?>" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Non Aktifkan</a>
+                  <a href="<?=base_url('admin/access/edit_status/').$detail['id_admin'].'/1'?>" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Deactivate</a>
                 <?php endif ?>
                 <?php if ($detail['status_admin'] == 'deactive'): ?>
-                  <a href="<?=base_url('admin/access/edit_status/').$detail['id_admin'].'/1'?>" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Aktifkan</a>
+                  <a href="<?=base_url('admin/access/edit_status/').$detail['id_admin'].'/1'?>" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Activate</a>
                 <?php endif ?>
               </div>
             </div>
@@ -105,7 +105,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <input type="hidden" name="id_user" value="<?=$detail['id_admin']?>">
+        <input type="hidden" name="id_admin" value="<?=$detail['id_admin']?>">
         <div class="form-group">
           <label for="">Foto</label>
           <input accept="image/*" type='file' name="image_admin" id="image_admin" onchange="preview_img('prev_img_admin')" required/><br>
