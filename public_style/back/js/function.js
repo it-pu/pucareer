@@ -94,24 +94,14 @@ return c;
                         else return true;
                         };
 
-function readURL(input){ 
-if(input.files && input.files[0])
-{ 
-  var reader = new FileReader(); 
-  reader.onload = function(e)
-  { 
-    $('#previewpic img').attr('src', e.target.result); 
-  }; 
-  reader.readAsDataURL(input.files[0]); 
-} 
-} 
-  $(document).on('change','input[type="file"]',function()
-  { readURL(this); }
-);
-
-function fileValidation()
+function preview_img(id_frame) 
 {
-    var fl = 'file';
+    document.getElementById(id_frame).src=URL.createObjectURL(event.target.files[0]);
+}
+
+function fileValidationImage(id, preview = false, id_preview = null)
+{
+    var fl = id;
     var fileInput = document.getElementById(fl);
     var filePath = fileInput.value;
     var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
@@ -121,11 +111,16 @@ function fileValidation()
         fileInput.value = '';
         return false;
     }
+
+    if (preview == true) 
+    {
+        preview_img(id_preview);
+    }
 }
 
-function fileValidation2pdf()
+function fileValidationPdf(id)
 {
-    var fl = 'file';
+    var fl = id;
     var fileInput = document.getElementById(fl);
     var filePath = fileInput.value;
     var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
@@ -135,28 +130,4 @@ function fileValidation2pdf()
         fileInput.value = '';
         return false;
     }
-}
-
-var _validFileExtensions = [".jpg", ".jpeg", ".png", "pdf"];    
-function ValidateSingleInput(oInput) {
-    if (oInput.type == "file") {
-        var sFileName = oInput.value;
-         if (sFileName.length > 0) {
-            var blnValid = false;
-            for (var j = 0; j < _validFileExtensions.length; j++) {
-                var sCurExtension = _validFileExtensions[j];
-                if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
-                    blnValid = true;
-                    break;
-                }
-            }
-             
-            if (!blnValid) {
-                alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
-                oInput.value = "";
-                return false;
-            }
-        }
-    }
-    return true;
 }

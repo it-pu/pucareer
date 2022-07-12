@@ -28,7 +28,7 @@
                                     Company's Name<font class="required">*</font>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" name="nama" class="form-control" placeholder="Name" value="<?=ucwords($company['company_name'])?>" required>
+                                    <input type="text" name="company_name" class="form-control" placeholder="Name" value="<?=ucwords($company['company_name'])?>" required>
                                 </div>
                             </div>
                             <hr>
@@ -37,7 +37,7 @@
                                     Address<font class="required">*</font>
                                 </div>
                                 <div class="col-md-8">
-                                    <textarea class="form-control" name="alamat" required><?=$company['company_address']?></textarea>
+                                    <textarea class="form-control" name="company_address" required><?=$company['company_address']?></textarea>
                                 </div>
                             </div>
                             <hr>
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="input-group mb-3">
-                                      <input type="text" name="telp" class="form-control" value="<?=$company['company_phone_number']?>" onkeypress="return isNumberKey(event);" required>
+                                      <input type="text" name="company_phone_number" class="form-control" value="<?=$company['company_phone_number']?>" onkeypress="return isNumberKey(event);" required>
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                     About Company<font class="required">*</font>
                                 </div>
                                 <div class="col-md-8">
-                                    <textarea class="form-control" name="about"><?=$company['company_description']?></textarea>
+                                    <textarea class="form-control" name="company_description" required><?=$company['company_description']?></textarea>
                                 </div>
                             </div>
                             <hr>
@@ -84,7 +84,7 @@
                                     Logo<font class="required">*</font>
                                 </div>
                                 <div class="col-md-8">
-                                    <input accept="image/*" type='file' id="logo_c" onchange="fileValidationImage(this.id, true, 'prev_logo');" /><br>
+                                    <input accept="image/*" type='file' name="company_logo" id="logo_c" onchange="fileValidationImage(this.id, true, 'prev_logo');" /><br>
                                     <img id="prev_logo" src="<?=base_url().$company['company_logo']?>" alt="" style="max-width: 250px;" />
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                                     Banner<font class="required">*</font>
                                 </div>
                                 <div class="col-md-8">
-                                    <input accept="image/*" type='file' id="banner_c" onchange="fileValidationImage(this.id, true, 'prev_banner');" /><br>
+                                    <input accept="image/*" type='file' id="banner_c" name="company_banner" onchange="fileValidationImage(this.id, true, 'prev_banner');" /><br>
                                     <img id="prev_banner" src="<?=base_url().$company['company_banner']?>" alt="" style="max-width: 250px;" />
                                 </div>
                             </div>

@@ -15,15 +15,15 @@ class Site{
 
 		$user_session = $_this->session->userdata;
 
-			if($_this->uri->segment(1) == 'login'){
-				if(isset($user_session['logged_in']) && $user_session['logged_in'] == TRUE)
+			if($_this->uri->segment(2) == 'login'){
+				if(isset($user_session['logged_in_admin']) && $user_session['logged_in_admin'] == TRUE)
 				{
 					redirect(base_url('admin'));
 				}
 			}
 			else{
-				if(!isset($user_session['logged_in'])){
-					redirect(base_url('login'));
+				if(!isset($user_session['logged_in_admin'])){
+					redirect(base_url('admin/login'));
 				}
 			}
 	}

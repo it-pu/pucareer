@@ -27,13 +27,55 @@ class Companies extends MY_Controller {
 			$get['c'] = $this->sess['id_company'];
 		}
 		$company = $this->Company_model->detail($get['c']);
+		$gallery = $this->Custom_model->getdata('tbl_company_gallery', array('id_company' => $get['c']));
+		$job = $this->Jobs_model->data(false, null, $get['c']);
 
 		$data = array
 				(
-					'company' => $company
+					'company' => $company,
+					'gallery' => $gallery,
+					'job' => $job
 				);
 
 		$this->load->view('home/company/profile', $data);
+	}
+
+	public function gallery_setting()
+	{
+		$gallery = $this->Custom_model->getdata('tbl_company_gallery', array('id_company' => $this->sess['id_company']));
+
+		$data = array
+				(
+					'gallery' => $gallery
+				);
+
+		$this->load->view('home/company/gallery_setting', $data);
+	}
+
+	public function gallery_post()
+	{
+		$post = $this->input->post(NULL, TRUE);
+
+		$insert = array
+				(
+					'id_company' => $post['id_company'],
+					'gallery_name' => ''
+				);
+
+		$insertdb = $this->Custom_model->insertdatafoto('tbl_company_gallery', 'id_company_gallery', 'gallery_file', 'gallery_c', $insert);
+
+		if ($insertdb == true) 
+		{
+			$this->session->set_flashdata('success', 'Adding Photo Success');
+			redirect(base_url('companies/gallery_setting'));
+			die();
+		}
+		else
+		{
+			$this->session->set_flashdata('error', 'Please Check your Input');
+			redirect(base_url('companies/gallery_setting'));
+			die();
+		}
 	}
 
 	public function setting()
@@ -46,6 +88,59 @@ class Companies extends MY_Controller {
 				);
 
 		$this->load->view('home/company/setting', $data);
+	}
+
+	public function profile_update()
+	{
+		$post = $this->input->post(NULL, TRUE);
+
+		$this->form_validation->set_rules('company_name', 'Nama', 'required');
+		$this->form_validation->set_rules('company_address', 'Address', 'required');
+		$this->form_validation->set_rules('company_phone_number', 'Phone Number', 'required|numeric');
+		$this->form_validation->set_rules('company_description', 'Description', 'required');
+
+		if ($this->form_validation->run() == FALSE)
+        {
+            $this->session->set_flashdata('error', 'Please Check your Input');
+			redirect(base_url('companies/setting'));
+			die();
+        }
+
+		$input = array
+				(
+					'company_name' => $post['company_name'],
+					'company_address' => $post['company_address'],
+					'company_phone_number' => $post['company_phone_number'],
+					'company_email' => $post['company_email'],
+					'company_description' => $post['company_description'],
+					'company_website' => $post['company_website']
+				);
+
+		if (!empty($_FILES['company_logo']["name"]) && $_FILES['company_logo']['type'] == 'image/jpeg') 
+		{
+			$updatedb = $this->Custom_model->insertdatafoto('tbl_company', 'id_company', 'company_logo', 'logo_c', $input, false, $post['id_company'], true);
+		}
+		if (!empty($_FILES['company_banner']["name"]) && $_FILES['company_banner']['type'] == 'image/jpeg') 
+		{
+			$updatedb = $this->Custom_model->insertdatafoto('tbl_company', 'id_company', 'company_banner', 'banner_c', $input, false, $post['id_company'], true);
+		}
+		else
+		{
+			$updatedb = $this->Custom_model->updatedata('tbl_company', $input, array('id_company' => $post['id_company']));
+		}
+
+		if ($updatedb === TRUE) 
+		{
+			$this->session->set_flashdata('success', 'Success Updating Profile');
+			redirect(base_url('companies/setting'));
+			die();
+		}
+		else
+		{
+			$this->session->set_flashdata('error', 'Please Check your Input');
+			redirect(base_url('companies/setting'));
+			die();
+		}
 	}
 
 	public function jobs_offer()
@@ -67,7 +162,6 @@ class Companies extends MY_Controller {
 		$this->load->view('home/company/jobs_offer', $data);
 	}
 
-
 	public function jobs_offer_detail($id_job)
 	{
 		$job = $this->Jobs_model->data(true, $id_job);
@@ -84,6 +178,27 @@ class Companies extends MY_Controller {
 					'job_question' => $job_question
 				);
 		$this->load->view('home/company/jobs_offer_detail', $data);
+	}
+
+	public function deactive_job($id_job)
+	{
+		$update = array('expired_at' => date('Y-m-d'), 'job_active' => 0);
+		$this->Custom_model->updatedata('tbl_job', $update, array('id_job' => $id_job));
+
+		$this->session->set_flashdata('success', 'Success Updating Offer');
+		redirect(base_url('companies/jobs_offer/detail/').$id_job);
+		die();
+	}
+
+	public function activate_job()
+	{
+		$post = $this->input->post(NULL, TRUE);
+		$update = array('expired_at' => $post['expired_at'], 'job_active' => 1);
+		$this->Custom_model->updatedata('tbl_job', $update, array('id_job' => $post['id_job']));
+
+		$this->session->set_flashdata('success', 'Success Updating Offer');
+		redirect(base_url('companies/jobs_offer/detail/').$post['id_job']);
+		die();
 	}
 
 	public function validate_company()

@@ -97,7 +97,14 @@
                                 <br>
                             </div>
                         </div>
-                        <button class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Deactivate Offer</button>
+
+                        <?php if ($job['job_active'] == 1): ?>
+                            <a href="<?=base_url('companies/deactive_job/').$job['id_job']?>" onclick="return confirm('Deactive Job Offer?')" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Deactivate Offer</a>
+                        <?php endif ?>
+                        <?php if ($job['job_active'] == 0): ?>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#activateModal" onclick="activateJob('<?=$value['id_job']?>')" class="btn btn-success btn-sm"><i class="fas fa-edit"></i> Activate Offer</button>
+                        <?php endif ?>
+                        
 
                         <hr>
                         <h5><strong>Applicant List</strong></h5>
@@ -204,6 +211,32 @@
     </div>
   </div>
 </div>
+
+<!-- Modal -->
+<?php echo form_open(base_url('companies/activate_job/')); ?>
+<div class="modal fade" id="activateModal" tabindex="-1" aria-labelledby="activateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="activateModalLabel">Activate Job</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            
+        <input type="hidden" name="id_job" id="active_job_id">
+        <div class="mb-3">
+            <label class="form-label">Expired Date<font class="required">*</font></label>
+            <input type="date" class="form-control" name="expired_at" value="<?=substr(plusmonth(date('Y-m-d')), 0, 10)?>">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-times"></i> Close</button>
+        <button type="submit" class="btn btn-primary" onclick="return confirm('Activate Job?')"><i class="fas fa-check"></i> Activate Job</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
 
 <script type="text/javascript">
 function applicantDetail(id_apply)
@@ -359,7 +392,12 @@ function applicantDetail(id_apply)
         });
       }
     });
-}   
+}  
+
+function activateJob(id_job)
+{
+    document.getElementById('active_job_id').value = id_job;
+} 
 </script>
         
 <?php get_template_home('home/footer') ?>

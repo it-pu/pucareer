@@ -73,6 +73,28 @@
 		}
 	}
 
+	function get_foto_assets($namafoto)
+	{
+		global $SConfig;
+
+		$fotopath = "./assets/".$namafoto."*";
+		$fotoinfo = glob($fotopath);
+		$foton = $fotoinfo[0];
+
+		return $SConfig->_site_url.str_replace("./", "/", $foton);
+	}
+
+	function get_foto_assets_admin($namafoto)
+	{
+		global $SConfig;
+
+		$fotopath = "./public_style/admin/assets".$namafoto."*";
+		$fotoinfo = glob($fotopath);
+		$foton = $fotoinfo[0];
+
+		return $SConfig->_site_url.str_replace("./", "/", $foton);
+	}
+
 	function unique_multidim_array($array, $key) 
 	{
 	    $temp_array = array();

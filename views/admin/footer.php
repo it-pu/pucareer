@@ -3,7 +3,7 @@
         <div class="row align-items-center justify-content-lg-between">
           <div class="col-lg-6">
             <div class="copyright text-center  text-lg-left  text-muted">
-              &copy; 2021 <a href="<?=base_url()?>" class="font-weight-bold ml-1" target="_blank">Desa Banjarwaru</a>
+              &copy; 2022 <a href="<?=base_url()?>" class="font-weight-bold ml-1" target="_blank">Career Portal</a>
             </div>
           </div>
           <!-- <div class="col-lg-6">
