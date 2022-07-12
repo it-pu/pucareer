@@ -63,12 +63,12 @@
 
                         <?php echo form_open_multipart(base_url('companies/validate_company_post')); ?>
                         <div class="mb-3">
-                            <label class="form-label">Company's Name</label>
+                            <label class="form-label">Company's Name</label><font class="required">*</font>
                             <input type="text" class="form-control" name="company_name" required>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Industry</label>
+                            <label class="form-label">Industry</label><font class="required">*</font>
                             <select name="id_industry" class="form-select" id="industry-drop" placeholder="Select Industry" required>
                                 <option value="">-- CHOOSE INDUSTRY --</option>
                                 <?php foreach ($industry as $key => $value): ?>
@@ -78,12 +78,12 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Company's Address</label>
+                            <label class="form-label">Company's Address</label><font class="required">*</font>
                             <input type="text" class="form-control" name="company_address" required>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Country</label>
+                            <label class="form-label">Country</label><font class="required">*</font>
                             <select id="country-drop" name="id_country" class="form-select" placeholder="Select Country" required onchange="getState(this)">
                                 <option value="">-- CHOOSE COUNTRY --</option>
                                 <?php foreach ($country as $key => $value): ?>
@@ -93,13 +93,13 @@
                         </div>
 
                         <div class="mb-3" id="state_div">
-                            <label class="form-label">State</label>
+                            <label class="form-label">State</label><font class="required">*</font>
                             <select id="state-drop" class="form-select" name="id_state" placeholder="Select Provence" required>
                             </select>
                         </div>
 
                         <div class="mb-3" id="state_div">
-                            <label class="form-label">Phone Number</label>
+                            <label class="form-label">Phone Number</label><font class="required">*</font>
                             <input type="text" name="company_phone_number" class="form-control" onkeypress="return isNumberKey(event);" required>
                         </div>
 
@@ -109,12 +109,12 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Description</label>
+                            <label class="form-label">Description</label><font class="required">*</font>
                             <textarea class="form-control" name="company_description" required></textarea>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Logo</label>
+                            <label class="form-label">Logo</label><font class="required">*</font>
                             <input accept="image/*" type='file' name="company_logo" id="logo_img" onchange="preview_img('prev_logo')" required/><br>
                             <img id="prev_logo" src="" alt="" style="max-width: 200px;" />
                         </div>
