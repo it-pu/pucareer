@@ -101,7 +101,7 @@
                         <?php if ($job['job_active'] == 1): ?>
                             <a href="<?=base_url('companies/deactive_job/').$job['id_job']?>" onclick="return confirm('Deactive Job Offer?')" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Deactivate Offer</a>
                         <?php endif ?>
-                        <?php if ($job['job_active'] == 0): ?>
+                        <?php if ($job['job_active'] == 0 && $job['blocked_by_admin'] == 0): ?>
                             <button type="button" data-bs-toggle="modal" data-bs-target="#activateModal" onclick="activateJob('<?=$value['id_job']?>')" class="btn btn-success btn-sm"><i class="fas fa-edit"></i> Activate Offer</button>
                         <?php endif ?>
                         
