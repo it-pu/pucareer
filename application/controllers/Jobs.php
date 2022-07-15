@@ -11,6 +11,7 @@ class Jobs extends MY_Controller {
 
 	public function index()
 	{
+		$get = $this->input->get(NULL, TRUE);
 		$applied = $this->Custom_model->getdata('tbl_apply', array('id_user' => $this->sess['id_user']));
 		$applied_id = array();
 		foreach ($applied as $key => $value) 
@@ -18,12 +19,62 @@ class Jobs extends MY_Controller {
 			$applied_id[] = $value['id_job'];
 		}
 
-		$jobs = $this->Jobs_model->list();
+		$sort = null;
+		$status = null;
+		$keyword = null;
+		$spec = null;
+		$country = null;
+		$state = null;
+		if (!empty($get['sort'])) 
+		{
+			$sort = $get['sort'];
+		}
+		if (!empty($get['status'])) 
+		{
+			if ($get['status'] != 'all') 
+			{
+				$status = $get['status'];
+			}
+		}
+		if (!empty($get['keyword'])) 
+		{
+			$keyword = $get['keyword'];
+		}
+		if (!empty($get['spec'])) 
+		{
+			$spec = $get['spec'];
+		}
+		if (!empty($get['country'])) 
+		{
+			$country = $get['country'];
+		}
+		if (!empty($get['state'])) 
+		{
+			$state = $get['state'];
+		}
+
+		$state_get = array();
+		if ($country != null) 
+		{
+			$state_get = $this->Custom_model->getdata('tbl_state', array('id_country' => $country));
+		}
+
+		$datasearch = array();
+		$datasearch['sort'] = $sort;
+		$datasearch['status'] = $status;
+		$datasearch['keyword'] = $keyword;
+		$datasearch['spec'] = $spec;
+		$datasearch['country'] = $country;
+		$datasearch['state'] = $state;
+
+		$jobs = $this->Jobs_model->list_home($sort, $status, $applied_id, $keyword, $spec, $country, $state);
 
 		$data = array
 				(
 					'jobs' => $jobs,
-					'applied_id' => $applied_id
+					'applied_id' => $applied_id,
+					'state_get' => $state_get,
+					'datasearch' => $datasearch
 				);
 
 		$this->load->view('home/jobs/list', $data);

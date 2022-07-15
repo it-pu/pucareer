@@ -6,17 +6,36 @@
             <div class="col-md-8 mb-3">
                 <div class="card shadow-lg">
                     <div class="card-body">
+
+                    <form action="<?=base_url('jobs')?>" method="GET">
                       <h4>Jobs Listing</h4><hr>
-                      <div class="col-md-4">
-                          <div class="input-group mb-3">
-                          <label class="input-group-text" for="sortby">Sort By</label>
-                          <select class="form-select" id="sortby">
-                            <option selected>Relevance</option>
-                            <option value="1">Recent</option>
-                            <option value="2">Oldest</option>
-                          </select>
+                        <input type="hidden" name="keyword" id="id_keyword_search">
+                        <input type="hidden" name="spec" id="id_spec_search">
+                        <input type="hidden" name="country" id="id_country_search">
+                        <input type="hidden" name="state" id="id_state_search">
+                        <div class="row">
+                           <div class="col-md-4">
+                              <div class="input-group mb-3">
+                              <label class="input-group-text" for="sortby">Sort By</label>
+                              <select class="form-select" id="sortbysearch" name="sort" onchange="this.form.submit()">
+                                <option value="DESC" <?=selected_helper('DESC', $datasearch['sort'])?>>Recent</option>
+                                <option value="ASC" <?=selected_helper('ASC', $datasearch['sort'])?>>Oldest</option>
+                              </select>
+                            </div>
                         </div>
+                          <div class="col-md-4">
+                              <div class="input-group mb-3">
+                              <label class="input-group-text" for="sortby">Status</label>
+                              <select class="form-select" id="statussearch" name="status" onchange="this.form.submit()">
+                                <option selected value="all" <?=selected_helper('all', $datasearch['status'])?>>All</option>
+                                <option value="applied" <?=selected_helper('applied', $datasearch['status'])?>>Applied</option>
+                                <option value="not_applied" <?=selected_helper('not_applied', $datasearch['status'])?>>Not Applied</option>
+                              </select>
+                            </div>
+                          </div>
                       </div>
+                          
+                    </form>
 
                       <?php foreach ($jobs as $key => $value): ?>
                         <div class="card shadow-sm mb-3" style="border-radius: 10px;">

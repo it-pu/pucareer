@@ -50,15 +50,15 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-md-4">
                                 Change Email
                             </div>
                             <div class="col-md-4">
                                 <a href="<?=base_url('user/setting/setting_email')?>" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a> 
                             </div>
-                        </div>
-                        <hr>
+                        </div> 
+                        <hr>-->
                     </div>
                 </div>
             </div>
