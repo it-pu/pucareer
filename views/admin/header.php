@@ -94,11 +94,31 @@
               </div>
             </li>
             <li class="nav-item">
+              <a class="nav-link <?=is_active_page_print_rep(2, 'companies', 'active')?>" href="#companies-dashboards" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-dashboards">
+                <i class="fas fa-briefcase" style="color: #e67e22;"></i>
+                <span class="nav-link-text">Companies</span>
+              </a>
+              <div class="collapse" id="companies-dashboards">
+                <ul class="nav nav-sm flex-column">
+                  <li class="nav-item">
+                    <a href="<?=base_url('admin/companies')?>" class="nav-link">
+                      <span class="sidenav-normal"> List</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="<?=base_url('admin/companies/industries')?>" class="nav-link">
+                      <span class="sidenav-normal"> Industries</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <!-- <li class="nav-item">
               <a class="nav-link <?=is_active_page_print_rep(2, 'companies', 'active')?>" href="<?=base_url('admin/companies')?>">
                 <i class="fas fa-building" style="color: #e67e22"></i>
                 <span class="nav-link-text">Companies</span>
               </a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link <?=is_active_page_print_rep(2, 'users', 'active')?>" href="<?=base_url('admin/users')?>">
                 <i class="fas fa-users" style="color: #16a085"></i>

@@ -37,6 +37,25 @@ class Jobs extends ADMIN_Controller {
 		$this->load->view('admin/jobs/detail', $data);
 	}
 
+	public function change_status($id_job)
+	{
+		$detail = $this->Custom_model->getdetail('tbl_job', array('id_job' => $id_job));
+
+		$newstat = 1;
+		$blockadmin = 0;
+		if ($detail['job_active'] == 1) 
+		{
+			$newstat = 0;
+			$blockadmin = 1;
+		}
+
+		$this->Custom_model->updatedata('tbl_job', array('job_active' => $newstat, 'blocked_by_admin' => $blockadmin), array('id_job' => $id_job));
+
+		$this->session->set_flashdata('success', 'Jobs has been updated');
+		redirect(base_url('admin/jobs/detail/').$id_job);
+		die();
+	}
+
 	public function specialization()
 	{
 		$specialization = $this->Custom_model->getdata('tbl_specialization', null, 'specialization_name', 'ASC');
@@ -97,5 +116,22 @@ class Jobs extends ADMIN_Controller {
 					'role' => $role
 				);
 		$this->load->view('admin/jobs/specialization_detail', $data);
+	}
+
+	public function specialization_status($id_specialization)
+	{
+		$detail = $this->Custom_model->getdetail('tbl_specialization', array('id_specialization' => $id_specialization));
+
+		$newstat = 1;	
+		if ($detail['specialization_status'] == 1) 
+		{
+			$newstat = 0;
+		}
+
+		$this->Custom_model->updatedata('tbl_specialization', array('specialization_status' => $newstat), array('id_specialization' => $id_specialization));
+
+		$this->session->set_flashdata('success', 'Jobs has been updated');
+		redirect(base_url('admin/jobs/specialization_detail/').$id_specialization);
+		die();
 	}
 }

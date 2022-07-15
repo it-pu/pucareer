@@ -11,9 +11,9 @@
                                 <a href="<?=base_url('user')?>" style="text-decoration: none; color: #666565;"><img src="<?=base_url().$user['user_image']?>" class="img-fluid w-50 pt-3 mb-3">
                             <?php endif; ?>
                             <br>
-                            <?=strtoupper($user['user_name'])?><br></a>
-                            <span class="badge bg-primary">PREMIUM</span><br>
-                            <strong>IT Programmer<br>Podomoro University</strong>
+                            <strong><?=strtoupper($user['user_name'])?></strong><br></a>
+                            <span class="badge bg-primary">PREMIUM</span><!-- <br>
+                            <strong>IT Programmer<br>Podomoro University</strong> -->
                         </center>
                         <hr>
                         <?php if ($user['website_user'] != ''): ?>
@@ -112,7 +112,7 @@
                                 Name
                             </div>
                             <div class="col-md-8">
-                                <strong>Fajar Ramadhan</strong>
+                                <strong><?=strtoupper($user['user_name'])?>n</strong>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -120,7 +120,7 @@
                                 Address
                             </div>
                             <div class="col-md-8">
-                                Ini Alamat Fajar
+                                <?=$user['user_address']?>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -128,7 +128,7 @@
                                 Birth Date
                             </div>
                             <div class="col-md-8">
-                                1997-01-09
+                                <?=$user['birth_date']?>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -136,7 +136,7 @@
                                 Email
                             </div>
                             <div class="col-md-8">
-                                fajar.santoso@podomorouniversity.ac.id
+                                <?=$user['user_email']?>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -144,7 +144,7 @@
                                 Phone Number
                             </div>
                             <div class="col-md-8">
-                                +62 81296883431
+                                <?=$user['user_phone_number']?>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -152,157 +152,104 @@
                                 About Fajar
                             </div>
                             <div class="col-md-8">
-                                Hello my name is Fajar, I'm a tech savvy especially in programming and computer hardware. I'm start coding since 2016 and I'd love to follow anything related to computer hardware. I'm focused on PHP (CodeIgniter & Laravel), and MySql including backend API.
+                                <?=$user['about_user']?>
                             </div>
                         </div>
                         <hr>
                         <h5><strong><i class="fas fa-briefcase"></i> Experience</strong></h5>
-                        <div class="row mb-5">
-                            <div class="col-md-10">
-                                <div class="row">
-                                    <div class="col-md-5 mb-3">
-                                        <small>September 2014 - Present</small><br>
-                                        <strong>IT Programmer</strong><br>
-                                        Podomoro University<br>Jawa Barat, Indonesia
-                                    </div>
-                                    <div class="col-md-7 mb-3" style="font-size:12px">
-                                        <div class="row">
-                                            <div class="col-5">
-                                                Industri
-                                            </div>
-                                            <div class="col-7">
-                                                <strong>Education</strong>
-                                            </div>
+                        <?php foreach ($experience as $key => $value): ?>
+                            <div class="row mb-5">
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-5 mb-3">
+                                            <small><?=tgl_en($value['start_date'])?> - 
+                                                <?php if ($value['end_date'] == '0000-00-00'): ?>
+                                                    Present
+                                                <?php endif ?>
+                                                <?php if ($value['end_date'] != '0000-00-00'): ?>
+                                                    <?=tgl_en($value['end_date'])?>
+                                                <?php endif ?>
+                                            </small><br>
+                                            <strong><?=$value['job']?></strong><br>
+                                            <?=$value['name_company']?><br><?=$value['state_name']?>, <?=$value['country']?>
                                         </div>
-                                    
-                                        <div class="row">
-                                            <div class="col-5">
-                                                Specialization
+                                        <div class="col-md-7 mb-3" style="font-size:12px">
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    Industri
+                                                </div>
+                                                <div class="col-7">
+                                                    <strong><?=$value['industry_name']?></strong>
+                                                </div>
                                             </div>
-                                            <div class="col-7">
-                                                <strong>IT/Computer - Software</strong>
+                                        
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    Specialization
+                                                </div>
+                                                <div class="col-7">
+                                                    <strong><?=$value['specialization_name']?></strong>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-5">
-                                                Role
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    Role
+                                                </div>
+                                                <div class="col-7">
+                                                    <strong><?=$value['role_name']?></strong>
+                                                </div>
                                             </div>
-                                            <div class="col-7">
-                                                <strong>Software Engineer/Programmer</strong>
-                                            </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-5">
-                                                Position
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    Position
+                                                </div>
+                                                <div class="col-7">
+                                                    <strong><?=$value['position_name']?></strong>
+                                                </div>
                                             </div>
-                                            <div class="col-7">
-                                                <strong>Staff</strong>
-                                            </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-5">
-                                                Monthly Salary
-                                            </div>
-                                            <div class="col-7">
-                                                <strong>IDR 100,000,000</strong>
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    Monthly Salary
+                                                </div>
+                                                <div class="col-7">
+                                                    <strong><?=$value['currency_code']?> <?=rupiah($value['monthly_salary'])?></strong>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                    
-
-                                        
                             </div>
-                        </div>
+                        <?php endforeach ?>
 
-                        <div class="row mb-5">
-                            <div class="col-md-10">
-                                <div class="row">
-                                    <div class="col-md-5 mb-3">
-                                        <small>September 2014 - Present</small><br>
-                                        <strong>IT Programmer</strong><br>
-                                        Podomoro University<br>Jawa Barat, Indonesia
-                                    </div>
-                                    <div class="col-md-7 mb-3" style="font-size:12px">
-                                        <div class="row">
-                                            <div class="col-5">
-                                                Industri
-                                            </div>
-                                            <div class="col-7">
-                                                <strong>Education</strong>
-                                            </div>
-                                        </div>
-                                    
-                                        <div class="row">
-                                            <div class="col-5">
-                                                Specialization
-                                            </div>
-                                            <div class="col-7">
-                                                <strong>IT/Computer - Software</strong>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-5">
-                                                Role
-                                            </div>
-                                            <div class="col-7">
-                                                <strong>Software Engineer/Programmer</strong>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-5">
-                                                Position
-                                            </div>
-                                            <div class="col-7">
-                                                <strong>Staff</strong>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-5">
-                                                Monthly Salary
-                                            </div>
-                                            <div class="col-7">
-                                                <strong>IDR 100,000,000</strong>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>           
+                        <hr>
+                        <h5><strong><i class="fas fa-university"></i> Educations</strong></h5>
+                        <?php foreach ($education as $key => $value): ?>
+                            <div class="row mb-3">
+                                <div class="col-md-2">
+                                    <?=$value['graduation_month']?> <?=$value['graduation_year']?>
+                                </div>
+                                <div class="col-md-8">
+                                    <strong><?=$value['university_name']?></strong> | <?=$value['country_name']?><br>
+                                    <?=$value['qualification']?> of <?=$value['field_of_study_name']?> | <?=$value['major']?>
+                                </div>
                             </div>
-                        </div>
+                        <?php endforeach ?>
+
                         <hr>
                         <h5 class="mb-3"><strong><i class="fas fa-list"></i> Skills</strong></h5>
-                        <div class="row mb-3">
-                            <div class="col-md-8">
-                                <strong>PHP And MySQL</strong><br>
-                                
+                        <?php foreach ($skill as $key => $value): ?>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <strong><?=$value['skill_name']?></strong>
+                                </div>
+                                <div class="col-md-4">
+                                    <?=$value['skill_level']?>
+                                </div>
                             </div>
-                            <div class="col-md-2">
-                                Intermediate
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-8">
-                                <strong>PHP And MySQL</strong><br>
-                                
-                            </div>
-                            <div class="col-md-2">
-                                Intermediate
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-8">
-                                <strong>PHP And MySQL</strong><br>
-                            </div>
-                            <div class="col-md-2">
-                                Intermediate
-                            </div>
-                        </div>
+                        <?php endforeach ?>
                         <hr>
                         <a href="<?=base_url('user/profile')?>" class="btn btn-success"><i class="fas fa-cog"></i> Setting</a> <button type="button" class="btn btn-primary"><i class="fas fa-envelope"></i> Send a Message</button>
                     </div>

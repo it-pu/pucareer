@@ -17,16 +17,24 @@
                                 <div class="col-md-8">
                                     <a href="<?=base_url('jobs/detail/').$value['id_job']?>"><font style='font-family: "Inter",sans-serif; font-weight: 700; line-height: 1.2;'><?=$value['job_name']?></font></a><br>
                                     <small class="mb-5"><?=$value['company_name']?></small><br>
-                                    <?php if ($value['apply_review'] == 0): ?>
-                                        <i class="fas fa-check text-success"></i> Reviewed
+
+                                    <?php if ($value['job_active'] == 0): ?>
+                                        <i class="fas fa-check text-success"></i> Employer has finished processing applicants
                                     <?php endif ?>
-                                    <?php if ($value['apply_review'] == 1): ?>
-                                        <i class="fas fa-check text-success"></i> Your profile has been seen by Employer
+                                    <?php if ($value['job_active'] == 1): ?>
+                                        <?php if ($value['apply_review'] == 0): ?>
+                                            <i class="fas fa-check text-success"></i> Received
+                                        <?php endif ?>
+                                        <?php if ($value['apply_review'] == 1): ?>
+                                            <i class="fas fa-check text-success"></i> Your profile has been seen by Employer 
+                                        <?php endif ?>
+                                        <?php if ($value['apply_review'] == 2): ?>
+                                            <i class="fas fa-check text-success"></i> Your CV was downloaded by Employer
+                                        <?php endif ?>
+                                        <?php if ($value['apply_review'] == 3): ?>
+                                            <i class="fas fa-check text-success"></i> Employer has finished processing applicants
+                                        <?php endif ?>
                                     <?php endif ?>
-                                    <?php if ($value['apply_review'] == 2): ?>
-                                        <i class="fas fa-check text-success"></i> Your CV was downloaded by Employer
-                                    <?php endif ?>
-                                    
                                     <br>
                                     <i class="fa fa-map-marker-alt text-primary me-2 mt-3"></i><?=$value['state_name']?>, <?=$value['country_name']?>
                                     <i class="far fa-clock text-primary me-2"></i><?=$value['job_type']?><br>

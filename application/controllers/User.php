@@ -21,11 +21,18 @@ class User extends MY_Controller {
 			}
 			$get['u'] = $this->sess['id_user'];
 		}
+
 		$user = $this->Custom_model->getdetail('tbl_user', array('id_user' => $get['u']));
+		$experience = $this->User_model->get_experience($get['u']);
+		$education = $this->User_model->get_education($get['u']);
+		$skill = $this->Custom_model->getdata('tbl_user_skill', array('id_user' => $get['u'], 'deleted' => 0));
 
 		$data = array
 				(
-					'user' => $user
+					'user' => $user,
+					'experience' => $experience,
+					'education' => $education,
+					'skill' => $skill
 				);
 
 		$this->load->view('home/user/index', $data);
@@ -535,13 +542,13 @@ class User extends MY_Controller {
 			die();
         }
 
-        if (password_verify($post['old_password'], $detail['password_user'])) 
+        if (password_verify($post['old_password'], $detail['user_password'])) 
         {
         	if ($post['new_password'] == $post['confirm_password']) 
         	{
         		$update = array
 					(
-						'password_user' => password_hash($post['new_password'], PASSWORD_BCRYPT)
+						'user_password' => password_hash($post['new_password'], PASSWORD_BCRYPT)
 					);
 				$this->Custom_model->updatedata('tbl_user', $update, array('id_user' => $this->sess['id_user']));
 

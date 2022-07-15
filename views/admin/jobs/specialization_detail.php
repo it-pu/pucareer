@@ -88,10 +88,10 @@
                     </div>
                   </div>
                   <?php if ($specialization['specialization_status'] == 1): ?>
-                    <a href="<?=base_url('admin/jobs/specialization_status/').$specialization['id_specialization']?>" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Deactivate</a>
+                    <a href="<?=base_url('admin/jobs/specialization_status/').$specialization['id_specialization']?>" class="btn btn-danger btn-sm" onclick="return confirm('Change Specialization Status?')"><i class="fas fa-times"></i> Deactivate</a>
                   <?php endif ?>
                   <?php if ($specialization['specialization_status'] == 0): ?>
-                    <a href="<?=base_url('admin/jobs/specialization_status/').$specialization['id_specialization']?>" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Activate</a>
+                    <a href="<?=base_url('admin/jobs/specialization_status/').$specialization['id_specialization']?>" class="btn btn-success btn-sm" onclick="return confirm('Change Specialization Status?')"><i class="fas fa-check"></i> Activate</a>
                   <?php endif ?>
                 </div>
                 <div class="col-md-6">

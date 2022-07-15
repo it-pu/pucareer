@@ -27,7 +27,7 @@ class Companies extends MY_Controller {
 			$get['c'] = $this->sess['id_company'];
 		}
 		$company = $this->Company_model->detail($get['c']);
-		$gallery = $this->Custom_model->getdata('tbl_company_gallery', array('id_company' => $get['c']));
+		$gallery = $this->Custom_model->getdata('tbl_company_gallery', array('id_company' => $get['c'], 'status_gallery' => 1));
 		$job = $this->Jobs_model->data(false, null, $get['c']);
 
 		$data = array
@@ -42,7 +42,7 @@ class Companies extends MY_Controller {
 
 	public function gallery_setting()
 	{
-		$gallery = $this->Custom_model->getdata('tbl_company_gallery', array('id_company' => $this->sess['id_company']));
+		$gallery = $this->Custom_model->getdata('tbl_company_gallery', array('id_company' => $this->sess['id_company'], 'status_gallery' => 1));
 
 		$data = array
 				(
@@ -77,6 +77,15 @@ class Companies extends MY_Controller {
 			die();
 		}
 	}
+
+	public function gallery_delete($id_company_gallery)
+	{
+		$this->Custom_model->updatedata('tbl_company_gallery', array('status_gallery' => 0), array('id_company_gallery' => $id_company_gallery));
+
+		$this->session->set_flashdata('success', 'Updating Gallery Success');
+		redirect(base_url('companies/gallery_setting'));
+		die();
+	} 
 
 	public function setting()
 	{
@@ -210,7 +219,7 @@ class Companies extends MY_Controller {
 		}
 
 		$country = $this->Custom_model->getdata('tbl_country');
-		$industry = $this->Custom_model->getdata('tbl_industry');
+		$industry = $this->Custom_model->getdata('tbl_industry', array('industry_status' => 1));
 		$data = array
 				(
 					'country' => $country,

@@ -11,26 +11,19 @@ class Jobs extends MY_Controller {
 
 	public function index()
 	{
-		if (!empty($this->sess['logged_in']) && $this->sess['company'] == 0) 
+		$applied = $this->Custom_model->getdata('tbl_apply', array('id_user' => $this->sess['id_user']));
+		$applied_id = array();
+		foreach ($applied as $key => $value) 
 		{
-			$applied = $this->Custom_model->getdata('tbl_apply', array('id_user' => $this->sess['id_user']));
-			$applied_id = array();
-			foreach ($applied as $key => $value) 
-			{
-				$applied_id[] = $value['id_job'];
-			}
+			$applied_id[] = $value['id_job'];
+		}
 
-			$jobs = $this->Jobs_model->list($applied_id);
-		}
-		else
-		{
-			$jobs = $this->Jobs_model->list();
-		}
-			
+		$jobs = $this->Jobs_model->list();
 
 		$data = array
 				(
-					'jobs' => $jobs
+					'jobs' => $jobs,
+					'applied_id' => $applied_id
 				);
 
 		$this->load->view('home/jobs/list', $data);
@@ -69,8 +62,8 @@ class Jobs extends MY_Controller {
 		}
 
 		$country = $this->Custom_model->getdata('tbl_country');
-		$industry = $this->Custom_model->getdata('tbl_industry');
-		$specialization = $this->Custom_model->getdata('tbl_specialization');
+		$industry = $this->Custom_model->getdata('tbl_industry', array('industry_status' => 1));
+		$specialization = $this->Custom_model->getdata('tbl_specialization', array('specialization_status' => 1));
 		$data = array
 				(
 					'country' => $country,
