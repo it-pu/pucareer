@@ -34,6 +34,10 @@
                                     </div>
                                     <div class="col-md-2 mb-2">
                                         <a href="<?=base_url('jobs/detail/').$value['id_job']?>" class="btn btn-primary"><i class="fas fa-info"></i> Detail</a>
+                                        <?php if (in_array($value['id_job'], $applied_id)): ?>
+                                            <small><i class="fas fa-check text-primary mt-2"></i> Applied</small>
+                                        <?php endif ?>
+                                        
                                     </div>
                                 </div>
                             </div>

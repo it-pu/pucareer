@@ -114,23 +114,23 @@ class Access extends ADMIN_Controller {
 		}
 	}
 
-	public function edit_status($id_user, $detail = null)
+	public function edit_status($id_admin, $detail = null)
     {
-        $getstatusnow = $this->Custom_model->getdetail('tbl_user', array('id_user' => $id_user));
+        $getstatusnow = $this->Custom_model->getdetail('tbl_admin', array('id_admin' => $id_admin));
 
-        if ($getstatusnow['status_user'] == 'aktif') 
+        if ($getstatusnow['status_admin'] == 'active') 
         {
-            $newstatus = 'non aktif';
+            $newstatus = 'deactive';
         }
 
-        if ($getstatusnow['status_user'] == 'non aktif') 
+        if ($getstatusnow['status_admin'] == 'deactive') 
         {
-            $newstatus = 'aktif';
+            $newstatus = 'active';
         }
 
-        $this->Custom_model->updatedata('tbl_user', array('status_user' => $newstatus), array('id_user' => $id_user));
+        $this->Custom_model->updatedata('tbl_admin', array('status_admin' => $newstatus), array('id_admin' => $id_admin));
 
-        $this->session->set_flashdata('success', 'User has been updated');
+        $this->session->set_flashdata('success', 'Admin has been updated');
 
         if ($detail == null) 
         {
@@ -138,7 +138,7 @@ class Access extends ADMIN_Controller {
         }
         else
         {
-            redirect(base_url('admin/access/detail/').$id_user);
+            redirect(base_url('admin/access/detail/').$id_admin);
         }   
     }
 }

@@ -123,6 +123,7 @@ class Jobs_model extends MY_Model {
 		$this->db->select('tbl_apply.*,
 							tbl_job.job_name,
 							tbl_job.job_type,
+							tbl_job.job_active,
 							tbl_company.id_company,
 							tbl_company.company_name,
 							tbl_company.company_logo,

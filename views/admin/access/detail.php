@@ -42,7 +42,9 @@
             <div class="row">
               <div class="col-md-4">
                 <img src="<?=base_url($detail['image_admin'])?>" class="img-fluid" style="border-radius: 15px;"><br>
-                <button class="btn btn-success btn-sm mt-3" data-toggle="modal" data-target="#fotoEdit"><i class="fas fa-image"></i> Edit Image</button>
+                <?php if ($detail['id_admin'] == $this->sess['id_admin']): ?>
+                  <button class="btn btn-success btn-sm mt-3" data-toggle="modal" data-target="#fotoEdit"><i class="fas fa-image"></i> Edit Image</button>
+                <?php endif ?>
               </div>
               <div class="col-md-8">
                 <div class="row mb-3">
@@ -82,14 +84,20 @@
                     <?php endif ?>
                   </div>
                 </div>
-                <button class="btn btn-success btn-sm"><i class="fas fa-edit"></i>Edit Profile</button>
-                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editPass"><i class="fas fa-edit"></i>Edit Password</button>
-                <?php if ($detail['status_admin'] == 'active'): ?>
-                  <a href="<?=base_url('admin/access/edit_status/').$detail['id_admin'].'/1'?>" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Deactivate</a>
+                <?php if ($detail['id_admin'] == $this->sess['id_admin']): ?>
+                  <!-- <button class="btn btn-success btn-sm"><i class="fas fa-edit"></i>Edit Profile</button> -->
+                  <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editPass"><i class="fas fa-edit"></i>Edit Password</button>
                 <?php endif ?>
-                <?php if ($detail['status_admin'] == 'deactive'): ?>
-                  <a href="<?=base_url('admin/access/edit_status/').$detail['id_admin'].'/1'?>" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Activate</a>
+                
+                <?php if ($this->sess['level_admin'] == 'super_admin' && $this->sess['id_admin'] != $detail['id_admin']): ?>
+                  <?php if ($detail['status_admin'] == 'active'): ?>
+                    <a href="<?=base_url('admin/access/edit_status/').$detail['id_admin'].'/1'?>" class="btn btn-danger btn-sm" onclick="return confirm('Update Status?')"><i class="fas fa-times"></i> Deactivate</a>
+                  <?php endif ?>
+                  <?php if ($detail['status_admin'] == 'deactive'): ?>
+                    <a href="<?=base_url('admin/access/edit_status/').$detail['id_admin'].'/1'?>" class="btn btn-success btn-sm" onclick="return confirm('Update Status?')"><i class="fas fa-check"></i> Activate</a>
+                  <?php endif ?>
                 <?php endif ?>
+                  
               </div>
             </div>
           </div>

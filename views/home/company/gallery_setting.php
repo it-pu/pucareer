@@ -29,7 +29,7 @@
                                      <img src="<?=base_url().$value['gallery_file']?>" class="card-img-top">
                                     <div class="card">
                                         <div class="card-body">
-                                            Delete
+                                            <a href="<?=base_url('companies/gallery_delete/').$value['id_company_gallery']?>" onclick="return confirm('Delete Image?')"><i class="fas fa-times"></i> Delete</a>
                                         </div>
                                     </div>
                                 </div>

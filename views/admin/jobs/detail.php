@@ -95,18 +95,21 @@
                       <?php endif ?>
                     </div>
                   </div>
-                  <div class="row mb-3">
-                    <div class="col-3">
+                  <?php if (date('Y-m-d') < $job['expired_at']): ?>
+                    <div class="row mb-3">
+                      <div class="col-3">
+                      </div>
+                      <div class="col-8">
+                        <?php if ($job['job_active'] == 1): ?>
+                          <a href="<?=base_url('admin/jobs/change_status/').$job['id_job']?>" class="btn btn-danger btn-sm" onclick="return confirm('Update Status?');"><i class="fas fa-times"></i> Deactivate</a>
+                        <?php endif ?>
+                        <?php if ($job['job_active'] == 0): ?>
+                          <a href="<?=base_url('admin/jobs/change_status/').$job['id_job']?>" class="btn btn-success btn-sm" onclick="return confirm('Update Status?');"><i class="fas fa-check"></i> Activate</a>
+                        <?php endif ?>
+                      </div>
                     </div>
-                    <div class="col-8">
-                      <?php if ($job['job_active'] == 1): ?>
-                        <a href="<?=base_url('admin/jobs/change_status/').$job['id_job']?>" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Deactivate</a>
-                      <?php endif ?>
-                      <?php if ($job['job_active'] == 0): ?>
-                        <a href="<?=base_url('admin/jobs/change_status/').$job['id_job']?>" class="btn btn-success btn-sm"><i class="fas fa-checkm"></i> Activate</a>
-                      <?php endif ?>
-                    </div>
-                  </div>
+                  <?php endif ?>
+                    
                   <div class="row mb-3">
                     <div class="col-3">
                       <strong>Placement Country</strong>
@@ -233,7 +236,7 @@
                         <?php foreach ($applicant as $key => $value): ?>
                           <tr>
                             <td><?=$key+1?></td>
-                            <td><?=$value['name_user']?></td>
+                            <td><?=$value['user_name']?></td>
                             <td><?=$value['created_at']?></td>
                           </tr>
                         <?php endforeach ?>
