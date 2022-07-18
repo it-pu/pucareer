@@ -30,7 +30,7 @@
     <!-- Template Stylesheet -->
     <link href="<?php echo get_template_directory('front/css/style.css') ;?>" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="<?php echo get_template_directory('front/lib/select2/dist/css/select2.css') ;?>" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

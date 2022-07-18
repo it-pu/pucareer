@@ -32,6 +32,67 @@ class Jobs_model extends MY_Model {
 		return $query->result_array();
 	}
 
+	public function list_home($sort = false, $status = false, $id_applied = null, $keyword = null, $spec = null, $country = null, $state = null)
+	{
+		$this->db->select('tbl_job.*,
+							tbl_company.company_name,
+							tbl_company.company_logo,
+							tbl_country.country_name,
+							tbl_state.state_name,
+							tbl_job_specialization.id_specialization
+							');
+		$this->db->from('tbl_job');
+		$this->db->join('tbl_company', 'tbl_job.id_company = tbl_company.id_company');
+		$this->db->join('tbl_job_specialization', 'tbl_job.id_job = tbl_job_specialization.id_job');
+		$this->db->join('tbl_country', 'tbl_job.id_country = tbl_country.id_country');
+		$this->db->join('tbl_state', 'tbl_job.id_state = tbl_state.id_state');
+
+		if ($sort == false) 
+		{
+			$this->db->order_by('tbl_job.created_at', 'DESC');
+		}
+
+		if ($sort != false) 
+		{
+			$this->db->order_by('tbl_job.created_at', $sort);
+		}
+
+		if ($status != 'all') 
+		{
+			if ($status == 'applied') 
+			{
+				$this->db->where_in('tbl_job.id_job', $id_applied);
+			}
+			if ($status == 'not_applied') 
+			{
+				$this->db->where_not_in('tbl_job.id_job', $id_applied);
+			}
+		}
+
+		if ($keyword != null) 
+		{
+			$this->db->like('tbl_job.job_name', $keyword);
+		}
+		if ($spec != null) 
+		{
+			$this->db->where('tbl_job_specialization.id_specialization', $spec);
+		}
+
+		if ($country != null) 
+		{
+			$this->db->where('tbl_job.id_country', $country);
+		}
+		if ($state != null) 
+		{
+			$this->db->where('tbl_job.id_state', $state);
+		}
+		$this->db->group_by("tbl_job.job_name");
+		
+		$this->db->where('tbl_job.job_active', 1);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 	public function data($single = FALSE, $id_job = NULL, $id_company = false)
 	{
 		$this->db->select('tbl_job.*,

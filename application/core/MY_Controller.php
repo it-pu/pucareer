@@ -11,6 +11,9 @@ class MY_Controller extends CI_Controller{
 		$this->load->helper(array('template_helper', 'form', 'cookie', 'date_helper', 'download'));
 		$this->load->library(array('Site', 'form_validation', 'session', 'MultiLangLib'));
 		$this->load->model(array('Custom_model'));
+
+		$this->country = $this->Custom_model->getdata('tbl_country');
+		$this->specialization = $this->Custom_model->getdata('tbl_specialization', array('specialization_status' => 1));
 	
 		$this->sess = $this->session->userdata();
 		if (empty($this->sess['lang'])) 

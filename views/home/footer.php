@@ -106,7 +106,7 @@
     <script src="<?php echo get_template_directory('front/lib/waypoints/waypoints.min.js') ;?>"></script>
     <script src="<?php echo get_template_directory('front/lib/owlcarousel/owl.carousel.min.js') ;?>"></script>
     
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="<?php echo get_template_directory('front/lib/select2/dist/js/select2.js') ;?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js"></script>
 
     <!-- Template Javascript -->
@@ -114,13 +114,70 @@
     <script src="<?php echo get_template_directory('front/js/main.js') ;?>"></script>
 
     <script type="text/javascript">
+
+        var sortbysearch = document.getElementById('sortbysearch').value;
+        var statussearch = document.getElementById('statussearch').value;
+
+        var keywordsearch = document.getElementById('keyword_search_input').value;
+        var specsearch = document.getElementById('spec_search_input').value;
+        var countrysearch = document.getElementById('country_search_input').value;
+        var statesearch = document.getElementById('state-search-drop').value;
+        
+        if (sortbysearch) 
+        {
+            document.getElementById('id_sort_search').value = sortbysearch;
+        }
+        if (statussearch) 
+        {
+            document.getElementById('id_status_search').value = statussearch;
+        }
+        if (keywordsearch) 
+        {
+            document.getElementById('id_keyword_search').value = keywordsearch;
+        }
+        if (specsearch) 
+        {
+            document.getElementById('id_spec_search').value = specsearch;
+        }
+        if (countrysearch) 
+        {
+            document.getElementById('id_country_search').value = countrysearch;
+        }
+        if (statesearch) 
+        {
+            document.getElementById('id_state_search').value = statesearch;
+        }
+
+
         $(document).ready(function() {
             $('#summ-text').summernote();
 
             $('#drop-select').select2();
             $('#country-select').select2();
+            $('#country-search-select').select2();
             $('#state-select').select2();
         });
+
+        function getStateSearch(dataselect) 
+        {
+            var id = dataselect.value;
+            $.ajax({
+              url : '<?=base_url('country/get_state/')?>'+id,
+              type : 'GET',
+              dataType : 'JSON',
+              success : function (result)
+              {
+                document.getElementById("state-search-drop").innerHTML = "";
+                $('#state-search-drop').append('<option value="0">Choose State</option>')
+                $.each(result, function(i, data){
+                  $('#state-search-drop').append
+                  (`
+                    <option value="`+data.id_state+`">`+data.state_name+`</option>
+                  `)
+                });
+              }
+            });
+        }
     </script>
 </body>
 
