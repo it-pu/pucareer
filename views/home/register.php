@@ -6,7 +6,7 @@
             <div class="col-md-6">
                 <div class="card shadow-lg">
                     <div class="card-body">
-                            <h4>REGISTER CAREER PORTAL</h4><hr>
+                            <h4><?=strtoupper($this->ml->tr('REGISTER'))?> CAREER PORTAL</h4><hr>
                             <?php if ($this->session->flashdata('error')): ?>
                               <div class="alert alert-danger" role="alert">
                                 <?=$this->session->flashdata('error')?>

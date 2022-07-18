@@ -12,12 +12,17 @@ class Jobs extends MY_Controller {
 	public function index()
 	{
 		$get = $this->input->get(NULL, TRUE);
-		$applied = $this->Custom_model->getdata('tbl_apply', array('id_user' => $this->sess['id_user']));
 		$applied_id = array();
-		foreach ($applied as $key => $value) 
+
+		if (!empty($this->sess['logged_in'])) 
 		{
-			$applied_id[] = $value['id_job'];
-		}
+			$applied = $this->Custom_model->getdata('tbl_apply', array('id_user' => $this->sess['id_user']));
+			
+			foreach ($applied as $key => $value) 
+			{
+				$applied_id[] = $value['id_job'];
+			}
+		}	
 
 		$sort = null;
 		$status = null;

@@ -8,16 +8,16 @@
                                 <div class="row g-2">
                                         <div class="col-md-3">
                                             <?php if (!empty($datasearch['keyword'])): ?>
-                                                <input type="text" class="form-control border-0" name="keyword" placeholder="Keyword" value="<?=$datasearch['keyword']?>" id="keyword_search_input" />
+                                                <input type="text" class="form-control border-0" name="keyword" placeholder="<?=$this->ml->tr('Keyword')?>" value="<?=$datasearch['keyword']?>" id="keyword_search_input" />
                                             <?php endif ?>
                                             <?php if (empty($datasearch['keyword'])): ?>
-                                                <input type="text" class="form-control border-0" name="keyword" placeholder="Keyword" id="keyword_search_input" />
+                                                <input type="text" class="form-control border-0" name="keyword" placeholder="<?=$this->ml->tr('Keyword')?>" id="keyword_search_input" />
                                             <?php endif ?>
                                         </div>
                                         <div class="col-md-3">
                                             <?php if (!empty($datasearch['spec'])): ?>
                                                 <select class="form-select border-0" name="spec" id="spec_search_input">
-                                                    <option selected value="0">Choose Specialization</option>
+                                                    <option selected value="0"><?=$this->ml->tr('Choose Specialization')?></option>
                                                     <?php foreach ($this->specialization as $key => $value): ?>
                                                         <option value="<?=$value['id_specialization']?>" <?=selected_helper($value['id_specialization'], $datasearch['spec'])?>><?=$value['specialization_name']?></option>
                                                     <?php endforeach ?>
@@ -25,7 +25,7 @@
                                             <?php endif ?>
                                             <?php if (empty($datasearch['spec'])): ?>
                                                 <select class="form-select border-0" name="spec" id="spec_search_input">
-                                                    <option selected value="0">Choose Specialization</option>
+                                                    <option selected value="0"><?=$this->ml->tr('Choose Specialization')?></option>
                                                     <?php foreach ($this->specialization as $key => $value): ?>
                                                         <option value="<?=$value['id_specialization']?>"><?=$value['specialization_name']?></option>
                                                     <?php endforeach ?>
@@ -35,16 +35,16 @@
                                         </div>
                                         <div class="col-md-3">
                                             <?php if (!empty($datasearch['country'])): ?>
-                                                <select name="country" class="form-select border-0" placeholder="Select Country" id="country_search_input" onchange="getStateSearch(this)">
-                                                    <option value="0">Choose Country</option>
+                                                <select name="country" class="form-select border-0" placeholder="<?=$this->ml->tr('Select Country')?>" id="country_search_input" onchange="getStateSearch(this)">
+                                                    <option value="0"><?=$this->ml->tr('Select Country')?></option>
                                                     <?php foreach ($this->country as $key => $value): ?>
                                                         <option value="<?=$value['id_country']?>" <?=selected_helper($value['id_country'], $datasearch['country'])?>><?=$value['country_name']?></option>
                                                     <?php endforeach ?>
                                                 </select>
                                             <?php endif ?>
                                             <?php if (empty($datasearch['country'])): ?>
-                                                <select name="country" class="form-select border-0" placeholder="Select Country" id="country_search_input" onchange="getStateSearch(this)">
-                                                    <option value="0">Choose Country</option>
+                                                <select name="country" class="form-select border-0" placeholder="<?=$this->ml->tr('Select Country')?>" id="country_search_input" onchange="getStateSearch(this)">
+                                                    <option value="0"><?=$this->ml->tr('Select Country')?></option>
                                                     <?php foreach ($this->country as $key => $value): ?>
                                                         <option value="<?=$value['id_country']?>"><?=$value['country_name']?></option>
                                                     <?php endforeach ?>
@@ -56,7 +56,7 @@
                                             <?php if (!empty($datasearch['country'])): ?>
                                                 <?php if (!empty($datasearch['state'])): ?>
                                                     <select id="state-search-drop" class="form-select border-0" name="state">
-                                                        <option value="0">Choose State</option>
+                                                        <option value="0"><?=$this->ml->tr('Choose State')?></option>
                                                         <?php foreach ($state_get as $key => $value): ?>
                                                             <option value="<?=$value['id_state']?>" <?=selected_helper($value['id_state'], $datasearch['state'])?>><?=$value['state_name']?></option>
                                                         <?php endforeach ?>
@@ -64,7 +64,7 @@
                                                 <?php endif ?>
                                                 <?php if (empty($datasearch['state'])): ?>
                                                     <select id="state-search-drop" class="form-select border-0" name="state">
-                                                        <option value="0">Choose State</option>
+                                                        <option value="0"><?=$this->ml->tr('Choose State')?></option>
                                                         <?php foreach ($state_get as $key => $value): ?>
                                                             <option value="<?=$value['id_state']?>"><?=$value['state_name']?></option>
                                                         <?php endforeach ?>
@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-dark border-0 w-100">Search</button>
+                                <button type="submit" class="btn btn-dark border-0 w-100"><?=$this->ml->tr('Search')?></button>
                             </div>
                     </div>
                 </form>
