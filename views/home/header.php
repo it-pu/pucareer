@@ -67,7 +67,7 @@
                             <?=split_name($this->sess['user_name'])['first_name']?>
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="<?=base_url('user')?>"><i class="fas fa-user"></i><?=$this->ml->tr('Profile')?> </a></li>
+                            <li><a class="dropdown-item" href="<?=base_url('user')?>"><i class="fas fa-user"></i> <?=$this->ml->tr('Profile')?> </a></li>
                             <li><a class="dropdown-item" href="<?=base_url('user/application_history')?>"><i class="fas fa-list"></i> <?=$this->ml->tr('Application History')?></a></li>
                             <li><a class="dropdown-item" href="<?=base_url('user/profile')?>"><i class="fas fa-cog"></i> <?=$this->ml->tr('Setting')?></a></li>
                             <li><hr class="dropdown-divider"></li>

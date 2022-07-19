@@ -7,11 +7,18 @@ class Companies extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model(array('Company_model', 'Jobs_model', 'User_model'));
+
+		$this->recent = $this->Jobs_model->list(null, true);
 	}
 
 	public function index()
 	{
-		$this->load->view('home/company');
+		$companies = $this->Company_model->detail();
+		$data = array
+				(
+					'companies' => $companies
+				);
+		$this->load->view('home/company', $data);
 	}
 
 	public function profile()

@@ -136,3 +136,15 @@ function fileValidationPdf(id)
         return false;
     }
 }
+
+function validateSize(input, id, size = 8) 
+{
+  const fileSize = input.files[0].size / 1024 / 1024; // in MiB
+  if (fileSize > size) {
+    document.getElementById(id).value="";
+    alert('File size exceeds '+size+' MB');
+    // $(file).val(''); //for clearing with Jquery
+  } else {
+    // Proceed further
+  }
+}

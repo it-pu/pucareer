@@ -9,7 +9,7 @@ class Jobs_model extends MY_Model {
 		parent::__construct();
 	}
 
-	public function list($id_applied = null)
+	public function list($id_applied = null, $recent = false)
 	{
 		$this->db->select('tbl_job.*,
 							tbl_company.company_name,
@@ -25,6 +25,12 @@ class Jobs_model extends MY_Model {
 		if (!empty($id_applied)) 
 		{
 			$this->db->where_not_in('tbl_job.id_job', $id_applied);
+		}
+
+		if ($recent != false) 
+		{
+			$this->db->order_by('tbl_job.created_at', 'DESC');
+			$this->db->limit(3);
 		}
 		
 		$this->db->where('tbl_job.job_active', 1);
