@@ -7,6 +7,8 @@ class Jobs extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model(array('Jobs_model', 'User_model', 'Company_model'));
+
+		$this->recent = $this->Jobs_model->list(null, true);
 	}
 
 	public function index()

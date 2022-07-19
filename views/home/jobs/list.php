@@ -69,36 +69,7 @@
             <div class="col-md-4 mb-3">
                 <div class="card">
                     <div class="card-body">
-                        <h4>Recent Post</h4><hr>
-                        <div class="col-12">
-                            <a href="<?=base_url('jobs/detail/123ID')?>">
-                                <font style='font-family: "Inter",sans-serif; font-weight: 700; line-height: 1.2;'>Software Engineer</font><br>
-                                <small class="mb-5">Podomoro University</small><br>
-                                <i class="fas fa-map-marker-alt text-primary"></i> Jakarta, Indonesia
-                                <i class="far fa-clock text-primary"></i> Full Time<br>
-                                <i class="fas fa-calendar-alt text-primary"></i> Post Date : 22 Jun 2022
-                            </a>
-                        </div>
-                        <hr>
-                        <div class="col-12">
-                            <a href="<?=base_url('jobs/detail/123ID')?>">
-                                <font style='font-family: "Inter",sans-serif; font-weight: 700; line-height: 1.2;'>Software Engineer</font><br>
-                                <small class="mb-5">Podomoro University</small><br>
-                                <i class="fas fa-map-marker-alt text-primary"></i> Jakarta, Indonesia
-                                <i class="far fa-clock text-primary"></i> Full Time<br>
-                                <i class="fas fa-calendar-alt text-primary"></i> Post Date : 22 Jun 2022
-                            </a>
-                        </div>
-                        <hr>
-                        <div class="col-12">
-                            <a href="<?=base_url('jobs/detail/123ID')?>">
-                                <font style='font-family: "Inter",sans-serif; font-weight: 700; line-height: 1.2;'>Software Engineer</font><br>
-                                <small class="mb-5">Podomoro University</small><br>
-                                <i class="fas fa-map-marker-alt text-primary"></i> Jakarta, Indonesia
-                                <i class="far fa-clock text-primary"></i> Full Time<br>
-                                <i class="fas fa-calendar-alt text-primary"></i> Post Date : 22 Jun 2022
-                            </a>
-                        </div>
+                        <?php get_template_home('home/jobs/recent') ?>
                     </div>
                 </div>
             </div>

@@ -37,13 +37,13 @@
                             </div>
                             <div class="col-md-4">
                                 <?php if ($exist == 1): ?>
-                                    <input type="file" class="custom-file-input" name="resume_file" id="input-resume" onchange="fileValidationPdf(this.id);">
+                                    <input type="file" class="custom-file-input" name="resume_file" id="input-resume" onchange="fileValidationPdf(this.id); validateSize(this, 'input-resume')">
                                 <?php endif ?>
                                 <?php if ($exist == 0): ?>
-                                    <input type="file" class="custom-file-input" name="resume_file" id="input-resume" onchange="fileValidationPdf(this.id);" required>
+                                    <input type="file" class="custom-file-input" name="resume_file" id="input-resume" onchange="fileValidationPdf(this.id); validateSize(this, 'input-resume')" required>
                                 <?php endif ?>
                                 
-                                <div id="emailHelp" class="form-text">File format (.pdf | .jpg | .png | .jpeg)</div>
+                                <div id="emailHelp" class="form-text">File format (.pdf | .jpg | .png | .jpeg) max 8MB</div>
                             </div>
                         </div>
                         <hr>

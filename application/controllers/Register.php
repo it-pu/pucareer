@@ -32,6 +32,15 @@ class Register extends MY_Controller {
 			die();
         }
 
+        $finduserexist = $this->Custom_model->count('tbl_user', array('user_email' => trim($post['email'])));
+
+        if (!empty($finduserexist)) 
+        {
+        	$this->session->set_flashdata('error', 'User Already Registered');
+			redirect(base_url('register'));
+			die();
+        }
+
         if ($post['password'] != $post['confirm_password']) 
         {
         	$this->session->set_flashdata('error', 'Please Confirm your Password');
